@@ -3,7 +3,7 @@ const UsernameField = ({ value, onChange, onSubmit, completed }) => {
     // if the user has already claimed a username, display it.
     return (
       <div>
-        Chatting as <b>{value}</b>
+        <h3>Chatting as <b>{value}</b></h3>
       </div>
     );
   } else {

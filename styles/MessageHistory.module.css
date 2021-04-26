@@ -1,0 +1,5 @@
+.messageHistory {
+  overflow-y: scroll;
+  flex-grow: 1;
+  padding: 1em;
+}

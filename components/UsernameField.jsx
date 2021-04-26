@@ -1,11 +1,12 @@
 import styles from '../styles/UsernameField.module.css';
 
-const UsernameField = ({ value, onChange, onSubmit, completed, placeholder }) => {
+const UsernameField = ({ value, avatarSrc, onChange, onSubmit, completed, placeholder }) => {
   if (completed) {
     // if the user has already claimed a username, display it.
     return (
-      <div>
+      <div className={styles.userInfo}>
         <h3>Chatting as <b>{value}</b></h3>
+        <img src={avatarSrc} alt="profile pic" />
       </div>
     );
   } else {

@@ -11,21 +11,20 @@ const UsernameField = ({ value, onChange, onSubmit, completed, placeholder }) =>
   } else {
     // if the user hasn't yet claimed a username, let them do so.
     return (
-      <div className={styles.formField} >
-        <form onSubmit={(e) => e.preventDefault() || onSubmit(value)}>
-          <label>
-            Set your username:
-            <input
-              type="text"
-              name="username"
-              value={value}
-              onChange={(e) => e.preventDefault() || onChange(e.target.value)}
-              placeholder={placeholder}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
+      <form className={styles.formField} onSubmit={(e) => e.preventDefault() || onSubmit(value)}>
+        <label>
+          Set an username:
+        </label>
+        <input
+          className={styles.formInput}
+          type="text"
+          name="username"
+          value={value}
+          onChange={(e) => e.preventDefault() || onChange(e.target.value)}
+          placeholder={placeholder}
+        />
+        <input className={styles.formButton} type="submit" value="Start Chatting" />
+      </form>
     );
   }
 };

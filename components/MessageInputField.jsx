@@ -7,7 +7,7 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit, placeholder,
   } else {
     return (
       <div>
-        <form onSubmit={(e) => e.preventDefault() || onSubmit(value)}>
+        <form onSubmit={(e) => e.preventDefault() || onSubmit(e)}>
           <label>
             <input
               type={type}

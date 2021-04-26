@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import UsernameField from "./components/UsernameField";
+import UsernameField from "../components/UsernameField";
+import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
@@ -80,47 +81,40 @@ export default function Home() {
 
   return (
     <div>
-      {/* This sets the page's title and favicon */}
       <Head>
-        <title>My Chat App</title>
+        <title>2chat</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* The username area */}
-      <UsernameField
-        completed={isUsernameConfirmed}
-        value={username}
-        onChange={(value) => setUsername(value)}
-        onSubmit={() => setUsernameConfirmed(true)}
-      />
+      <div className={styles.container}>
+        <UsernameField
+          completed={isUsernameConfirmed}
+          value={username}
+          onChange={(value) => setUsername(value)}
+          onSubmit={() => setUsernameConfirmed(true)}
+          placeholder={"Set username..."}
+        />
 
-      {/* Form submission */}
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Type your message:
-            <input
-              type="text"
-              name="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder={
-                username ? "Enter your message..." : "Set username..."
-              }
-              disabled={!isUsernameConfirmed}
-            />
-          </label>
-          <input type="submit" value="Submit" disabled={!isUsernameConfirmed} />
-        </form>
-      </div>
+        <MessageInputField
+          onSubmit={handleSubmit}
+          type="text"
+          name="message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder={ "Enter your message..."
+            // username ? "Enter your message..." : "Set username..."
+          }
+          disabled={!isUsernameConfirmed}
+        />
 
-      {/* The list of messages */}
-      <div>
-        {history.map(({ username, message }, i) => (
-          <div key={i}>
-            <b>{username}</b>: {message}
-          </div>
-        ))}
+        {/* The list of messages */}
+        <div>
+          {history.map(({ username, message }, i) => (
+            <div key={i}>
+              <b>{username}</b>: {message}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

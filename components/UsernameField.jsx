@@ -1,4 +1,6 @@
-const UsernameField = ({ value, onChange, onSubmit, completed }) => {
+import styles from '../styles/UsernameField.module.css';
+
+const UsernameField = ({ value, onChange, onSubmit, completed, placeholder }) => {
   if (completed) {
     // if the user has already claimed a username, display it.
     return (
@@ -9,7 +11,7 @@ const UsernameField = ({ value, onChange, onSubmit, completed }) => {
   } else {
     // if the user hasn't yet claimed a username, let them do so.
     return (
-      <div>
+      <div className={styles.formField} >
         <form onSubmit={(e) => e.preventDefault() || onSubmit(value)}>
           <label>
             Set your username:
@@ -18,6 +20,7 @@ const UsernameField = ({ value, onChange, onSubmit, completed }) => {
               name="username"
               value={value}
               onChange={(e) => e.preventDefault() || onChange(e.target.value)}
+              placeholder={placeholder}
             />
           </label>
           <input type="submit" value="Submit" />

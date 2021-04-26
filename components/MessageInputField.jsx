@@ -12,7 +12,7 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit, placeholder,
             <input
               type={type}
               name={name}
-              value={message}
+              value={value}
               onChange={(e) => e.preventDefault() || onChange(e.target.value)}
               placeholder={placeholder}
             />

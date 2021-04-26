@@ -1,3 +1,22 @@
+/*=====================
+  with username set-up
+=====================*/
+.userInfo {
+  display: flex;
+  justify-content: flex-end;
+  background: #1F2041;
+  color: white;
+  width: 100%;
+  height: 13%;
+  min-height: 60px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/*====================
+  no username set-up
+=====================*/
 .formField {
   display: flex;
   flex-direction: column;

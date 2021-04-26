@@ -5,12 +5,30 @@
   margin: 6.5em auto;
   padding: 0 0.5rem;
   border: 1px solid #4B3F72;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.windowSum {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid red;
+  width: 24%;
+  height: 100%;
+  background: ;
+}
+.windowContent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid green;
+  width: 76%;
+  height: 100%;
+}
 /*.main {
   padding: 5rem 0;
   flex: 1;

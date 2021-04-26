@@ -30,6 +30,7 @@ export default function Home() {
     */
   ]);
 
+  const user = {}
   const connectSocket = () => {
     // prime the server first. yes, this is an extra call and is inefficient.
     // but we're using NextJS for convenience, so this is a necessary evil.
@@ -94,29 +95,36 @@ export default function Home() {
           disabled={!isUsernameConfirmed}
         />
         <div className={styles.window}>
-          <UsernameField
-            completed={isUsernameConfirmed}
-            value={username}
-            onChange={(value) => setUsername(value)}
-            onSubmit={() => setUsernameConfirmed(true)}
-            placeholder={"Set username..."}
-          />
+          <div className={styles.windowSum}>
+            list of chat rooms available
+          </div>
+          <div className={styles.windowContent}>
+            <UsernameField
+              completed={isUsernameConfirmed}
+              value={username}
+              avatarSrc="/favicon.ico"
+              onChange={(value) => setUsername(value)}
+              onSubmit={() => setUsernameConfirmed(true)}
+              placeholder={"Set username..."}
+            />
 
-          <MessageHistory
-            value={history}
-          />
+            <MessageHistory
+              value={history}
+            />
 
-          <MessageInputField
-            onSubmit={(e) => handleSubmit(e)}
-            type="text"
-            name="message"
-            value={message}
-            onChange={(value) => setMessage(value)}
-            placeholder={ "Enter your message..."
-              // username ? "Enter your message..." : "Set username..."
-            }
-            disabled={!isUsernameConfirmed}
-          />
+            <MessageInputField
+              onSubmit={(e) => handleSubmit(e)}
+              type="text"
+              name="message"
+              value={message}
+              avatarSrc="/favicon.ico"
+              onChange={(value) => setMessage(value)}
+              placeholder={ "Enter your message..."
+                // username ? "Enter your message..." : "Set username..."
+              }
+              disabled={!isUsernameConfirmed}
+            />
+          </div>
 
         </div>
       </body>

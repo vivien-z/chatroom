@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Navbar from "../components/Navbar";
 import UsernameField from "../components/UsernameField";
+import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
 
@@ -86,42 +87,39 @@ export default function Home() {
         <title>2chat</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Navbar
-        value={username}
-        avatarSrc="/favicon.ico"
-        disabled={!isUsernameConfirmed}
-      />
-      <div className={styles.container}>
-        <UsernameField
-          completed={isUsernameConfirmed}
+      <body>
+        <Navbar
           value={username}
-          onChange={(value) => setUsername(value)}
-          onSubmit={() => setUsernameConfirmed(true)}
-          placeholder={"Set username..."}
-        />
-
-        <MessageInputField
-          onSubmit={(e) => handleSubmit(e)}
-          type="text"
-          name="message"
-          value={message}
-          onChange={(value) => setMessage(value)}
-          placeholder={ "Enter your message..."
-            // username ? "Enter your message..." : "Set username..."
-          }
+          avatarSrc="/favicon.ico"
           disabled={!isUsernameConfirmed}
         />
+        <div className={styles.window}>
+          <UsernameField
+            completed={isUsernameConfirmed}
+            value={username}
+            onChange={(value) => setUsername(value)}
+            onSubmit={() => setUsernameConfirmed(true)}
+            placeholder={"Set username..."}
+          />
 
-        {/* The list of messages */}
-        <div>
-          {history.map(({ username, message }, i) => (
-            <div key={i}>
-              <b>{username}</b>: {message}
-            </div>
-          ))}
+          <MessageHistory
+            value={history}
+          />
+
+          <MessageInputField
+            onSubmit={(e) => handleSubmit(e)}
+            type="text"
+            name="message"
+            value={message}
+            onChange={(value) => setMessage(value)}
+            placeholder={ "Enter your message..."
+              // username ? "Enter your message..." : "Set username..."
+            }
+            disabled={!isUsernameConfirmed}
+          />
+
         </div>
-      </div>
+      </body>
     </div>
   );
 }

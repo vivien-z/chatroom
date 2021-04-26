@@ -18,7 +18,7 @@
 
 .formInput {
   margin: 1em 0;
-  padding: 0.3em 0;
+  padding: 0.3em 0.1em;
   font-size: 1rem;
 }
 
@@ -26,7 +26,6 @@
   background-color: #4B3F72;
   color: white;
   border: none;
-  /*margin: 1em 0;*/
   padding: 0.5em 0;
   font-size: 1rem;
   border-radius: 4px;

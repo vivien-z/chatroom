@@ -102,11 +102,11 @@ export default function Home() {
         />
 
         <MessageInputField
-          onSubmit={handleSubmit}
+          onSubmit={(e) => handleSubmit(e)}
           type="text"
           name="message"
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(value) => setMessage(value)}
           placeholder={ "Enter your message..."
             // username ? "Enter your message..." : "Set username..."
           }

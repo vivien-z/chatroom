@@ -22,6 +22,8 @@
   background: ;
 }
 .windowContent {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 0;
   right: 0;
@@ -29,6 +31,13 @@
   width: 76%;
   height: 100%;
 }
+
+.windowMsgHistory {
+  overflow-y: scroll;
+  flex-grow: 1;
+
+}
+
 /*.main {
   padding: 5rem 0;
   flex: 1;

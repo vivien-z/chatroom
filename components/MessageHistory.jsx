@@ -3,7 +3,7 @@ import styles from '../styles/MessageHistory.module.css';
 const MessageHistory = ({ value }) => {
 
   return (
-    <div>
+    <div className={styles.messageHistory}>
       {value.map(({ username, message }, i) => (
         <div key={i}>
           <b>{username}</b>: {message}

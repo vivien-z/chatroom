@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import Navbar from "../components/Navbar";
 import UsernameField from "../components/UsernameField";
 import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
@@ -86,6 +87,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Navbar
+        value={username}
+        avatarSrc="/favicon.ico"
+        disabled={!isUsernameConfirmed}
+      />
       <div className={styles.container}>
         <UsernameField
           completed={isUsernameConfirmed}

@@ -12,7 +12,11 @@ const UsernameField = ({ value, avatarSrc, onChange, onSubmit, completed, placeh
   } else {
     // if the user hasn't yet claimed a username, let them do so.
     return (
-      <form className={styles.formField} onSubmit={(e) => e.preventDefault() || onSubmit(value)}>
+      <form
+        className={styles.formField}
+        onSubmit={(e) => e.preventDefault() || onSubmit(value)}
+        id="new-username"
+        >
         <label>
           Set an username:
         </label>

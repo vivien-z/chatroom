@@ -9,8 +9,13 @@ import ChatWindow from "../components/ChatWindow";
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
-  const username = ""
-  const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
+  // const [socket, setSocket] = useState(null);
+  // const [username, setUsername] = useState("");
+  // const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
+
+  const connectSocket = () => {
+    fetch("/api/chat");
+  };
 
   return (
     <div>
@@ -18,16 +23,16 @@ export default function Home() {
         <title>2chat</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body>
+      <div>
         <Navbar
-          value={username}
+          value={null || username}
           avatarSrc="/favicon.ico"
           disabled={!isUsernameConfirmed}
         />
         <ChatWindow
           value={ username || null }
         />
-      </body>
+      </div>
     </div>
   );
 }

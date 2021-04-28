@@ -53,8 +53,8 @@ const ChatWindow = ({ type, name, value, avatarSrc, onChange, onSubmit, placehol
   }, []);
 
   // this method submits the form and sends the message to the server.
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (!socket) {
       alert("Chatroom not connected yet. Try again in a little bit.");
       return;

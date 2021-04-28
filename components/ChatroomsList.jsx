@@ -1,10 +1,10 @@
-import styles from '../styles/Home.module.css';
+import styles from '../styles/ChatroomsList.module.css';
 
 const ChatroomsList = ({ value, onChange, onSubmit, placeholder }) => {
 
   return (
-    <div>
-      <form className={styles.formField} onSubmit={(e) => e.preventDefault() || onSubmit(value)}>
+    <div className={styles.chatroomForm}>
+      <form  onSubmit={(e) => e.preventDefault() || onSubmit(value)}>
         <label>
           Create a new chatroom:
         </label>
@@ -19,7 +19,7 @@ const ChatroomsList = ({ value, onChange, onSubmit, placeholder }) => {
         <input className={styles.formButton} type="submit" value="Add" />
       </form>
       <div className={styles.chatroomList}>
-        console.log(value);
+        console.log({value.chatrooms});
         <ul>
           {value.chatrooms.map(( { chatroom }, i) => (
             <li key={i}>

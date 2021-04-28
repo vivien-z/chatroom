@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
+import ChatroomsList from "../components/ChatroomsList";
 import UsernameField from "../components/UsernameField";
 import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
@@ -13,6 +14,7 @@ const ChatWindow = ({ type, name, value, avatarSrc, onChange, onSubmit, placehol
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
+  const [chatroom, setChatroom] = useState("");
   const [chatrooms, setChatrooms] = useState([]);
 
   const connectSocket = () => {
@@ -32,8 +34,8 @@ const ChatWindow = ({ type, name, value, avatarSrc, onChange, onSubmit, placehol
         setHistory((history) => [...history, msg]);
       });
 
-      newSocket.on("chatroom", (room) => {
-        setChatrooms((chatrooms) => [...chatrooms, room]);
+      newSocket.on("chatroom", (chatroom) => {
+        setChatrooms((chatrooms) => [...chatrooms, chatroom]);
       });
 
       // Logs when server disconnects
@@ -63,9 +65,15 @@ const ChatWindow = ({ type, name, value, avatarSrc, onChange, onSubmit, placehol
       return;
     }
 
+    if (!chatroom) {
+      return;
+    }
+
     // submit and blank-out the field.
     socket.emit("message-submitted", { message, username });
     setMessage("");
+    socket.emit("chatroom-created", { chatroom });
+    setChatroom("");
   };
 
   if (!isUsernameConfirmed) {
@@ -93,6 +101,13 @@ const ChatWindow = ({ type, name, value, avatarSrc, onChange, onSubmit, placehol
             </div>
           ))}
         </div>
+        <ChatroomsList
+          className={styles.windowChatLeft}
+          value={{chatroom, chatrooms}}
+          onChange={(value) => setChatroom(value)}
+          onSubmit={(e) => handleSubmit(e)}
+          placeholder={"..."}
+        />
         <div className={styles.windowChatRight}>
           <UsernameField
             completed={isUsernameConfirmed}

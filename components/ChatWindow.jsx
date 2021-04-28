@@ -94,20 +94,13 @@ const ChatWindow = ({ type, name, value, avatarSrc, onChange, onSubmit, placehol
     return (
       <div className={styles.window}>
         <div className={styles.windowChatLeft}>
-          list of chat rooms available
-          {chatrooms.map(( { chatroom }, i) => (
-            <div key={i}>
-              {chatroom}
-            </div>
-          ))}
+          <ChatroomsList
+            value={{chatroom, chatrooms}}
+            onChange={(value) => setChatroom(value)}
+            onSubmit={(e) => handleSubmit(e)}
+            placeholder={"..."}
+          />
         </div>
-        <ChatroomsList
-          className={styles.windowChatLeft}
-          value={{chatroom, chatrooms}}
-          onChange={(value) => setChatroom(value)}
-          onSubmit={(e) => handleSubmit(e)}
-          placeholder={"..."}
-        />
         <div className={styles.windowChatRight}>
           <UsernameField
             completed={isUsernameConfirmed}

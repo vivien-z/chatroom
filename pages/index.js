@@ -9,13 +9,7 @@ import ChatWindow from "../components/ChatWindow";
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
-  // const [socket, setSocket] = useState(null);
-  // const [username, setUsername] = useState("");
-  // const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
 
-  const connectSocket = () => {
-    fetch("/api/chat");
-  };
 
   return (
     <div>

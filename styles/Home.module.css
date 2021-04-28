@@ -12,7 +12,12 @@
   align-items: center;
 }
 
-.windowSum {
+.windowSetup {
+  width: 42%;
+  margin: 8.5em auto;
+}
+
+.windowChatLeft {
   position: absolute;
   top: 0;
   left: 0;
@@ -21,7 +26,7 @@
   height: 100%;
   background: ;
 }
-.windowContent {
+.windowChatRight {
   display: flex;
   flex-direction: column;
   position: absolute;

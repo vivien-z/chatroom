@@ -2,85 +2,15 @@ import Head from 'next/head';
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Navbar from "../components/Navbar";
-import UsernameField from "../components/UsernameField";
-import MessageHistory from "../components/MessageHistory";
-import MessageInputField from "../components/MessageInputField";
+import ChatWindow from "../components/ChatWindow";
+// import UsernameField from "../components/UsernameField";
+// import MessageHistory from "../components/MessageHistory";
+// import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
-  // save the socket
-  const [socket, setSocket] = useState(null);
-
-  // Whether the username is set.
+  const username = ""
   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
-
-  // State for the username.
-  const [username, setUsername] = useState("");
-
-  // State for the form field.
-  const [message, setMessage] = useState("");
-
-  // State for message history.
-  const [history, setHistory] = useState([
-    /*
-    {
-      username: "Santa Claus",
-      message: "Ho ho ho!"
-    }
-    */
-  ]);
-
-  const user = {}
-  const connectSocket = () => {
-    // prime the server first. yes, this is an extra call and is inefficient.
-    // but we're using NextJS for convenience, so this is a necessary evil.
-    fetch("/api/chat");
-    // after making sure that socket server is primed, connect to it.
-
-    if (!socket) {
-      const newSocket = io();
-
-      // Confirms connection
-      newSocket.on("connect", () => {
-        console.log("Chat app connected");
-      });
-
-      // handles message
-      newSocket.on("message", (msg) => {
-        setHistory((history) => [...history, msg]);
-      });
-
-      // Logs when server disconnects
-      newSocket.on("disconnect", () => {
-        console.warn("WARNING: chat app disconnected");
-      });
-
-      setSocket(() => newSocket);
-    }
-  };
-
-  // The websocket code
-  useEffect(() => {
-    connectSocket();
-  }, []);
-
-  // this method submits the form and sends the message to the server.
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    if (!socket) {
-      alert("Chatroom not connected yet. Try again in a little bit.");
-      return;
-    }
-
-    // prevent empty submissions
-    if (!message || !isUsernameConfirmed) {
-      return;
-    }
-
-    // submit and blank-out the field.
-    socket.emit("message-submitted", { message, username });
-    setMessage("");
-  };
 
   return (
     <div>
@@ -94,39 +24,9 @@ export default function Home() {
           avatarSrc="/favicon.ico"
           disabled={!isUsernameConfirmed}
         />
-        <div className={styles.window}>
-          <div className={styles.windowSum}>
-            list of chat rooms available
-          </div>
-          <div className={styles.windowContent}>
-            <UsernameField
-              completed={isUsernameConfirmed}
-              value={username}
-              avatarSrc="/favicon.ico"
-              onChange={(value) => setUsername(value)}
-              onSubmit={() => setUsernameConfirmed(true)}
-              placeholder={"Set username..."}
-            />
-
-            <MessageHistory
-              value={history}
-            />
-
-            <MessageInputField
-              onSubmit={(e) => handleSubmit(e)}
-              type="text"
-              name="message"
-              value={message}
-              avatarSrc="/favicon.ico"
-              onChange={(value) => setMessage(value)}
-              placeholder={ "Enter your message..."
-                // username ? "Enter your message..." : "Set username..."
-              }
-              disabled={!isUsernameConfirmed}
-            />
-          </div>
-
-        </div>
+        <ChatWindow
+          value={ username || null }
+        />
       </body>
     </div>
   );

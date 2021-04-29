@@ -8,7 +8,7 @@ console.log(value)
       <ul>
         {value.map((chatroom, i) => (
           <li key={i}>
-            {`Room: ${chatroom}`}
+            <b>{chatroom}</b>
           </li>
         ))}
       </ul>

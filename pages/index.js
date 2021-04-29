@@ -111,6 +111,7 @@ export default function Home() {
 
         <div className={styles.window}>
           <div className={styles.windowChatLeft}>
+            <h3>Chatroom List</h3>
             <ChatroomInputField
               onSubmit={(e) => handleSubmit(e)}
               type="text"

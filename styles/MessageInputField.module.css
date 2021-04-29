@@ -6,28 +6,29 @@
   bottom: 0;
   right: 0;*/
   width: 100%;
-  height: 26%;
-  min-height: 102px;
-  padding: 1em;
-  background: #D6EFFF;
+  /*height: 26%;*/
+  padding: 0.6em 1em;
+  background: #bde0fe;
   /*min-height: 38px;*/
 }
 
 .messageInput form {
   display: flex;
   justify-content: space-between;
-  width: 90%;
-  height: 100%;
-  min-height: 70px;
-}
-
-.messageInput img {
-  margin: 0 auto;
+  width: 100%;
 }
 
 .messageInputField {
+  border: none;
+  padding: 0.5em;
+  border-radius: 4px 0 0 4px;
   width: 100%;
-  height: 100%;
-
 }
 
+.messageInputButton {
+  border: none;
+  background: #003566;
+  color: white;
+  border-radius: 0 4px 4px 0 ;
+  padding: 0.4em 1em;
+}

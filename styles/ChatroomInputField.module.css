@@ -1,7 +1,10 @@
-.chatroomForm {
-
+.chatroomForm form {
+  display: flex;
+  justify-content: center;
 }
 
 .chatroomInputField {
-
+  width: 76%;
+  border-style: none;
+  border-radius: 4px;
 }

@@ -5,7 +5,7 @@ const UsernameField = ({ value, avatarSrc, onChange, onSubmit, completed, placeh
     // if the user has already claimed a username, display it.
     return (
       <div className={styles.userInfo}>
-        <h3>Hello: <b>{value}</b></h3>
+        <h4><b>{value}</b></h4>
         <img src={avatarSrc} alt="profile pic" />
       </div>
     );

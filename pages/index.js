@@ -18,7 +18,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
   const [chatroom, setChatroom] = useState("");
-  const [roomList, setRoomList] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
   const connectSocket = () => {
     // prime the server first. yes, this is an extra call and is inefficient.
@@ -37,8 +37,8 @@ export default function Home() {
         setHistory((history) => [...history, msg]);
       });
 
-      newSocket.on("chatroom", (chatroom) => {
-        setRoomList((roomList) => [...roomList, chatroom]);
+      newSocket.on("chatroom", (chatrm) => {
+        setRooms((rooms) => [...rooms, chatrm]);
       });
 
       // Logs when server disconnects
@@ -58,12 +58,14 @@ export default function Home() {
   // this method submits the form and sends the message to the server.
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const formName = e.target.querySelector('input').getAttribute('name')
+    // console.log(rooms);
+    // console.log(chatroom);
     if (!socket) {
       alert("Chatroom not connected yet. Try again in a little bit.");
       return;
     }
-    if (e.name === "message") {
+    if (formName === "message") {
       // prevent empty submissions
       if (!message || !isUsernameConfirmed) {
         return;
@@ -73,8 +75,8 @@ export default function Home() {
       setMessage("");
     }
 
-    if (e.name === "chatroom") {
-      socket.emit("chatroom-created", { chatroom });
+    if (formName === "chatroom" && chatroom ) {
+      socket.emit("chatroom-created", chatroom);
       setChatroom("");
     }
   };
@@ -118,7 +120,7 @@ export default function Home() {
               disabled={!isUsernameConfirmed}
             />
             <RoomList
-              value={roomList}
+              value={rooms}
             />
           </div>
 

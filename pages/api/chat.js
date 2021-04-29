@@ -16,6 +16,7 @@ const ioHandler = (req, res) => {
     const io = new Server(res.socket.server);
 
     io.on("connection", (socket) => {
+
       // when a message is submitted, broadcast it.
       socket.on("message-submitted", (msg) => {
         // echo the message back to the user
@@ -25,6 +26,7 @@ const ioHandler = (req, res) => {
       });
 
       socket.on("chatroom-created", (chatrm) => {
+        console.log(chatrm);
         // echo the message back to the user
         socket.emit("chatroom", chatrm);
         // broadcast the message to everyone else

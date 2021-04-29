@@ -4,17 +4,16 @@ const RoomList = ({ value }) => {
 
   return (
     <div className={styles.chatroomList}>
-      console.log({value});
       <ul>
-        {value.map(( { chatroom }, i) => (
+        {value.map(({ chatroom }, i) => (
           <li key={i}>
-            {chatroom}
+            chatroom
           </li>
         ))}
       </ul>
     </div>
-)};
-
+  )
+};
 
 export default RoomList;
 

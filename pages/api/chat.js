@@ -26,13 +26,12 @@ const ioHandler = (req, res) => {
       });
 
       socket.on("chatroom-created", (chatrm) => {
-        console.log(chatrm);
-        // echo the message back to the user
         socket.emit("chatroom", chatrm);
-        // broadcast the message to everyone else
         socket.broadcast.emit("chatroom", chatrm);
       });
+
     });
+
 
     // make the socket available externally.
     res.socket.server.io = io;

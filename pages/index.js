@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Navbar from "../components/Navbar";
-// import ChatWindow from "../components/ChatWindow";
 import UsernameField from "../components/UsernameField";
 import ChatroomInputField from "../components/ChatroomInputField";
 import RoomList from "../components/RoomList";
@@ -38,9 +37,9 @@ export default function Home() {
       });
 
       newSocket.on("chatroom", (chatrm) => {
+        console.log(chatrm);
         setRooms((rooms) => [...rooms, chatrm]);
       });
-
       // Logs when server disconnects
       newSocket.on("disconnect", () => {
         console.warn("WARNING: chat app disconnected");
@@ -48,6 +47,7 @@ export default function Home() {
 
       setSocket(() => newSocket);
     }
+
   };
 
   // The websocket code
@@ -74,8 +74,8 @@ export default function Home() {
       socket.emit("message-submitted", { message, username });
       setMessage("");
     }
-
-    if (formName === "chatroom" && chatroom ) {
+    if (formName === "chatroom" ) {
+      // console.log(chatroom)
       socket.emit("chatroom-created", chatroom);
       setChatroom("");
     }

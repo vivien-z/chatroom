@@ -4,8 +4,8 @@
 .userInfo {
   display: flex;
   justify-content: flex-end;
-  background: #1F2041;
-  color: white;
+  background: #001D3D;
+  color: #fdf0d5;
   width: 100%;
   height: 13%;
   min-height: 60px;

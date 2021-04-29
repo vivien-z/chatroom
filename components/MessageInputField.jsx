@@ -8,17 +8,19 @@ const MessageInputField = ({ type, name, value, avatarSrc, onChange, onSubmit, p
     return (
       <div className={styles.messageInput}>
         <form onSubmit={(e) => e.preventDefault() || onSubmit(e)}>
-          {/*<label>*/}
-            <input
-              className={styles.messageInputField}
-              type={type}
-              name={name}
-              value={value}
-              onChange={(e) => e.preventDefault() || onChange(e.target.value)}
-              placeholder={placeholder}
-            />
-          {/*</label>*/}
-          {<input type="submit" value="Submit"/>}
+          <input
+            className={styles.messageInputField}
+            type={type}
+            name={name}
+            value={value}
+            onChange={(e) => e.preventDefault() || onChange(e.target.value)}
+            placeholder={placeholder}
+          />
+          <input
+            className={styles.messageInputButton}
+            type="submit"
+            value="Submit"
+          />
         </form>
       </div>
     );

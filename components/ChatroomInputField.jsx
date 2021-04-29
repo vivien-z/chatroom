@@ -14,7 +14,7 @@ const ChatroomInputField = ({ type, name, value, onChange, onSubmit, disabled })
             value={value}
             onChange={(e) => e.preventDefault() || onChange(e.target.value)}
           />
-          {<input type="submit" value="Add"/>}
+          {/*{<input type="submit" value="Add"/>}*/}
         </form>
       </div>
     );

@@ -1,8 +1,9 @@
 import styles from '../styles/UsernameField.module.css';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-const UsernameField = ({ value, avatarSrc, onChange, onSubmit, completed, placeholder }) => {
+const UsernameField = ({ value, avatarSrc, onChange, onSubmit, completed }) => {
   if (completed) {
     // if the user has already claimed a username, display it.
     return (
@@ -29,9 +30,10 @@ const UsernameField = ({ value, avatarSrc, onChange, onSubmit, completed, placeh
             name="username"
             value={value}
             onChange={(e) => e.preventDefault() || onChange(e.target.value)}
-            placeholder={placeholder}
+            placeholder={"Set a customized username or pick a random one..."}
           />
-          <Form.Control className={styles.formButton} type="submit" value="Start Chatting" />
+          <Button className={styles.formButton} type="submit">Login</Button>
+          <Button variant="secondary">I am new</Button>
         </Form.Group>
       </Container>
     );

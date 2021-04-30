@@ -1659,6 +1659,11 @@
   "resolved" "https://registry.npmjs.org/querystring/-/querystring-0.2.0.tgz"
   "version" "0.2.0"
 
+"random-username-generator@^1.0.4":
+  "integrity" "sha1-BaOmKkl77wz6p6hQ54IreWmEins="
+  "resolved" "https://registry.npmjs.org/random-username-generator/-/random-username-generator-1.0.4.tgz"
+  "version" "1.0.4"
+
 "randombytes@^2.0.0", "randombytes@^2.0.1", "randombytes@^2.0.5":
   "integrity" "sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ=="
   "resolved" "https://registry.npmjs.org/randombytes/-/randombytes-2.1.0.tgz"

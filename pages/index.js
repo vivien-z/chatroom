@@ -9,12 +9,14 @@ import RoomList from "../components/RoomList";
 import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
 
   const [username, setUsername] = useState("");
+  // const [username, setUsername] = useLocalStorage();
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
   const [chatroom, setChatroom] = useState("");
@@ -94,6 +96,7 @@ export default function Home() {
           onChange={(value) => setUsername(value)}
           onSubmit={() => setUsernameConfirmed(true)}
         />
+        {username}
       </div>
     )
   } else {

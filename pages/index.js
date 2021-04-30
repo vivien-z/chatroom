@@ -3,17 +3,20 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Navbar from "../components/Navbar";
 import UsernameField from "../components/UsernameField";
+import UsernameForm from "../components/UsernameForm";
 import ChatroomInputField from "../components/ChatroomInputField";
 import RoomList from "../components/RoomList";
 import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
 
   const [username, setUsername] = useState("");
+  // const [username, setUsername] = useLocalStorage();
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
   const [chatroom, setChatroom] = useState("");
@@ -58,6 +61,7 @@ export default function Home() {
   // this method submits the form and sends the message to the server.
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const formName = e.target.querySelector('input').getAttribute('name')
     // console.log(rooms);
     // console.log(chatroom);
@@ -84,15 +88,15 @@ export default function Home() {
   if (!isUsernameConfirmed) {
     return (
       <div className={ styles.windowSetup }>
-        <UsernameField
+        <UsernameForm
           // className={styles.window}
           completed={isUsernameConfirmed}
           value={username}
-          avatarSrc="/favicon.ico"
+          // avatarSrc="/favicon.ico"
           onChange={(value) => setUsername(value)}
           onSubmit={() => setUsernameConfirmed(true)}
-          placeholder={"Set username..."}
         />
+        {username}
       </div>
     )
   } else {

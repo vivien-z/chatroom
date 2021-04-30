@@ -13,8 +13,8 @@ const Navbar = ({ value, avatarSrc, disabled }) => {
       <nav className={styles.navbar}>
         <div className={styles.navbarLogo}>2chat</div>
         <div className={styles.navbarProfileInfo}>
-          <p>{value}</p>
-          <img src={avatarSrc} alt="profile pic" />
+          <p>Hi: {value}</p>
+          {/*<img src={avatarSrc} alt="profile pic" />*/}
         </div>
       </nav>
     );

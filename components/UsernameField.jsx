@@ -1,4 +1,6 @@
 import styles from '../styles/UsernameField.module.css';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
 
 const UsernameField = ({ value, avatarSrc, onChange, onSubmit, completed, placeholder }) => {
   if (completed) {
@@ -12,24 +14,26 @@ const UsernameField = ({ value, avatarSrc, onChange, onSubmit, completed, placeh
   } else {
     // if the user hasn't yet claimed a username, let them do so.
     return (
-      <form
-        className={styles.formField}
-        onSubmit={(e) => e.preventDefault() || onSubmit(value)}
-        id="new-username"
-        >
-        <label>
-          Set an username:
-        </label>
-        <input
-          className={styles.formInput}
-          type="text"
-          name="username"
-          value={value}
-          onChange={(e) => e.preventDefault() || onChange(e.target.value)}
-          placeholder={placeholder}
-        />
-        <input className={styles.formButton} type="submit" value="Start Chatting" />
-      </form>
+      <Container>
+        <Form.Group
+          className={styles.formField}
+          onSubmit={(e) => e.preventDefault() || onSubmit(value)}
+          id="new-username"
+          >
+          <Form.Label>
+            Set an username:
+          </Form.Label>
+          <Form.Control
+            className={styles.formInput}
+            type="text"
+            name="username"
+            value={value}
+            onChange={(e) => e.preventDefault() || onChange(e.target.value)}
+            placeholder={placeholder}
+          />
+          <Form.Control className={styles.formButton} type="submit" value="Start Chatting" />
+        </Form.Group>
+      </Container>
     );
   }
 };

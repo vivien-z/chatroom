@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 
-const PREFIX = 'chatroom-app-'
+  const PREFIX = 'chatroom-app-'
  export default function useLocalStorage(key, initialValue) {
   const prefixedKey = PREFIX + key
   // get value from local storage and put into the state.
   const [value, setValue] = useState(() => {
-    const jsonValue = localsStorage.getItem(prefixedKey)
+    const jsonValue = localStorage.getItem(prefixedKey)
     if (jsonValue != null) return JSON.parse(jsonValue)
     if (typeof initialValue === 'function') {
       return initialValue()
@@ -16,7 +16,7 @@ const PREFIX = 'chatroom-app-'
 
   // get value and save to the local storage
   useEffect(() => {
-    localsStorage.setItem(prefixedKey, JSON.stringigy(value))
+    localStorage.setItem(prefixedKey, JSON.stringify(value))
   }, [prefixedKey, value])
 
   return [value, setValue]

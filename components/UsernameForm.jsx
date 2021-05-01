@@ -10,7 +10,7 @@ const UsernameForm = ({ value, avatarSrc, onChange, onSubmit }) => {
 
   function handleSubmit(e) {
     e.preventDefault()
-    onChange(usernameRef.current.value)
+    onSubmit(usernameRef.current.value)
   }
 
   function generateRandomUsername() {
@@ -40,12 +40,12 @@ const UsernameForm = ({ value, avatarSrc, onChange, onSubmit }) => {
             value={value}
             ref={usernameRef}
             onChange={(e) => e.preventDefault() || onChange(e.target.value)}
-            placeholder={"Set a customized username or pick a random one..."}
+            // placeholder={"Set a customized username or pick a random one..."}
             required
           />
         </Form.Group>
-        <Button className={styles.formButton} type="submit">Use Customized</Button>
-        <Button onClick={setRandomUsername} variant="secondary">Use random</Button>
+        <Button onClick={setRandomUsername} variant="secondary">Random usernames</Button>
+        <Button className={styles.formButton} type="submit">Confirm</Button>
       </Form>
     </Container>
   );

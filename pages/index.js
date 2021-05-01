@@ -16,7 +16,7 @@ export default function Home() {
   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
 
   // const [username, setUsername] = useState("");
-  const [username, setUsername] = useLocalStorage();
+  const [username, setUsername] = useLocalStorage('username');
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
   const [chatroom, setChatroom] = useState("");
@@ -96,7 +96,6 @@ export default function Home() {
           onChange={(value) => setUsername(value)}
           onSubmit={() => setUsernameConfirmed(true)}
         />
-        {username}
       </div>
     )
   } else {

@@ -10,12 +10,14 @@ const [value, setValue] = useState(() => {
   if(!ISSERVER) {
     const jsonValue = localStorage.getItem(prefixedKey)
     if (jsonValue != null) return JSON.parse(jsonValue)
-    if (typeof initialValue === 'function') {
-      return initialValue()
-    } else {
-      return initialValue
-    }
   }
+  if (typeof initialValue === 'function') {
+    return initialValue()
+  } else {
+    return initialValue
+  }
+
+
 })
 
 // get value and save to the local storage

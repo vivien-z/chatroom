@@ -15,8 +15,8 @@ export default function Home() {
   const [socket, setSocket] = useState(null);
   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
 
-  const [username, setUsername] = useState("");
-  // const [username, setUsername] = useLocalStorage();
+  // const [username, setUsername] = useState("");
+  const [username, setUsername] = useLocalStorage();
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
   const [chatroom, setChatroom] = useState("");
@@ -62,14 +62,14 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formName = e.target.querySelector('input').getAttribute('name')
+    // const formName = e.target.querySelector('input').getAttribute('name')1
     // console.log(rooms);
     // console.log(chatroom);
     if (!socket) {
       alert("Chatroom not connected yet. Try again in a little bit.");
       return;
     }
-    if (formName === "message") {
+    // if (formName === "message") {
       // prevent empty submissions
       if (!message || !isUsernameConfirmed) {
         return;
@@ -77,12 +77,12 @@ export default function Home() {
       // submit and blank-out the field.
       socket.emit("message-submitted", { message, username });
       setMessage("");
-    }
-    if (formName === "chatroom" ) {
-      // console.log(chatroom)
-      socket.emit("chatroom-created", chatroom);
-      setChatroom("");
-    }
+    // }
+    // if (formName === "chatroom" ) {
+    //   // console.log(chatroom)
+    //   socket.emit("chatroom-created", chatroom);
+    //   setChatroom("");
+    // }
   };
 
   if (!isUsernameConfirmed) {
@@ -90,7 +90,7 @@ export default function Home() {
       <div className={ styles.windowSetup }>
         <UsernameForm
           // className={styles.window}
-          completed={isUsernameConfirmed}
+          // completed={isUsernameConfirmed}
           value={username}
           // avatarSrc="/favicon.ico"
           onChange={(value) => setUsername(value)}

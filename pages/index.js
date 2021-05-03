@@ -23,10 +23,7 @@ export default function Home() {
   const [rooms, setRooms] = useState([]);
 
   const connectSocket = () => {
-    // prime the server first. yes, this is an extra call and is inefficient.
-    // but we're using NextJS for convenience, so this is a necessary evil.
     fetch("/api/chat");
-    // after making sure that socket server is primed, connect to it.
 
     if (!socket) {
       const newSocket = io();
@@ -43,22 +40,19 @@ export default function Home() {
         console.log(chatrm);
         setRooms((rooms) => [...rooms, chatrm]);
       });
-      // Logs when server disconnects
+
       newSocket.on("disconnect", () => {
         console.warn("WARNING: chat app disconnected");
       });
 
       setSocket(() => newSocket);
     }
-
   };
 
-  // The websocket code
   useEffect(() => {
     connectSocket();
   }, []);
 
-  // this method submits the form and sends the message to the server.
   const handleSubmit = (e) => {
     e.preventDefault();
 

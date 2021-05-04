@@ -1,18 +1,72 @@
-import { useEffect, useState } from "react";
-// import { io } from "socket.io-client";
+import { useState } from "react";
+import { io } from "socket.io-client";
 
-import WindowLeft from "../components/WindowLeft";
-// import RoomList from "../components/RoomList";
-// import UsernameField from "../components/UsernameField";
-// import MessageHistory from "../components/MessageHistory";
+import RoomList from "../components/RoomList";
+import Contacts from "../components/Contacts";
+import NewChatroomModal from "../components/NewChatroomModal";
+import NewContactModal from "../components/NewContactModal";
 // import MessageInputField from "../components/MessageInputField";
+import Tab from 'react-bootstrap/Tab';
+import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
 import styles from '../styles/Home.module.css';
 
+const CHATROOMS_KEY = "chatrooms"
+const CONTACTS_KEY = "contacts"
 
-const ChatWindow = ({ username }) => {
+const WindowLeft = ({ username }) => {
+  const [activeKey, setActiveKey] = useState(CHATROOMS_KEY)
+  const [modalOpen, setModalOpen] = useState(false)
+  // const [isChatroomActive, set]
+
+  function closeModal() {
+    setModalOpen(false)
+  }
+
   return (
-    <div style={{ height: '50vh'}} className='d-flex'>
-      <WindowLeft username={username}/>
+    <div style={{ width: '250px'}} className='d-flex flex-column'>
+
+      <Tab.Container
+        activeKey={activeKey}
+        onSelect={setActiveKey}>
+        <Nav variant="tabs" className='justify-content-center'>
+          <Nav.Item>
+            <Nav.Link eventKey={CHATROOMS_KEY}>Chatrooms</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey={CONTACTS_KEY}>Contacts</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <Tab.Content
+          className='overflow-auto flex-grow-1'
+          >
+          <Tab.Pane eventKey={CHATROOMS_KEY}>
+            <RoomList />
+          </Tab.Pane>
+          <Tab.Pane eventKey={CONTACTS_KEY}>
+            <Contacts />
+          </Tab.Pane>
+        </Tab.Content>
+        <div className='p-2 small border-top'>
+          User: <span className='text-muted'>{username}</span>
+        </div>
+        <Button
+          className='rounded-0'
+          onClick={()=>setModalOpen(true)}
+          >
+          New {activeKey}
+        </Button>
+      </Tab.Container>
+
+      <Modal show={modalOpen} onHide={closeModal}>
+        {activeKey === "chatrooms" ?
+          <NewChatroomModal closeModal={closeModal}/> :
+          <NewContactModal closeModal={closeModal}/>
+        }
+      </Modal>
+
     </div>
   )
 }
@@ -142,4 +196,4 @@ const ChatWindow = ({ username }) => {
 //   }
 // };
 
-export default ChatWindow;
+export default WindowLeft;

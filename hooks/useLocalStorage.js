@@ -1,24 +1,31 @@
 import { useEffect, useState } from 'react'
 
 const PREFIX = 'chatroom-app-'
- export default function useLocalStorage(key, initialValue) {
-  const prefixedKey = PREFIX + key
-  // get value from local storage and put into the state.
-  const [value, setValue] = useState(() => {
-    const jsonValue = localsStorage.getItem(prefixedKey)
+
+function useLocalStorage(key, initialValue) {
+const prefixedKey = PREFIX + key
+const ISSERVER = typeof window === "undefined";
+// get value from local storage and put into the state.
+const [value, setValue] = useState(() => {
+  if(!ISSERVER) {
+    const jsonValue = localStorage.getItem(prefixedKey)
     if (jsonValue != null) return JSON.parse(jsonValue)
-    if (typeof initialValue === 'function') {
-      return initialValue()
-    } else {
-      return initialValue
-    }
-  })
+  }
+  if (typeof initialValue === 'function') {
+    return initialValue()
+  } else {
+    return initialValue
+  }
 
-  // get value and save to the local storage
-  useEffect(() => {
-    localsStorage.setItem(prefixedKey, JSON.stringigy(value))
-  }, [prefixedKey, value])
 
-  return [value, setValue]
- }
+})
 
+// get value and save to the local storage
+useEffect(() => {
+  localStorage.setItem(prefixedKey, JSON.stringify(value))
+}, [prefixedKey, value])
+
+return [value, setValue]
+}
+
+export default useLocalStorage;

@@ -4,29 +4,28 @@ import { io } from "socket.io-client";
 import Navbar from "../components/Navbar";
 import UsernameField from "../components/UsernameField";
 import UsernameForm from "../components/UsernameForm";
+import ChatWindow from "../components/ChatWindow";
 import ChatroomInputField from "../components/ChatroomInputField";
 import RoomList from "../components/RoomList";
 import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { ContactsProvider } from "../context/ContactsProvider";
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
 
-  const [username, setUsername] = useState("");
-  // const [username, setUsername] = useLocalStorage();
+  // const [username, setUsername] = useState("");
+  const [username, setUsername] = useLocalStorage('username');
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
   const [chatroom, setChatroom] = useState("");
   const [rooms, setRooms] = useState([]);
 
   const connectSocket = () => {
-    // prime the server first. yes, this is an extra call and is inefficient.
-    // but we're using NextJS for convenience, so this is a necessary evil.
     fetch("/api/chat");
-    // after making sure that socket server is primed, connect to it.
 
     if (!socket) {
       const newSocket = io();
@@ -43,33 +42,30 @@ export default function Home() {
         console.log(chatrm);
         setRooms((rooms) => [...rooms, chatrm]);
       });
-      // Logs when server disconnects
+
       newSocket.on("disconnect", () => {
         console.warn("WARNING: chat app disconnected");
       });
 
       setSocket(() => newSocket);
     }
-
   };
 
-  // The websocket code
   useEffect(() => {
     connectSocket();
   }, []);
 
-  // this method submits the form and sends the message to the server.
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formName = e.target.querySelector('input').getAttribute('name')
+    // const formName = e.target.querySelector('input').getAttribute('name')1
     // console.log(rooms);
     // console.log(chatroom);
     if (!socket) {
       alert("Chatroom not connected yet. Try again in a little bit.");
       return;
     }
-    if (formName === "message") {
+    // if (formName === "message") {
       // prevent empty submissions
       if (!message || !isUsernameConfirmed) {
         return;
@@ -77,27 +73,28 @@ export default function Home() {
       // submit and blank-out the field.
       socket.emit("message-submitted", { message, username });
       setMessage("");
-    }
-    if (formName === "chatroom" ) {
-      // console.log(chatroom)
-      socket.emit("chatroom-created", chatroom);
-      setChatroom("");
-    }
+    // }
+    // if (formName === "chatroom" ) {
+    //   // console.log(chatroom)
+    //   socket.emit("chatroom-created", chatroom);
+    //   setChatroom("");
+    // }
   };
+
+  const chatWindow = (
+    <ContactsProvider>
+      <ChatWindow username={username}/>
+    </ContactsProvider>
+  )
 
   if (!isUsernameConfirmed) {
     return (
-      <div className={ styles.windowSetup }>
-        <UsernameForm
-          // className={styles.window}
-          completed={isUsernameConfirmed}
-          value={username}
-          // avatarSrc="/favicon.ico"
-          onChange={(value) => setUsername(value)}
-          onSubmit={() => setUsernameConfirmed(true)}
-        />
-        {username}
-      </div>
+      <UsernameForm
+        className={ styles.windowSetup }
+        value={username}
+        onChange={(value) => setUsername(value)}
+        onSubmit={() => setUsernameConfirmed(true)}
+      />
     )
   } else {
   return (
@@ -115,6 +112,7 @@ export default function Home() {
 
         <div className={styles.window}>
           <div className={styles.windowChatLeft}>
+            {chatWindow}
             <h3>Chatroom List</h3>
             <ChatroomInputField
               onSubmit={(e) => handleSubmit(e)}

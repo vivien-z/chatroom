@@ -15,8 +15,15 @@ const Chatrooms = ({ value }) => {
           onClick={() => selectChatroomIndex(i)}
           active={chatroom.selected}
         >
+          <b>{chatroom.roomname}</b>
 
-          <Dropdown>
+          <ListGroup className={chatroom.selected ? null : 'd-none'}>
+            {chatroom.roomUsers.map((roomUser, i) =>
+              <ListGroup.Item key={i}>{roomUser.name}</ListGroup.Item>
+            )}
+          </ListGroup>
+
+{/*          <Dropdown>
             <Dropdown.Toggle variant="success" id="chatroom-users">
               <b>{chatroom.roomname}</b>
             </Dropdown.Toggle>
@@ -29,7 +36,7 @@ const Chatrooms = ({ value }) => {
                 )}
               </ListGroup>
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown>*/}
 
         </ListGroup.Item>
       ))}

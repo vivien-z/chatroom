@@ -4,12 +4,14 @@ import { io } from "socket.io-client";
 import Navbar from "../components/Navbar";
 import UsernameField from "../components/UsernameField";
 import UsernameForm from "../components/UsernameForm";
+import ChatWindow from "../components/ChatWindow";
 import ChatroomInputField from "../components/ChatroomInputField";
 import RoomList from "../components/RoomList";
 import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { ContactsProvider } from "../context/ContactsProvider";
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
@@ -79,14 +81,17 @@ export default function Home() {
     // }
   };
 
-  if (!username) {
+  const chatWindow = (
+    <ContactsProvider>
+      <ChatWindow username={username}/>
+    </ContactsProvider>
+  )
+
+  if (!isUsernameConfirmed) {
     return (
       <UsernameForm
         className={ styles.windowSetup }
-        // className={styles.window}
-        // completed={isUsernameConfirmed}
         value={username}
-        // avatarSrc="/favicon.ico"
         onChange={(value) => setUsername(value)}
         onSubmit={() => setUsernameConfirmed(true)}
       />
@@ -107,6 +112,7 @@ export default function Home() {
 
         <div className={styles.window}>
           <div className={styles.windowChatLeft}>
+            {chatWindow}
             <h3>Chatroom List</h3>
             <ChatroomInputField
               onSubmit={(e) => handleSubmit(e)}

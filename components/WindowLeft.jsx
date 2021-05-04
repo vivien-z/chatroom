@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { io } from "socket.io-client";
 
-import RoomList from "../components/RoomList";
+import Chatrooms from "../components/Chatrooms";
 import Contacts from "../components/Contacts";
 import NewChatroomModal from "../components/NewChatroomModal";
 import NewContactModal from "../components/NewContactModal";
@@ -43,7 +43,7 @@ const WindowLeft = ({ username }) => {
           className='overflow-auto flex-grow-1'
           >
           <Tab.Pane eventKey={CHATROOMS_KEY}>
-            <RoomList />
+            <Chatrooms />
           </Tab.Pane>
           <Tab.Pane eventKey={CONTACTS_KEY}>
             <Contacts />

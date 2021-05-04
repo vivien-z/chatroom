@@ -12,7 +12,7 @@ import WindowLeft from "../components/WindowLeft";
 import styles from '../styles/Home.module.css';
 
 
-const ChatWindow = ({ username, roomname }) => {
+const ChatWindow = ({ username }) => {
 
   return (
     <div>
@@ -20,7 +20,7 @@ const ChatWindow = ({ username, roomname }) => {
         style={{ height: '50vh'}}
         className='d-flex'
         username={username}
-        roomname={roomname}
+        // roomname={roomname}
         />
     </div>
   )

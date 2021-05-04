@@ -23,7 +23,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
 
-  const [roomname, setRoomname] = useLocalStorage('roomname');
+  // const [roomname, setRoomname] = useLocalStorage('roomname');
   const [chatroom, setChatroom] = useState("");
   const [chatrooms, setChatrooms] = useState([]);
 
@@ -86,9 +86,7 @@ export default function Home() {
 
   const chatWindow = (
     <ContactsProvider>
-      <ChatroomsProvider>
-        <ChatWindow username={username} roomname={roomname}/>
-      </ChatroomsProvider>
+      <ChatWindow username={username}/>
     </ContactsProvider>
   )
 
@@ -117,6 +115,7 @@ export default function Home() {
 
         <div className={styles.window}>
           <div className={styles.windowChatLeft}>
+            <ChatroomsProvider>
               {chatWindow}
               <h3>Chatroom List</h3>
               <ChatroomInputField
@@ -128,8 +127,9 @@ export default function Home() {
                 disabled={!isUsernameConfirmed}
               />
               <Chatrooms
-                value={Chatrooms}
+                value={chatrooms}
               />
+            </ChatroomsProvider>
           </div>
 
           <div className={styles.windowChatRight}>

@@ -19,7 +19,7 @@ const NewContactModal = ({ closeModal }) => {
 
   return (
     <div>
-      <Modal.Header closeButton>New Contact</Modal.Header>
+      <Modal.Header closeButton>Add a New Contact</Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
@@ -30,7 +30,7 @@ const NewContactModal = ({ closeModal }) => {
             <Form.Label>Customize username:</Form.Label>
             <Form.Control type="text" ref={usernameCustomizedRef}></Form.Control>
           </Form.Group>*/}
-          <Button type='submit'>Add Contact</Button>
+          <Button type='submit'>New Contact</Button>
         </Form>
       </Modal.Body>
     </div>

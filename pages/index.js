@@ -6,12 +6,13 @@ import UsernameField from "../components/UsernameField";
 import UsernameForm from "../components/UsernameForm";
 import ChatWindow from "../components/ChatWindow";
 import ChatroomInputField from "../components/ChatroomInputField";
-import RoomList from "../components/RoomList";
+import Chatrooms from "../components/Chatrooms";
 import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { ContactsProvider } from "../context/ContactsProvider";
+import { ChatroomsProvider } from "../context/ChatroomsProvider";
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
@@ -112,19 +113,21 @@ export default function Home() {
 
         <div className={styles.window}>
           <div className={styles.windowChatLeft}>
-            {chatWindow}
-            <h3>Chatroom List</h3>
-            <ChatroomInputField
-              onSubmit={(e) => handleSubmit(e)}
-              type="text"
-              name="chatroom"
-              value={chatroom}
-              onChange={(value) => setChatroom(value)}
-              disabled={!isUsernameConfirmed}
-            />
-            <RoomList
-              value={rooms}
-            />
+            <ChatroomsProvider>
+              {chatWindow}
+              <h3>Chatroom List</h3>
+              <ChatroomInputField
+                onSubmit={(e) => handleSubmit(e)}
+                type="text"
+                name="chatroom"
+                value={chatroom}
+                onChange={(value) => setChatroom(value)}
+                disabled={!isUsernameConfirmed}
+              />
+              <Chatrooms
+                value={rooms}
+              />
+            </ChatroomsProvider>
           </div>
 
           <div className={styles.windowChatRight}>

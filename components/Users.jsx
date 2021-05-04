@@ -11,7 +11,7 @@ const Users = ({ value }) => {
 
         {users.map((user, i) => (
           <ListGroup.Item key={i}>
-            <b>{user.username}</b>
+            {user.username}
           </ListGroup.Item>
         ))}
 

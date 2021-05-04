@@ -10,9 +10,9 @@ export function useUsers() {
 export function UsersProvider({ children }) {
   const [users, setUsers] = useLocalStorage('users', [])
 
-  function createUser(username) {
+  function createUser(id, username) {
     setUsers(prevUsers => {
-      return [...prevUsers, {username}]
+      return [...prevUsers, {id, username}]
     })
   }
 

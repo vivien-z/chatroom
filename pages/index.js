@@ -85,9 +85,11 @@ export default function Home() {
   };
 
   const chatWindow = (
-    <UsersProvider>
-      <ChatWindow username={username}/>
-    </UsersProvider>
+    <ChatroomsProvider>
+      <UsersProvider>
+        <ChatWindow username={username}/>
+      </UsersProvider>
+    </ChatroomsProvider>
   )
 
   if (!isUsernameConfirmed) {

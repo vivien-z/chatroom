@@ -10,7 +10,7 @@ const Chatrooms = ({ value }) => {
 
         {chatrooms.map((chatroom, i) => (
           <ListGroup.Item key={i}>
-            <b>{chatroom}</b>
+            <b>{chatroom.roomname}</b>
           </ListGroup.Item>
         ))}
 

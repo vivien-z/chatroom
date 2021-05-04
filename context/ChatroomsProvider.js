@@ -10,9 +10,9 @@ export function useChatrooms() {
 export function ChatroomsProvider({ children }) {
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
 
-  function createChatroom(chatroom) {
+  function createChatroom(roomname) {
     setChatrooms(prevChatrooms => {
-      return [...prevChatrooms, {chatroom}]
+      return [...prevChatrooms, {roomname}]
     })
   }
 

@@ -79,18 +79,17 @@ export default function Home() {
     // }
   };
 
-  if (!isUsernameConfirmed) {
+  if (!username) {
     return (
-      <div className={ styles.windowSetup }>
-        <UsernameForm
-          // className={styles.window}
-          // completed={isUsernameConfirmed}
-          value={username}
-          // avatarSrc="/favicon.ico"
-          onChange={(value) => setUsername(value)}
-          onSubmit={() => setUsernameConfirmed(true)}
-        />
-      </div>
+      <UsernameForm
+        className={ styles.windowSetup }
+        // className={styles.window}
+        // completed={isUsernameConfirmed}
+        value={username}
+        // avatarSrc="/favicon.ico"
+        onChange={(value) => setUsername(value)}
+        onSubmit={() => setUsernameConfirmed(true)}
+      />
     )
   } else {
   return (

@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const UsernameForm = ({ value, avatarSrc, onChange, onSubmit }) => {
+const UsernameForm = ({ value, onChange, onSubmit }) => {
 
   const usernameRef = useRef()
 

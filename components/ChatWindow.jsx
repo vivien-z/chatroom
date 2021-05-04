@@ -2,21 +2,30 @@ import { useEffect, useState } from "react";
 // import { io } from "socket.io-client";
 
 import WindowLeft from "../components/WindowLeft";
-// import RoomList from "../components/RoomList";
+// import Chatrooms from "../components/Chatrooms";
+// import ChatroomInputField from "../components/ChatroomInputField";
 // import UsernameField from "../components/UsernameField";
+// import UsernameForm from "../components/UsernameForm";
 // import MessageHistory from "../components/MessageHistory";
 // import MessageInputField from "../components/MessageInputField";
+// import useLocalStorage from '../hooks/useLocalStorage';
 import styles from '../styles/Home.module.css';
 
 
-const ChatWindow = ({ username }) => {
+const ChatWindow = ({ username, roomname }) => {
+
   return (
-    <div style={{ height: '50vh'}} className='d-flex'>
-      <WindowLeft username={username}/>
+    <div>
+      <WindowLeft
+        style={{ height: '50vh'}}
+        className='d-flex'
+        username={username}
+        roomname={roomname}
+        />
     </div>
   )
 }
-// const ChatWindow = ({ type, name, value, avatarSrc, onChange, onSubmit, placeholder, disabled }) => {
+// const ChatWindow = ({ username, type, name, value, avatarSrc, onChange, onSubmit, placeholder, disabled }) => {
 //   const [socket, setSocket] = useState(null);
 //   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
 

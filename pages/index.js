@@ -22,8 +22,10 @@ export default function Home() {
   const [username, setUsername] = useLocalStorage('username');
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
+
+  const [roomname, setRoomname] = useLocalStorage('roomname');
   const [chatroom, setChatroom] = useState("");
-  const [rooms, setRooms] = useState([]);
+  const [chatrooms, setChatrooms] = useState([]);
 
   const connectSocket = () => {
     fetch("/api/chat");
@@ -41,7 +43,7 @@ export default function Home() {
 
       newSocket.on("chatroom", (chatrm) => {
         console.log(chatrm);
-        setRooms((rooms) => [...rooms, chatrm]);
+        setChatrooms((chatrooms) => [...chatrooms, chatrm]);
       });
 
       newSocket.on("disconnect", () => {
@@ -60,7 +62,7 @@ export default function Home() {
     e.preventDefault();
 
     // const formName = e.target.querySelector('input').getAttribute('name')1
-    // console.log(rooms);
+    // console.log(Chatrooms);
     // console.log(chatroom);
     if (!socket) {
       alert("Chatroom not connected yet. Try again in a little bit.");
@@ -84,7 +86,9 @@ export default function Home() {
 
   const chatWindow = (
     <ContactsProvider>
-      <ChatWindow username={username}/>
+      <ChatroomsProvider>
+        <ChatWindow username={username} roomname={roomname}/>
+      </ChatroomsProvider>
     </ContactsProvider>
   )
 
@@ -113,7 +117,6 @@ export default function Home() {
 
         <div className={styles.window}>
           <div className={styles.windowChatLeft}>
-            <ChatroomsProvider>
               {chatWindow}
               <h3>Chatroom List</h3>
               <ChatroomInputField
@@ -125,9 +128,8 @@ export default function Home() {
                 disabled={!isUsernameConfirmed}
               />
               <Chatrooms
-                value={rooms}
+                value={Chatrooms}
               />
-            </ChatroomsProvider>
           </div>
 
           <div className={styles.windowChatRight}>

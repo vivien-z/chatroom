@@ -25,7 +25,7 @@ const NewChatroomModal = ({ closeModal }) => {
             <Form.Label>Chatroom name:</Form.Label>
             <Form.Control type="text" ref={roomnameRef} required></Form.Control>
           </Form.Group>
-          <Button type='submit'>New Chatroom</Button>
+          <Button type='submit'>Create</Button>
         </Form>
       </Modal.Body>
     </div>

@@ -16,7 +16,7 @@ import styles from '../styles/Home.module.css';
 const CHATROOMS_KEY = "chatrooms"
 const CONTACTS_KEY = "contacts"
 
-const WindowLeft = ({ username }) => {
+const WindowLeft = ({ username, roomname }) => {
   const [activeKey, setActiveKey] = useState(CHATROOMS_KEY)
   const [modalOpen, setModalOpen] = useState(false)
   // const [isChatroomActive, set]
@@ -51,6 +51,7 @@ const WindowLeft = ({ username }) => {
         </Tab.Content>
         <div className='p-2 small border-top'>
           User: <span className='text-muted'>{username}</span>
+          Room: <span className='text-muted'>{roomname}</span>
         </div>
         <Button
           className='rounded-0'

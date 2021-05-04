@@ -1,12 +1,21 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import { io } from "socket.io-client";
 
-// import ChatroomsList from "../components/ChatroomsList";
+import WindowLeft from "../components/WindowLeft";
+// import RoomList from "../components/RoomList";
 // import UsernameField from "../components/UsernameField";
 // import MessageHistory from "../components/MessageHistory";
 // import MessageInputField from "../components/MessageInputField";
-// import styles from '../styles/Home.module.css';
+import styles from '../styles/Home.module.css';
 
+
+const ChatWindow = ({ username }) => {
+  return (
+    <div style={{ height: '50vh'}} className='d-flex'>
+      <WindowLeft username={username}/>
+    </div>
+  )
+}
 // const ChatWindow = ({ type, name, value, avatarSrc, onChange, onSubmit, placeholder, disabled }) => {
 //   const [socket, setSocket] = useState(null);
 //   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
@@ -133,4 +142,4 @@
 //   }
 // };
 
-// export default ChatWindow;
+export default ChatWindow;

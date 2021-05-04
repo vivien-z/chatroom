@@ -1,5 +1,6 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useChatrooms } from "../context/ChatroomsProvider";
+import { useUsers } from "../context/UsersProvider";
 
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -7,6 +8,8 @@ import Button from 'react-bootstrap/Button';
 
 const NewChatroomModal = ({ closeModal }) => {
   const roomnameRef = useRef()
+  // const [joinedUsers, setJoinedUsers] = useState([])
+  const { users } = useUsers()
   const { createChatroom } = useChatrooms()
 
   function handleSubmit(e) {

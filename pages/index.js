@@ -11,7 +11,7 @@ import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
 import useLocalStorage from '../hooks/useLocalStorage';
-import { ContactsProvider } from "../context/ContactsProvider";
+import { UsersProvider } from "../context/UsersProvider";
 import { ChatroomsProvider } from "../context/ChatroomsProvider";
 
 export default function Home() {
@@ -85,9 +85,9 @@ export default function Home() {
   };
 
   const chatWindow = (
-    <ContactsProvider>
+    <UsersProvider>
       <ChatWindow username={username}/>
-    </ContactsProvider>
+    </UsersProvider>
   )
 
   if (!isUsernameConfirmed) {
@@ -117,7 +117,7 @@ export default function Home() {
           <div className={styles.windowChatLeft}>
             <ChatroomsProvider>
               {chatWindow}
-              <h3>Chatroom List</h3>
+       {/*       <h3>Chatroom List</h3>
               <ChatroomInputField
                 onSubmit={(e) => handleSubmit(e)}
                 type="text"
@@ -125,10 +125,10 @@ export default function Home() {
                 value={chatroom}
                 onChange={(value) => setChatroom(value)}
                 disabled={!isUsernameConfirmed}
-              />
-              <Chatrooms
+              />*/}
+            {/*  <Chatrooms
                 value={chatrooms}
-              />
+              />*/}
             </ChatroomsProvider>
           </div>
 

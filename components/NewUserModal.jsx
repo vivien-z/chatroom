@@ -1,25 +1,27 @@
+// save for future use, when create private room
+
 import { useRef } from "react";
-import { useContacts } from "../context/ContactsProvider";
+import { useUsers } from "../context/UsersProvider";
 
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const NewContactModal = ({ closeModal }) => {
+const NewUserModal = ({ closeModal }) => {
   const usernameRef = useRef()
   // const usernameCustomizedRef = useRef()
-  const { createContact } = useContacts()
+  const { createUser } = useUsers()
 
   function handleSubmit(e) {
     e.preventDefault()
 
-    createContact(usernameRef.current.value) //could add 2nd argument(usernameCustomizedRef.current.value)
+    createUser(usernameRef.current.value) //could add 2nd argument(usernameCustomizedRef.current.value)
     closeModal()
   }
 
   return (
     <div>
-      <Modal.Header closeButton>Add a New Contact</Modal.Header>
+      <Modal.Header closeButton>Add a New User</Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
@@ -30,11 +32,11 @@ const NewContactModal = ({ closeModal }) => {
             <Form.Label>Customize username:</Form.Label>
             <Form.Control type="text" ref={usernameCustomizedRef}></Form.Control>
           </Form.Group>*/}
-          <Button type='submit'>New Contact</Button>
+          <Button type='submit'>Add</Button>
         </Form>
       </Modal.Body>
     </div>
   )
 };
 
-export default NewContactModal;
+export default NewUserModal;

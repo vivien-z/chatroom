@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 // import { io } from "socket.io-client";
 
-import WindowLeft from "../components/WindowLeft";
+import ChatWindowSidebar from "../components/ChatWindowSidebar";
 // import Chatrooms from "../components/Chatrooms";
 // import ChatroomInputField from "../components/ChatroomInputField";
 // import UsernameField from "../components/UsernameField";
@@ -16,7 +16,7 @@ const ChatWindow = ({ username }) => {
 
   return (
     <div>
-      <WindowLeft
+      <ChatWindowSidebar
         style={{ height: '50vh'}}
         className='d-flex'
         username={username}

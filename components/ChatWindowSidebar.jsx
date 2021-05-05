@@ -16,7 +16,7 @@ import styles from '../styles/Home.module.css';
 const CHATROOMS_KEY = "chatrooms"
 const USERS_KEY = "users"
 
-const WindowLeft = ({ username }) => {
+const ChatWindowSidebar = ({ username }) => {
   const [activeKey, setActiveKey] = useState(CHATROOMS_KEY)
   const [modalOpen, setModalOpen] = useState(false)
   // const [isChatroomActive, set]
@@ -28,6 +28,10 @@ const WindowLeft = ({ username }) => {
   return (
     <div style={{ width: '250px'}} className='d-flex flex-column'>
 
+      <div className='p-2 small border-top'>
+        User: <span className='text-muted'>{username}</span>
+        {/*Room: <span className='text-muted'>{roomname}</span>*/}
+      </div>
       <Tab.Container
         activeKey={activeKey}
         onSelect={setActiveKey}>
@@ -49,10 +53,6 @@ const WindowLeft = ({ username }) => {
             <Users />
           </Tab.Pane>
         </Tab.Content>
-        <div className='p-2 small border-top'>
-          User: <span className='text-muted'>{username}</span>
-          {/*Room: <span className='text-muted'>{roomname}</span>*/}
-        </div>
         <Button
           className='rounded-0'
           onClick={()=>setModalOpen(true)}
@@ -197,4 +197,4 @@ const WindowLeft = ({ username }) => {
 //   }
 // };
 
-export default WindowLeft;
+export default ChatWindowSidebar;

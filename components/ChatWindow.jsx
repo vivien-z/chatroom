@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 // import { io } from "socket.io-client";
 
 import ChatWindowSidebar from "../components/ChatWindowSidebar";
+import ChatWindowMessage from "../components/ChatWindowMessage";
+import { useChatrooms } from "../context/ChatroomsProvider";
+
 // import Chatrooms from "../components/Chatrooms";
 // import ChatroomInputField from "../components/ChatroomInputField";
 // import UsernameField from "../components/UsernameField";
@@ -13,15 +16,13 @@ import styles from '../styles/Home.module.css';
 
 
 const ChatWindow = ({ username }) => {
+  const { selectedChatroom } = useChatrooms()
 
   return (
-    <div>
-      <ChatWindowSidebar
-        style={{ height: '50vh'}}
-        className='d-flex'
-        username={username}
-        // roomname={roomname}
-        />
+    <div className='d-flex' style={{ height: '50vh'}}>
+      <ChatWindowSidebar username={username} />
+      { selectedChatroom && <ChatWindowMessage /> }
+
     </div>
   )
 }

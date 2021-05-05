@@ -1,28 +1,28 @@
 .messageInput {
-  display: flex;
+/*  display: flex;
   justify-content: space-between;
   align-items: center;
-/*  position: absolute;
+  position: absolute;
   bottom: 0;
-  right: 0;*/
+  right: 0;
   width: 100%;
-  /*height: 26%;*/
+  height: 26%;
+  min-height: 38px;*/
   padding: 0.6em 1em;
   background: #bde0fe;
-  /*min-height: 38px;*/
 }
 
 .messageInput form {
-  display: flex;
+/*  display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 100%;*/
 }
 
 .messageInputField {
-  border: none;
+/*  border: none;
   padding: 0.5em;
   border-radius: 4px 0 0 4px;
-  width: 100%;
+  width: 100%;*/
 }
 
 .messageInputButton {

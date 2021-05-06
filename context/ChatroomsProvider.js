@@ -70,24 +70,22 @@ export function ChatroomsProvider({ children }) {
     })
     //get current chatroom's messages
 
-
-    if (chatroom.chatroomMessages) {
-      return null
-    } else {
-      const formattedChatMessages = chatroom.chatroomMessages.map(m => {
-        const users = [{id: "1", username: "abc"}, {id: "2", username: "ljk"}]
-        const sender = users.find(user => {
-          return user.username === m.sender
-        })
-        const name = (sender && sender.username) || m.sender
-        const fromMe = username === m.sender
-        return { ...m, senderName: name, fromMe }
-      })
-    }
+    // if (chatroom.chatroomMessages !== []) {
+    //   const chatroomMessagesSet = chatroom.chatroomMessages.map(m => {
+    //     const users = [{id: "1", username: "abc"}, {id: "2", username: "ljk"}]
+    //     const sender = users.find(user => {
+    //       return user.username === m.sender
+    //     })
+    //     const name = (sender && sender.username) || m.sender
+    //     const fromMe = username === m.sender
+    //     return { ...m, senderName: name, fromMe }
+    //   })
+    // }
 
     const selected = i === selectedChatroomIndex
 
-    return { ...chatroom, roomUsers, formattedChatMessages, selected }
+    return { ...chatroom, roomUsers, selected }
+    // return { ...chatroom, roomUsers, chatroomMessagesSet, selected }
   })
 
 
@@ -95,7 +93,7 @@ export function ChatroomsProvider({ children }) {
     chatrooms: formattedChatrooms,
     selectedChatroom: formattedChatrooms[selectedChatroomIndex],
     selectChatroomIndex: setSelectedChatroomIndex,
-    sendMessage,
+    // sendMessage,
     createChatroom
   }
   return (

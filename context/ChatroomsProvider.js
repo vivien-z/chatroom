@@ -16,15 +16,9 @@ export function ChatroomsProvider({ children }) {
   const { users } = useUsers()
 
   function createChatroom(roomname, roomUserIds) {
-    // setChatrooms(prevChatrooms => {
-    //   return [...prevChatrooms, {roomname, roomUserIds, chatroomMessages: []}]
-    // })
-    console.log(`${roomname} and ${roomUserIds}`)
-    setChatrooms([{roomname: roomname, userId: roomUserIds }])
-    // setChatrooms(prevChatrooms => {
-    //   return [...prevChatrooms, {roomname: "roomname", userId: '2' }]
-    // })
-      console.log(chatrooms)
+    setChatrooms(prevChatrooms => {
+      return [...prevChatrooms, {roomname, roomUserIds, chatroomMessages: []}]
+    })
   }
 
   function addMessageToChatroom({ selectedChatroom, message, sender }) {

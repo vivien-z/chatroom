@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 // import { io } from "socket.io-client";
 
 import ChatWindowSidebar from "../components/ChatWindowSidebar";
-import ChatWindowMessage from "../components/ChatWindowMessage";
+import ChatWindowMessageSide from "../components/ChatWindowMessageSide";
 import { useChatrooms } from "../context/ChatroomsProvider";
 
 // import Chatrooms from "../components/Chatrooms";
@@ -21,8 +21,7 @@ const ChatWindow = ({ username }) => {
   return (
     <div className='d-flex' style={{ height: '50vh'}}>
       <ChatWindowSidebar username={username} />
-      { selectedChatroom && <ChatWindowMessage /> }
-
+      <ChatWindowMessageSide username={username} selectedChatroom={selectedChatroom}/>
     </div>
   )
 }

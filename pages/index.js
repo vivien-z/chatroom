@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import Navbar from "../components/Navbar";
-import UsernameField from "../components/UsernameField";
+import MessageInfo from "../components/MessageInfo";
 import UsernameForm from "../components/UsernameForm";
 import ChatWindow from "../components/ChatWindow";
 import ChatroomInputField from "../components/ChatroomInputField";
@@ -85,11 +85,11 @@ export default function Home() {
   };
 
   const chatWindow = (
-    <ChatroomsProvider>
-      <UsersProvider>
+    <UsersProvider>
+      <ChatroomsProvider username={username}>
         <ChatWindow username={username}/>
-      </UsersProvider>
-    </ChatroomsProvider>
+      </ChatroomsProvider>
+    </UsersProvider>
   )
 
   if (!isUsernameConfirmed) {
@@ -135,7 +135,7 @@ export default function Home() {
           </div>
 
           <div className={styles.windowChatRight}>
-            <UsernameField
+            <MessageInfo
               completed={isUsernameConfirmed}
               value={username}
               avatarSrc="/favicon.ico"

@@ -1,6 +1,6 @@
 import styles from '../styles/MessageHistory.module.css';
 
-const MessageHistory = ({ value }) => {
+const MessageHistory = ({ value, selectedChatroom }) => {
 
   return (
     <div className={styles.messageHistory}>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 
 import Chatrooms from "../components/Chatrooms";
 import Users from "../components/Users";

@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+// import { io } from "socket.io-client";
 import { useChatrooms } from "../context/ChatroomsProvider";
 import { useUsers } from "../context/UsersProvider";
 
@@ -9,9 +10,13 @@ import Button from 'react-bootstrap/Button';
 const NewChatroomModal = ({ closeModal }) => {
   const { users } = useUsers()
   const [selectedUserIds, setSelectedUserIds] = useState([])
+  const [chatroom, setChatroom] = useState("");
+  const [chatrooms, setChatrooms] = useState([]);
 
   const roomnameRef = useRef()
   const { createChatroom } = useChatrooms()
+
+
 
   function handleCheckboxChange(userId) {
     setSelectedUserIds(prevSelectedUserIds => {
@@ -27,8 +32,8 @@ const NewChatroomModal = ({ closeModal }) => {
 
   function handleSubmit(e) {
     e.preventDefault()
-
-    createChatroom(roomnameRef.current.value, selectedUserIds) //could add 2nd argument(usernameCustomizedRef.current.value)
+    const roomname = roomnameRef.current.value
+    createChatroom(roomname, selectedUserIds) //could add 2nd argument(usernameCustomizedRef.current.value)
     closeModal()
   }
 

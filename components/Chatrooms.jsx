@@ -5,6 +5,7 @@ import styles from '../styles/Chatrooms.module.css';
 
 const Chatrooms = ({ value }) => {
   const { chatrooms, selectChatroomIndex } = useChatrooms()
+  console.log(chatrooms)
 
   return (
     <ListGroup variant="flush">

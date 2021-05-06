@@ -30,8 +30,12 @@ const ioHandler = (req, res) => {
         socket.broadcast.emit("chatroom", chatrm);
       });
 
-    });
+      socket.on("user-created", (user) => {
+        socket.emit("user", user);
+        socket.broadcast.emit("user", user);
+      });
 
+    });
 
     // make the socket available externally.
     res.socket.server.io = io;

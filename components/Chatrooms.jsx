@@ -20,7 +20,7 @@ const Chatrooms = ({ value }) => {
 
           <ListGroup className={chatroom.selected ? null : 'd-none'}>
             {chatroom.roomUsers.map((roomUser, i) =>
-              <ListGroup.Item key={i}>{roomUser.name}</ListGroup.Item>
+              <ListGroup.Item key={i}>{roomUser.username}</ListGroup.Item>
             )}
           </ListGroup>
 

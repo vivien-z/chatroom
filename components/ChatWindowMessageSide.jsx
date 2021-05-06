@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 import ChatWindowSidebar from "../components/ChatWindowSidebar";
 import MessageInfo from "../components/MessageInfo";
-// import MessageHistory from "../components/MessageHistory";
+import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
 // import Chatrooms from "../components/Chatrooms";
 // import ChatroomInputField from "../components/ChatroomInputField";
@@ -83,16 +83,19 @@ const ChatWindowMessageSide = ({ username, selectedChatroom }) => {
   };
 
   if (!selectedChatroom) {
-    return null
+    return
   } else {
     return (
       <div className="d-flex flex-column flex-grow-1">
-        <MessageInfo />
- {/*       <MessageHistory
+        <MessageInfo
+          username={username}
+        />
+       <MessageHistory
           className="flex-grow-1 overflow-auto"
-          selectedChatroom={selectedChatroom}
-        />*/}
-        <MessageInputField selectedChatroom={selectedChatroom}/>
+        />
+        <MessageInputField
+          className=""
+          selectedChatroom={selectedChatroom}/>
       </div>
     )
   }

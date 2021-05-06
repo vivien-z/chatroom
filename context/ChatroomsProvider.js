@@ -13,7 +13,7 @@ export function ChatroomsProvider({ children }) {
   const [chatroomMessages, setChatroomMessages] = useState([])
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
   const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
-  // const { users } = useUsers()
+  const { users } = useUsers()
 
   function createChatroom(roomname, roomUserIds) {
     // setChatrooms(prevChatrooms => {
@@ -60,14 +60,18 @@ export function ChatroomsProvider({ children }) {
 
   const formattedChatrooms = chatrooms.map((chatroom, i) => {
     //get current chatroom's users
+    console.log(`chatroom-name ${chatroom.roomname}`)
     const roomUsers = chatroom.roomUserIds.map(roomUserId => {
-      const users = [{id: "1", username: "abc"}, {id: "2", username: "ljk"}]
+      console.log(`roomuser-id ${roomUserId}`)
+      // const users = [{id: "1", username: "abc"}, {id: "2", username: "ljk"}]
       const user = users.find(user => {
-        return user.id === roomUserId
+        return user.id === roomUserId ? user : null
       })
       const name = (user && user.username) || roomUserId
+        console.log(`user-name ${name}`)
       return { id: roomUserId, username: name }
     })
+    console.log(`user-name ${roomUsers[0].username}, id: ${roomUsers[0].id}`)
     //get current chatroom's messages
 
     // if (chatroom.chatroomMessages !== []) {

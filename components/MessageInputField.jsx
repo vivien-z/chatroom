@@ -9,7 +9,7 @@ import styles from '../styles/MessageInputField.module.css';
 const MessageInputField = ({ type, name, value, onChange, onSubmit }) => {
   const [message, setMessage] = useState('')
   if (!useChatrooms) {
-    return null
+    return
   } else {
     // const { sendMessage, selectedChatroom } = useChatrooms()
 
@@ -33,7 +33,7 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit }) => {
                 onChange={(e) => e.preventDefault() || onChange(e.target.value)}
                 required
               />
-              <Button className={styles.messageInputButton} type="submit">Send</Button>
+              <Button type="submit">Send</Button>
             </InputGroup>
           </Form.Group>
         </Form>

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { io } from "socket.io-client";
 
 import Chatrooms from "../components/Chatrooms";
-import Contacts from "../components/Contacts";
+import Users from "../components/Users";
 import NewChatroomModal from "../components/NewChatroomModal";
-import NewContactModal from "../components/NewContactModal";
+import NewUserModal from "../components/NewUserModal";
 // import MessageInputField from "../components/MessageInputField";
 import Tab from 'react-bootstrap/Tab';
 import Nav from 'react-bootstrap/Nav';
@@ -14,7 +14,7 @@ import Modal from 'react-bootstrap/Modal';
 import styles from '../styles/Home.module.css';
 
 const CHATROOMS_KEY = "chatrooms"
-const CONTACTS_KEY = "contacts"
+const USERS_KEY = "users"
 
 const WindowLeft = ({ username }) => {
   const [activeKey, setActiveKey] = useState(CHATROOMS_KEY)
@@ -36,7 +36,7 @@ const WindowLeft = ({ username }) => {
             <Nav.Link eventKey={CHATROOMS_KEY}>Chatrooms</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey={CONTACTS_KEY}>Contacts</Nav.Link>
+            <Nav.Link eventKey={USERS_KEY}>Users</Nav.Link>
           </Nav.Item>
         </Nav>
         <Tab.Content
@@ -45,12 +45,13 @@ const WindowLeft = ({ username }) => {
           <Tab.Pane eventKey={CHATROOMS_KEY}>
             <Chatrooms />
           </Tab.Pane>
-          <Tab.Pane eventKey={CONTACTS_KEY}>
-            <Contacts />
+          <Tab.Pane eventKey={USERS_KEY}>
+            <Users />
           </Tab.Pane>
         </Tab.Content>
         <div className='p-2 small border-top'>
           User: <span className='text-muted'>{username}</span>
+          {/*Room: <span className='text-muted'>{roomname}</span>*/}
         </div>
         <Button
           className='rounded-0'
@@ -63,7 +64,7 @@ const WindowLeft = ({ username }) => {
       <Modal show={modalOpen} onHide={closeModal}>
         {activeKey === "chatrooms" ?
           <NewChatroomModal closeModal={closeModal}/> :
-          <NewContactModal closeModal={closeModal}/>
+          <NewUserModal closeModal={closeModal}/>
         }
       </Modal>
 

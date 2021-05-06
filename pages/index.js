@@ -11,7 +11,7 @@ import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/Home.module.css';
 import useLocalStorage from '../hooks/useLocalStorage';
-import { ContactsProvider } from "../context/ContactsProvider";
+import { UsersProvider } from "../context/UsersProvider";
 import { ChatroomsProvider } from "../context/ChatroomsProvider";
 
 export default function Home() {
@@ -22,8 +22,10 @@ export default function Home() {
   const [username, setUsername] = useLocalStorage('username');
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
+
+  // const [roomname, setRoomname] = useLocalStorage('roomname');
   const [chatroom, setChatroom] = useState("");
-  const [rooms, setRooms] = useState([]);
+  const [chatrooms, setChatrooms] = useState([]);
 
   const connectSocket = () => {
     fetch("/api/chat");
@@ -41,7 +43,7 @@ export default function Home() {
 
       newSocket.on("chatroom", (chatrm) => {
         console.log(chatrm);
-        setRooms((rooms) => [...rooms, chatrm]);
+        setChatrooms((chatrooms) => [...chatrooms, chatrm]);
       });
 
       newSocket.on("disconnect", () => {
@@ -60,7 +62,7 @@ export default function Home() {
     e.preventDefault();
 
     // const formName = e.target.querySelector('input').getAttribute('name')1
-    // console.log(rooms);
+    // console.log(Chatrooms);
     // console.log(chatroom);
     if (!socket) {
       alert("Chatroom not connected yet. Try again in a little bit.");
@@ -83,9 +85,11 @@ export default function Home() {
   };
 
   const chatWindow = (
-    <ContactsProvider>
-      <ChatWindow username={username}/>
-    </ContactsProvider>
+    <ChatroomsProvider>
+      <UsersProvider>
+        <ChatWindow username={username}/>
+      </UsersProvider>
+    </ChatroomsProvider>
   )
 
   if (!isUsernameConfirmed) {
@@ -115,7 +119,7 @@ export default function Home() {
           <div className={styles.windowChatLeft}>
             <ChatroomsProvider>
               {chatWindow}
-              <h3>Chatroom List</h3>
+       {/*       <h3>Chatroom List</h3>
               <ChatroomInputField
                 onSubmit={(e) => handleSubmit(e)}
                 type="text"
@@ -123,10 +127,10 @@ export default function Home() {
                 value={chatroom}
                 onChange={(value) => setChatroom(value)}
                 disabled={!isUsernameConfirmed}
-              />
-              <Chatrooms
-                value={rooms}
-              />
+              />*/}
+            {/*  <Chatrooms
+                value={chatrooms}
+              />*/}
             </ChatroomsProvider>
           </div>
 

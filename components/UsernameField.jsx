@@ -41,3 +41,4 @@ const UsernameField = ({ value, avatarSrc, onChange, onSubmit, completed }) => {
 };
 
 export default UsernameField;
+

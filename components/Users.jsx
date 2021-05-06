@@ -1,17 +1,17 @@
-import { useContacts } from "../context/ContactsProvider";
+import { useUsers } from "../context/UsersProvider";
 import ListGroup from 'react-bootstrap/ListGroup';
 
 // import styles from '../styles/RoomList.module.css';
 
-const Contacts = ({ value }) => {
-  const { contacts } = useContacts()
+const Users = ({ value }) => {
+  const { users } = useUsers()
 
   return (
     <ListGroup variant="flush">
 
-        {contacts.map((contact, i) => (
+        {users.map((user, i) => (
           <ListGroup.Item key={i}>
-            <b>{contact.username}</b>
+            {user.username}
           </ListGroup.Item>
         ))}
 
@@ -19,4 +19,4 @@ const Contacts = ({ value }) => {
   )
 };
 
-export default Contacts;
+export default Users;

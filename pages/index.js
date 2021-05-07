@@ -1,18 +1,20 @@
 import Head from 'next/head';
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+
 import Navbar from "../components/Navbar";
-import UsernameField from "../components/UsernameField";
 import UsernameForm from "../components/UsernameForm";
 import ChatWindow from "../components/ChatWindow";
-import ChatroomInputField from "../components/ChatroomInputField";
-import Chatrooms from "../components/Chatrooms";
-import MessageHistory from "../components/MessageHistory";
-import MessageInputField from "../components/MessageInputField";
-import styles from '../styles/Home.module.css';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { UsersProvider } from "../context/UsersProvider";
 import { ChatroomsProvider } from "../context/ChatroomsProvider";
+import styles from '../styles/Home.module.css';
+
+// import MessageInfo from "../components/MessageInfo";
+// import Chatrooms from "../components/Chatrooms";
+// import ChatroomInputField from "../components/ChatroomInputField";
+// import MessageHistory from "../components/MessageHistory";
+// import MessageInputField from "../components/MessageInputField";
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
@@ -85,11 +87,11 @@ export default function Home() {
   };
 
   const chatWindow = (
-    <ChatroomsProvider>
-      <UsersProvider>
+    <UsersProvider>
+      <ChatroomsProvider username={username}>
         <ChatWindow username={username}/>
-      </UsersProvider>
-    </ChatroomsProvider>
+      </ChatroomsProvider>
+    </UsersProvider>
   )
 
   if (!isUsernameConfirmed) {
@@ -116,9 +118,9 @@ export default function Home() {
         />
 
         <div className={styles.window}>
-          <div className={styles.windowChatLeft}>
-            <ChatroomsProvider>
-              {chatWindow}
+          <div className='w-100'>
+            {chatWindow}
+          </div>
        {/*       <h3>Chatroom List</h3>
               <ChatroomInputField
                 onSubmit={(e) => handleSubmit(e)}
@@ -131,24 +133,23 @@ export default function Home() {
             {/*  <Chatrooms
                 value={chatrooms}
               />*/}
-            </ChatroomsProvider>
-          </div>
 
-          <div className={styles.windowChatRight}>
-            <UsernameField
+
+          <div>
+{/*            <MessageInfo
               completed={isUsernameConfirmed}
               value={username}
               avatarSrc="/favicon.ico"
               onChange={(value) => setUsername(value)}
               onSubmit={() => setUsernameConfirmed(true)}
               placeholder={"Set username..."}
-            />
+            />*/}
 
-            <MessageHistory
+{/*            <MessageHistory
               value={history}
-            />
+            />*/}
 
-            <MessageInputField
+{/*            <MessageInputField
               onSubmit={(e) => handleSubmit(e)}
               type="text"
               name="message"
@@ -159,8 +160,9 @@ export default function Home() {
                 // username ? "Enter your message..." : "Set username..."
               }
               disabled={!isUsernameConfirmed}
-            />
+            />*/}
           </div>
+
         </div>
       </div>
     </div>

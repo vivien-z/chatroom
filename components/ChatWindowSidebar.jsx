@@ -28,7 +28,7 @@ const ChatWindowSidebar = ({ username }) => {
   return (
     <div style={{ width: '250px'}} className='d-flex flex-column'>
 
-      <div className='p-2 small border-top'>
+      <div className='p-2 small'>
         User: <span className='text-muted'>{username}</span>
         {/*Room: <span className='text-muted'>{roomname}</span>*/}
       </div>

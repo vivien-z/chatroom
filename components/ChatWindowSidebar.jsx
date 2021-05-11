@@ -11,7 +11,6 @@ import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import styles from '../styles/Home.module.css';
 
 const CHATROOMS_KEY = "chatrooms"
 const USERS_KEY = "users"

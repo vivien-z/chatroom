@@ -1,11 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useUsers } from "./UsersProvider";
+import { useSocket } from "./SocketProvider";
 import { io } from "socket.io-client";
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const ChatroomsContext = React.createContext()
-let counter = 1
-let chatnumber = 1
 
 export function useChatrooms() {
   return useContext(ChatroomsContext)
@@ -15,8 +14,8 @@ export function ChatroomsProvider({ username, children }) {
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
   const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
   const { users } = useUsers()
+  const socket = useSocket()
   // const [chatroomMessages, setChatroomMessages] = useState([])
-
 
   function createChatroom(roomname, roomUserIds) {
     setChatrooms(prevChatrooms => {
@@ -27,13 +26,7 @@ export function ChatroomsProvider({ username, children }) {
     })
   }
 
-  function addMessageToChatroom({ selectedChatroom, messageContent, senderUsername }) {
-    // chatnumber += 1
-    // console.log(messageContent)
-    // chatrooms.map(c=> {
-    //   console.log(`chat${chatnumber}before: ${c.roomname}`)
-    //   console.log(`chat${chatnumber}before: ${c.messageContent}`)
-    // })
+  const addMessageToChatroom = useCallback(({ selectedChatroom, messageContent, senderUsername }) => {
 
     setChatrooms(prevChatrooms => {
       const newMessage = { senderUsername, messageContent }
@@ -50,49 +43,51 @@ export function ChatroomsProvider({ username, children }) {
       })
     })
 
-    // chatrooms.map(c=> {
-    //   console.log(`chat${chatnumber}after: ${c.roomname}`)
-    //   console.log(`chat${chatnumber}after: ${c.messageContent}`)
-    // })
-    // setChatroomMessages('')
+  }, [setChatrooms])
 
-  }
+  useEffect(() => {
+    if (!socket) {
+     socket.io('recieve-message',addMessageToChatroom)
+    }
+   return () => socket.off('recieve-message', [socket, addMessageToChatroom])
+  })
+
 
   function sendMessage(selectedChatroom, messageContent) {
-    // if (!(selectedChatroom || messageContent)) {
-    //   return null
-    // } else {
-    // }
-    console.log(`${chatnumber}: ${selectedChatroom.roomname}, ${messageContent}`)
-    addMessageToChatroom({
-      selectedChatroom,
-      messageContent,
-      senderUsername:username
-    })
+    if (!socket) {
+      alert("Chatroom not connected yet. Try again in a little bit.");
+      return;
+    }
+
+    socket.emit(
+      'send-message',
+      {selectedChatroom, messageContent, senderUsername:username}
+    )
+
+
+
+    // addMessageToChatroom({
+    //   selectedChatroom,
+    //   messageContent,
+    //   senderUsername:username
+    // })
   }
 
-  console.log(`${counter}: ${chatrooms}`)
+
   const formattedChatrooms = chatrooms.map((chatroom, i) => {
-    console.log(`${counter}: ${chatroom.chatroomMessages}`)
-    counter += 1
-    // chatroom.chatroomMessages = chatroomMessages
 
     //get current chatroom's users
     const roomUsers = chatroom.roomUserIds.map(roomUserId => {
-      // console.log(`roomuser-id ${roomUserId}`)
-      // const users = [{id: "1", username: "abc"}, {id: "2", username: "ljk"}]
       const user = users.find(user => {
         return user.id === roomUserId ? user : null
       })
       const name = (user && user.username) || roomUserId
-        // console.log(`user-name ${name}`)
       return { id: roomUserId, username: name }
     })
 
 
     //get current chatroom's messages
     const formattedMessages = chatroom.chatroomMessages.map(m => {
-      // console.log(`chatroom-name ${chatroom.roomname}`)
       const sender = users.find(user => {
         return user.username === m.senderUsername
       })

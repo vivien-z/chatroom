@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import styles from '../styles/UsernameField.module.css';
+
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -25,7 +25,6 @@ const UsernameForm = ({ value, onChange, onSubmit }) => {
   return (
     <Container>
       <Form
-        className={styles.formField}
         onSubmit={ handleSubmit }
         id="new-username"
       >
@@ -34,7 +33,6 @@ const UsernameForm = ({ value, onChange, onSubmit }) => {
             Set an username:
           </Form.Label>
           <Form.Control
-            className={styles.formInput}
             type="text"
             name="username"
             value={value}

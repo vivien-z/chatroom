@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 
 import Navbar from "../components/Navbar";
 import UsernameForm from "../components/UsernameForm";
@@ -8,7 +8,7 @@ import ChatWindow from "../components/ChatWindow";
 import useLocalStorage from '../hooks/useLocalStorage';
 import { UsersProvider } from "../context/UsersProvider";
 import { ChatroomsProvider } from "../context/ChatroomsProvider";
-import styles from '../styles/Home.module.css';
+import { SocketProvider } from "../context/SocketProvider";
 
 // import MessageInfo from "../components/MessageInfo";
 // import Chatrooms from "../components/Chatrooms";
@@ -64,8 +64,7 @@ export default function Home() {
     e.preventDefault();
 
     // const formName = e.target.querySelector('input').getAttribute('name')1
-    // console.log(Chatrooms);
-    // console.log(chatroom);
+
     if (!socket) {
       alert("Chatroom not connected yet. Try again in a little bit.");
       return;
@@ -87,17 +86,19 @@ export default function Home() {
   };
 
   const chatWindow = (
-    <UsersProvider>
-      <ChatroomsProvider username={username}>
-        <ChatWindow username={username}/>
-      </ChatroomsProvider>
-    </UsersProvider>
+    <SocketProvider username={username}>
+      <UsersProvider>
+        <ChatroomsProvider username={username}>
+          <ChatWindow username={username}/>
+        </ChatroomsProvider>
+      </UsersProvider>
+    </SocketProvider>
   )
 
   if (!isUsernameConfirmed) {
     return (
       <UsernameForm
-        className={ styles.windowSetup }
+
         value={username}
         onChange={(value) => setUsername(value)}
         onSubmit={() => setUsernameConfirmed(true)}
@@ -117,7 +118,7 @@ export default function Home() {
           disabled={!isUsernameConfirmed}
         />
 
-        <div className={styles.window}>
+        <div>
           <div className='w-100'>
             {chatWindow}
           </div>
@@ -168,3 +169,61 @@ export default function Home() {
     </div>
   )};
 };
+
+
+  // const connectSocket = () => {
+  //   fetch("/api/chat");
+
+  //   if (!socket) {
+  //     const newSocket = io();
+
+  //     newSocket.on("connect", () => {
+  //       console.log("Chat app connected");
+  //     });
+
+  //     newSocket.on("message", (msg) => {
+  //       setHistory((history) => [...history, msg]);
+  //     });
+
+  //     newSocket.on("chatroom", (chatrm) => {
+  //       console.log(chatrm);
+  //       setChatrooms((chatrooms) => [...chatrooms, chatrm]);
+  //     });
+
+  //     newSocket.on("disconnect", () => {
+  //       console.warn("WARNING: chat app disconnected");
+  //     });
+
+  //     setSocket(() => newSocket);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   connectSocket();
+  // }, []);
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   // const formName = e.target.querySelector('input').getAttribute('name')1
+  //   // console.log(Chatrooms);
+  //   // console.log(chatroom);
+  //   if (!socket) {
+  //     alert("Chatroom not connected yet. Try again in a little bit.");
+  //     return;
+  //   }
+  //   // if (formName === "message") {
+  //     // prevent empty submissions
+  //     if (!message || !isUsernameConfirmed) {
+  //       return;
+  //     }
+  //     // submit and blank-out the field.
+  //     socket.emit("message-submitted", { message, username });
+  //     setMessage("");
+  //   // }
+  //   // if (formName === "chatroom" ) {
+  //   //   // console.log(chatroom)
+  //   //   socket.emit("chatroom-created", chatroom);
+  //   //   setChatroom("");
+  //   // }
+  // };

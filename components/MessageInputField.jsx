@@ -4,7 +4,6 @@ import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
-import styles from '../styles/MessageInputField.module.css';
 
 const MessageInputField = ({ type, name, value, onChange, onSubmit }) => {
   const [messageContent, setMessageContent] = useState('')
@@ -22,7 +21,7 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit }) => {
     }
 
     return (
-      <div className={styles.messageInput}>
+      <div>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
             <InputGroup className="w-100">

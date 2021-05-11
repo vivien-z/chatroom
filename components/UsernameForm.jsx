@@ -43,7 +43,7 @@ const UsernameForm = ({ value, onChange, onSubmit }) => {
           />
         </Form.Group>
         <Button onClick={setRandomUsername} variant="secondary">Random usernames</Button>
-        <Button className={styles.formButton} type="submit">Confirm</Button>
+        <Button type="submit">Confirm</Button>
       </Form>
     </Container>
   );

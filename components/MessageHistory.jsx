@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
-import styles from '../styles/MessageHistory.module.css';
 
 // const MessageHistory = ({ value, selectedChatroom }) => {
 const MessageHistory = () => {
@@ -21,18 +20,15 @@ const MessageHistory = () => {
           <div
             ref={lastMessage ? setRef : null}
             key={i}
-            className={`my-1 d-flex flex-column
-            ${m.fromMe ? 'align-self-end' : ''}`}
+            className={`my-1 d-flex flex-column ${m.fromMe ? 'align-self-end' : ''}`}
           >
             <div
-              className={`rounded px-2 py-1
-              ${m.fromMe ? 'bg-primary text-white' : 'border'}`}
+              className={`rounded px-2 py-1 ${m.fromMe ? 'bg-primary text-white' : 'border'}`}
             >
               {m.messageContent}
             </div>
             <div
-              className={`text-muted small
-              ${m.fromMe ? 'text-right' : ''}`}
+              className={`text-muted small ${m.fromMe ? 'text-right' : ''}`}
             >
               <b>{m.fromMe ? 'You' : m.senderName}</b>:
             </div>

@@ -1,7 +1,7 @@
 import { useChatrooms } from "../context/ChatroomsProvider";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
-import styles from '../styles/Chatrooms.module.css';
+
 
 const Chatrooms = ({ value }) => {
   const { chatrooms, selectChatroomIndex } = useChatrooms()

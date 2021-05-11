@@ -83,14 +83,14 @@ const ChatWindowMessageSide = ({ username, selectedChatroom }) => {
   };
 
   if (!selectedChatroom) {
-    return
+    return null
   } else {
     return (
       <div className="d-flex flex-column flex-grow-1">
         <MessageInfo
           username={username}
         />
-       <MessageHistory
+        <MessageHistory
           className="flex-grow-1 overflow-auto"
         />
         <MessageInputField

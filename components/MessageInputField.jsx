@@ -7,17 +7,18 @@ import Button from 'react-bootstrap/Button';
 import styles from '../styles/MessageInputField.module.css';
 
 const MessageInputField = ({ type, name, value, onChange, onSubmit }) => {
-  const [message, setMessage] = useState('')
-  if (!useChatrooms) {
-    return
-  } else {
-    // const { sendMessage, selectedChatroom } = useChatrooms()
+  const [messageContent, setMessageContent] = useState('')
 
-    function  handleSubmit(e) {
+  if (!useChatrooms) {
+    return null
+  } else {
+    const { sendMessage, selectedChatroom } = useChatrooms()
+
+    function handleSubmit(e) {
       e.preventDefault()
       // const roomUsernames = selectedChatroom.roomUsers.map(roomUser => roomUser.username)
-      // sendMessage(selectedChatroom, message)
-      setMessage('')
+      sendMessage(selectedChatroom, messageContent)
+      setMessageContent('')
     }
 
     return (
@@ -28,9 +29,9 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit }) => {
               <Form.Control
                 style={{ height: '75px', resize: 'none' }}
                 as="textarea"
-                name={name}
+                // name={name}
                 value={value}
-                onChange={(e) => e.preventDefault() || onChange(e.target.value)}
+                onChange={(e) => setMessageContent(e.target.value)}
                 required
               />
               <Button type="submit">Send</Button>

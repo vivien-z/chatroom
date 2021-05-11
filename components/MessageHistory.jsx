@@ -1,19 +1,46 @@
+import { useCallback } from "react";
 import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
 import styles from '../styles/MessageHistory.module.css';
 
 // const MessageHistory = ({ value, selectedChatroom }) => {
 const MessageHistory = () => {
 
+  const setRef = useCallback(node => {
+    if (node) {
+      node.scrollIntoView({ smooth: true })
+    }
+  },[])
   const { selectedChatroom } = useChatrooms()
 
   return (
-    <div className={styles.messageHistory}>
-{/*      {selectedChatroom.map(({ username, message }, i) => (
-        <div key={i}>
-          <b>{username}</b>: {message}
-        </div>
-      ))}*/}
-      chat history
+    <div className="h-100 d-flex flex-column align-items-start
+    justify-content-end px-3 border">
+      {selectedChatroom.formattedMessages.map((m, i) => {
+        const lastMessage = (selectedChatroom.formattedMessages.length - 1) === i
+        return (
+          <div
+            ref={lastMessage ? setRef : null}
+            key={i}
+            className={`my-1 d-flex flex-column
+            ${m.fromMe ? 'align-self-end' : ''}`}
+          >
+            <div
+              className={`rounded px-2 py-1
+              ${m.fromMe ? 'bg-primary text-white' : 'border'}`}
+            >
+              {m.messageContent}
+            </div>
+            <div
+              className={`text-muted small
+              ${m.fromMe ? 'text-right' : ''}`}
+            >
+              <b>{m.fromMe ? 'You' : m.senderName}</b>:
+            </div>
+          </div>
+        )
+      })}
+
+      chathistroy
     </div>
   );
 };

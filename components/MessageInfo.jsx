@@ -9,6 +9,7 @@ const UsernameField = ({ username }) => {
     return (
       <div className={styles.userInfo}>
         <h6><b>{username}</b></h6>
+        {console.log('userinfo')}
       </div>
     );
   // } else {

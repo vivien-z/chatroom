@@ -16,10 +16,19 @@ export function ChatroomsProvider({ username, children }) {
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
   const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
   const { users } = useUsers()
-  const socket = useSocket()
+  const { socket } = useSocket()
   // const [chatroomMessages, setChatroomMessages] = useState([])
 
+  // socket.on("connect", () => {
+  //   console.log("Chatroom provider socket");
+  // });
+
+  console.log('chatroom provider')
   function createChatroom(roomname, roomUserIds) {
+    // socket.emit(
+    //   "create-chatroom",
+    //   {roomname, roomUserIds}
+    // )
     setChatrooms(prevChatrooms => {
       return [
         ...prevChatrooms,
@@ -48,9 +57,15 @@ export function ChatroomsProvider({ username, children }) {
   }, [setChatrooms])
 
   useEffect(() => {
-    if (!socket) {
-     socket.on("message-new", addMessageToChatroom)
-     // return () => socket.off("message-new")
+    if (socket) {
+      socket.on(
+        "new-message-created",
+        addMessageToChatroom
+        // ({selectedChatroom, messageContent, senderUsername}) => {
+        //   addMessageToChatroom({selectedChatroom, messageContent, senderUsername})
+        // }
+      )
+     return () => socket.off("new-message-created")
     }
   }, [socket, addMessageToChatroom])
 
@@ -90,11 +105,12 @@ export function ChatroomsProvider({ username, children }) {
       const fromMe = username === m.sender
       return { ...m, senderName: name, fromMe }
     })
+
     // }
     const selected = i === selectedChatroomIndex
 
 
-    // return { ...chatroom, formattedMessages, selected }
+    // return { ...chatroom, roomUsers, selected }
     return { ...chatroom, roomUsers, formattedMessages, selected }
   })
 
@@ -110,6 +126,7 @@ export function ChatroomsProvider({ username, children }) {
   return (
     <ChatroomsContext.Provider value={value}>
       { children }
+      {console.log(formattedChatrooms[selectedChatroomIndex])}
     </ChatroomsContext.Provider>
   )
 }

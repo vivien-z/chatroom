@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 const Chatrooms = ({ value }) => {
   const { chatrooms, selectChatroomIndex } = useChatrooms()
+  console.log('chatrooms')
   console.log(chatrooms)
 
   return (

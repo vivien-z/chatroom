@@ -5,6 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 const Users = ({ value }) => {
   const { users } = useUsers()
+  console.log('users list')
 
   return (
     <ListGroup variant="flush">

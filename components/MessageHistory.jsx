@@ -11,6 +11,8 @@ const MessageHistory = () => {
   },[])
   const { selectedChatroom } = useChatrooms()
 
+  console.log(selectedChatroom)
+  console.log(selectedChatroom.formattedMessages)
   return (
     <div className="h-100 d-flex flex-column align-items-start
     justify-content-end px-3 border">

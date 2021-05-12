@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 
 import { useUsers } from "./UsersProvider";
-// import { useSocket } from "./SocketProvider";
+import { useSocket } from "./SocketProvider";
 import { io } from "socket.io-client";
 
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -16,8 +16,12 @@ export function ChatroomsProvider({ username, children }) {
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
   const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
   const { users } = useUsers()
-  // const { socket } = useSocket()
+  const { socket } = useSocket()
   // const [chatroomMessages, setChatroomMessages] = useState([])
+
+  // socket.on("connect", () => {
+  //   console.log("Chatroom provider socket");
+  // });
 
   console.log('chatroom provider')
   function createChatroom(roomname, roomUserIds) {
@@ -52,25 +56,25 @@ export function ChatroomsProvider({ username, children }) {
     })
   }, [setChatrooms])
 
-  // useEffect(() => {
-  //   if (!socket) {
-  //     socket.on(
-  //       "new-message-created",
-  //       addMessageToChatroom
-  //       // ({selectedChatroom, messageContent, senderUsername}) => {
-  //       //   addMessageToChatroom({selectedChatroom, messageContent, senderUsername})
-  //       // }
-  //     )
-  //    return () => socket.off("new-message-created")
-  //   }
-  // }, [socket, addMessageToChatroom])
+  useEffect(() => {
+    if (socket) {
+      socket.on(
+        "new-message-created",
+        addMessageToChatroom
+        // ({selectedChatroom, messageContent, senderUsername}) => {
+        //   addMessageToChatroom({selectedChatroom, messageContent, senderUsername})
+        // }
+      )
+     return () => socket.off("new-message-created")
+    }
+  }, [socket, addMessageToChatroom])
 
 
   function sendMessage(selectedChatroom, messageContent) {
-    // socket.emit(
-    //   "message-submitted",
-    //   {selectedChatroom, messageContent, senderUsername:username}
-    // )
+    socket.emit(
+      "message-submitted",
+      {selectedChatroom, messageContent, senderUsername:username}
+    )
 
     addMessageToChatroom({
       selectedChatroom,

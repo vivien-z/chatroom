@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { io } from "socket.io-client";
-// import useLocalStorage from '../hooks/useLocalStorage';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const SocketContext = React.createContext()
 
@@ -8,7 +8,7 @@ export function useSocket() {
   return useContext(SocketContext)
 }
 
-export function SocketProvider( username, children ) {
+export function SocketProvider( {username, children} ) {
   const [socket, setSocket] = useState(null)
   // const [users, setUsers] = useLocalStorage('users', [])
   // const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
@@ -79,16 +79,17 @@ export function SocketProvider( username, children ) {
 
   useEffect(() => {
     connectSocket();
-  }, [username]);
+  }, []);
 
   const value = {
     socket,
-    username
+    // chatrooms
   }
 
   return (
     <SocketContext.Provider value={value}>
-
+      { children }
+      {console.log('socket provider ck')}
     </SocketContext.Provider>
   )
 }

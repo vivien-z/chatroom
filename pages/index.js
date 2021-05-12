@@ -32,11 +32,8 @@ export default function Home() {
 
   const chatWindow = (
     <div className="my-5 py-5">
-      top1 level
       <SocketProvider username={username}>
-        socket1 level
         <UsersProvider className="my-5 py-5">
-          user1 level
           <ChatroomsProvider username={username}>
             <ChatWindow username={username}/>
           </ChatroomsProvider>
@@ -71,12 +68,13 @@ export default function Home() {
           <div className='w-100'>
             {chatWindow}
 
-            <UsersProvider className="my-5 py-5">
-              user2 level
-              <ChatroomsProvider username={username}>
-                <ChatWindow username={username}/>
-              </ChatroomsProvider>
-            </UsersProvider>
+          {/*    <UsersProvider className="my-5 py-5">
+                user2 level
+                <ChatroomsProvider username={username}>
+                  <ChatWindow username={username}/>
+                </ChatroomsProvider>
+              </UsersProvider>*/}
+
           </div>
      {/*         <h3>Chatroom List</h3>
               <ChatroomInputField

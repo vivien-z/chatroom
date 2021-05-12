@@ -79,10 +79,11 @@ export function SocketProvider( username, children ) {
 
   useEffect(() => {
     connectSocket();
-  }, []);
+  }, [username]);
 
   const value = {
-    socket
+    socket,
+    username
   }
 
   return (

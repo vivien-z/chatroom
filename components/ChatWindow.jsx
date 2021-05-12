@@ -12,20 +12,19 @@ import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
 // import MessageInputField from "../components/MessageInputField";
 // import useLocalStorage from '../hooks/useLocalStorage';
 
-
-
 const ChatWindow = ({ username }) => {
   const { selectedChatroom } = useChatrooms()
 
+  console.log(selectedChatroom)
   return (
     <div className='d-flex border' style={{ height: '68vh'}}>
-    {/*<div className='d-flex border' style={{ height: '50vh'}}>*/}
       <ChatWindowSidebar username={username} />
       <ChatWindowMessageSide username={username} selectedChatroom={selectedChatroom}/>
-
     </div>
   )
 }
+
+
 // const ChatWindow = ({ username, type, name, value, avatarSrc, onChange, onSubmit, placeholder, disabled }) => {
 //   const [socket, setSocket] = useState(null);
 //   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);

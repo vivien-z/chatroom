@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-// import { io } from "socket.io-client";
 
 import ChatWindowSidebar from "../components/ChatWindowSidebar";
 import ChatWindowMessageSide from "../components/ChatWindowMessageSide";
-import { useChatrooms } from "../context/ChatroomsProvider";
+import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
 
 // import Chatrooms from "../components/Chatrooms";
 // import ChatroomInputField from "../components/ChatroomInputField";
@@ -23,6 +22,7 @@ const ChatWindow = ({ username }) => {
     {/*<div className='d-flex border' style={{ height: '50vh'}}>*/}
       <ChatWindowSidebar username={username} />
       <ChatWindowMessageSide username={username} selectedChatroom={selectedChatroom}/>
+
     </div>
   )
 }

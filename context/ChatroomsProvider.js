@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
-import { useUsers } from "./UsersProvider";
 
+import { useUsers } from "./UsersProvider";
 import { useSocket } from "./SocketProvider";
 import { io } from "socket.io-client";
+
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const ChatroomsContext = React.createContext()

@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useUsers } from "./UsersProvider";
+
 import { useSocket } from "./SocketProvider";
 import { io } from "socket.io-client";
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -41,16 +42,16 @@ export function ChatroomsProvider({ username, children }) {
           return chatroom
         }
       })
+      return updatedChatrooms
     })
-
   }, [setChatrooms])
 
   useEffect(() => {
     if (!socket) {
-     socket.io('recieve-message',addMessageToChatroom)
+     socket.on("message-new", addMessageToChatroom)
+     return () => socket.off("message-new")
     }
-   return () => socket.off('recieve-message', [socket, addMessageToChatroom])
-  })
+  }, [socket, addMessageToChatroom])
 
 
   function sendMessage(selectedChatroom, messageContent) {
@@ -60,11 +61,9 @@ export function ChatroomsProvider({ username, children }) {
     }
 
     socket.emit(
-      'send-message',
+      "message-submitted",
       {selectedChatroom, messageContent, senderUsername:username}
     )
-
-
 
     // addMessageToChatroom({
     //   selectedChatroom,

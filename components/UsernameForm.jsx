@@ -23,8 +23,9 @@ const UsernameForm = ({ value, onChange, onSubmit }) => {
   }
 
   return (
-    <Container>
+    <Container className="d-flex justify-content-center m-5">
       <Form
+        className="w-50 p-3 py-5 border"
         onSubmit={ handleSubmit }
         id="new-username"
       >

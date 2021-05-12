@@ -33,24 +33,24 @@ export function ChatroomsProvider({ username, children }) {
     })
   }
 
-  // const addMessageToChatroom = useCallback(({ selectedChatroom, messageContent, senderUsername }) => {
+  const addMessageToChatroom = useCallback(({ selectedChatroom, messageContent, senderUsername }) => {
 
-  //   setChatrooms(prevChatrooms => {
-  //     const newMessage = { senderUsername, messageContent }
+    setChatrooms(prevChatrooms => {
+      const newMessage = { senderUsername, messageContent }
 
-  //     const updatedChatrooms = prevChatrooms.map(chatroom => {
-  //       if (chatroom.roomname === selectedChatroom.roomname) {
-  //         return {
-  //           ...chatroom,
-  //           chatroomMessages: [...chatroom.chatroomMessages, newMessage]
-  //         }
-  //       } else {
-  //         return chatroom
-  //       }
-  //     })
-  //     return updatedChatrooms
-  //   })
-  // }, [setChatrooms])
+      const updatedChatrooms = prevChatrooms.map(chatroom => {
+        if (chatroom.roomname === selectedChatroom.roomname) {
+          return {
+            ...chatroom,
+            chatroomMessages: [...chatroom.chatroomMessages, newMessage]
+          }
+        } else {
+          return chatroom
+        }
+      })
+      return updatedChatrooms
+    })
+  }, [setChatrooms])
 
   // useEffect(() => {
   //   if (!socket) {
@@ -66,18 +66,18 @@ export function ChatroomsProvider({ username, children }) {
   // }, [socket, addMessageToChatroom])
 
 
-  // function sendMessage(selectedChatroom, messageContent) {
-  //   socket.emit(
-  //     "message-submitted",
-  //     {selectedChatroom, messageContent, senderUsername:username}
-  //   )
+  function sendMessage(selectedChatroom, messageContent) {
+    // socket.emit(
+    //   "message-submitted",
+    //   {selectedChatroom, messageContent, senderUsername:username}
+    // )
 
-  //   addMessageToChatroom({
-  //     selectedChatroom,
-  //     messageContent,
-  //     senderUsername:username
-  //   })
-  // }
+    addMessageToChatroom({
+      selectedChatroom,
+      messageContent,
+      senderUsername:username
+    })
+  }
 
 
   const formattedChatrooms = chatrooms.map((chatroom, i) => {
@@ -114,7 +114,7 @@ export function ChatroomsProvider({ username, children }) {
     chatrooms: formattedChatrooms,
     selectedChatroom: formattedChatrooms[selectedChatroomIndex],
     selectChatroomIndex: setSelectedChatroomIndex,
-    // sendMessage,
+    sendMessage,
     createChatroom
   }
 

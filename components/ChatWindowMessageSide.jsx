@@ -14,7 +14,6 @@ const ChatWindowMessageSide = ({ username, selectedChatroom }) => {
   } else {
     return (
       <div className="d-flex flex-column flex-grow-1">
-        message side
         <MessageInfo
           username={username}
         />

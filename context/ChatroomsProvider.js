@@ -16,10 +16,14 @@ export function ChatroomsProvider({ username, children }) {
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
   const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
   const { users } = useUsers()
-  const socket = useSocket()
+  const { socket } = useSocket()
   // const [chatroomMessages, setChatroomMessages] = useState([])
 
   function createChatroom(roomname, roomUserIds) {
+    // socket.emit(
+    //   "create-chatroom",
+    //   {roomname, roomUserIds}
+    // )
     setChatrooms(prevChatrooms => {
       return [
         ...prevChatrooms,
@@ -49,7 +53,7 @@ export function ChatroomsProvider({ username, children }) {
 
   useEffect(() => {
     if (!socket) {
-     socket.on("message-new", addMessageToChatroom)
+     socket.on("new-message-created", addMessageToChatroom)
      // return () => socket.off("message-new")
     }
   }, [socket, addMessageToChatroom])
@@ -61,11 +65,11 @@ export function ChatroomsProvider({ username, children }) {
       {selectedChatroom, messageContent, senderUsername:username}
     )
 
-    addMessageToChatroom({
-      selectedChatroom,
-      messageContent,
-      senderUsername:username
-    })
+    // addMessageToChatroom({
+    //   selectedChatroom,
+    //   messageContent,
+    //   senderUsername:username
+    // })
   }
 
 

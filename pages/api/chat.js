@@ -18,13 +18,13 @@ const ioHandler = (req, res) => {
     io.on("connection", (socket) => {
 
       socket.on("message-submitted", ({ selectedChatroom, messageContent, senderUsername }) => {
-        socket.emit("message-new", {selectedChatroom, messageContent, senderUsername})
-        socket.broadcast.emit("message-new", {selectedChatroom, messageContent, senderUsername})
+        socket.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
+        socket.broadcast.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
       })
 
-      // socket.on("chatroom-created", (chatrm) => {
-      //   socket.emit("chatroom", chatrm);
-      //   socket.broadcast.emit("chatroom", chatrm);
+      // socket.on("create-chatroom", ({roomname, roomUserIds}) => {
+      //   socket.emit("new-chatroom-created", {roomname, roomUserIds});
+      //   socket.broadcast.emit("new-chatroom-created", {roomname, roomUserIds});
       // });
 
       // socket.on("user-created", (user) => {

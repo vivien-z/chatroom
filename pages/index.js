@@ -29,16 +29,16 @@ export default function Home() {
   // const [chatroom, setChatroom] = useState("");
   // const [chatrooms, setChatrooms] = useState([]);
 
-
-
   const chatWindow = (
-    <SocketProvider username={username}>
-      <UsersProvider>
-        <ChatroomsProvider username={username}>
-          <ChatWindow username={username}/>
-        </ChatroomsProvider>
-      </UsersProvider>
-    </SocketProvider>
+    <div>
+      <SocketProvider username={username}>
+        <UsersProvider>
+          <ChatroomsProvider username={username}>
+            <ChatWindow username={username}/>
+          </ChatroomsProvider>
+        </UsersProvider>
+      </SocketProvider>
+    </div>
   )
 
   if (!isUsernameConfirmed) {

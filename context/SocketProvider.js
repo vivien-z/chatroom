@@ -10,21 +10,56 @@ export function useSocket() {
 
 
 export function SocketProvider( username, children ) {
-  if (!res.socket.server.io) {
-    console.log("First use, starting socket.io");
-    const io = new Server(res.socket.server);
-    io.on("connection", (socket) => {
-      const username = socket.handshake.query.username
-      socket.join(username)
-      socket.on("message-submitted", ({ selectedChatroom, messageContent, senderUsername }) => {
-        socket.emit("message-new", {selectedChatroom, messageContent, senderUsername})
-        socket.broadcast.emit("message-new", {selectedChatroom, messageContent, senderUsername})
-      })
-    });
-    res.socket.server.io = io;
-  } else {
-    console.log("Server already started");
-  }
+  const [socket, setSocket] = useState(null)
+
+  const connectSocket = () => {
+    fetch("/api/chat");
+
+    if (!socket) {
+      const newSocket = io();
+
+      newSocket.on("connect", () => {
+        console.log("Chat app connected");
+      });
+
+      // newSocket.on("message-new", (msg) => {
+      //   setHistory((history) => [...history, msg]);
+      // });
+
+      // newSocket.on("chatroom", (chatrm) => {
+      //   console.log(chatrm);
+      //   setChatrooms((chatrooms) => [...chatrooms, chatrm]);
+      // });
+
+      newSocket.on("disconnect", () => {
+        console.warn("WARNING: chat app disconnected");
+      });
+
+      setSocket(() => newSocket);
+    }
+    // return () => newSocket.close()
+  };
+
+  useEffect(() => {
+    connectSocket();
+  }, []);
+
+
+  // if (!res.socket.server.io) {
+  //   console.log("First use, starting socket.io");
+  //   const io = new Server(res.socket.server);
+  //   io.on("connection", (socket) => {
+  //     const username = socket.handshake.query.username
+  //     socket.join(username)
+  //     socket.on("message-submitted", ({ selectedChatroom, messageContent, senderUsername }) => {
+  //       socket.emit("message-new", {selectedChatroom, messageContent, senderUsername})
+  //       socket.broadcast.emit("message-new", {selectedChatroom, messageContent, senderUsername})
+  //     })
+  //   });
+  //   res.socket.server.io = io;
+  // } else {
+  //   console.log("Server already started");
+  // }
 
   const value = {
     socket

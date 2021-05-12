@@ -49,27 +49,22 @@ export function ChatroomsProvider({ username, children }) {
   useEffect(() => {
     if (!socket) {
      socket.on("message-new", addMessageToChatroom)
-     return () => socket.off("message-new")
+     // return () => socket.off("message-new")
     }
   }, [socket, addMessageToChatroom])
 
 
   function sendMessage(selectedChatroom, messageContent) {
-    if (!socket) {
-      alert("Chatroom not connected yet. Try again in a little bit.");
-      return;
-    }
-
     socket.emit(
       "message-submitted",
       {selectedChatroom, messageContent, senderUsername:username}
     )
 
-    // addMessageToChatroom({
-    //   selectedChatroom,
-    //   messageContent,
-    //   senderUsername:username
-    // })
+    addMessageToChatroom({
+      selectedChatroom,
+      messageContent,
+      senderUsername:username
+    })
   }
 
 
@@ -117,3 +112,48 @@ export function ChatroomsProvider({ username, children }) {
     </ChatroomsContext.Provider>
   )
 }
+
+  // const addMessageToChatroom = useCallback(({ selectedChatroom, messageContent, senderUsername }) => {
+
+  //   setChatrooms(prevChatrooms => {
+  //     const newMessage = { senderUsername, messageContent }
+
+  //     const updatedChatrooms = prevChatrooms.map(chatroom => {
+  //       if (chatroom.roomname === selectedChatroom.roomname) {
+  //         return {
+  //           ...chatroom,
+  //           chatroomMessages: [...chatroom.chatroomMessages, newMessage]
+  //         }
+  //       } else {
+  //         return chatroom
+  //       }
+  //     })
+  //     return updatedChatrooms
+  //   })
+  // }, [setChatrooms])
+
+  // useEffect(() => {
+  //   if (!socket) {
+  //    socket.on("message-new", addMessageToChatroom)
+  //    return () => socket.off("message-new")
+  //   }
+  // }, [socket, addMessageToChatroom])
+
+
+  // function sendMessage(selectedChatroom, messageContent) {
+  //   if (!socket) {
+  //     alert("Chatroom not connected yet. Try again in a little bit.");
+  //     return;
+  //   }
+
+  //   socket.emit(
+  //     "message-submitted",
+  //     {selectedChatroom, messageContent, senderUsername:username}
+  //   )
+
+  //   // addMessageToChatroom({
+  //   //   selectedChatroom,
+  //   //   messageContent,
+  //   //   senderUsername:username
+  //   // })
+  // }

@@ -26,21 +26,8 @@ export default function Home() {
   // const [history, setHistory] = useState([]);
 
   // const [roomname, setRoomname] = useLocalStorage('roomname');
-  const [chatroom, setChatroom] = useState("");
-  const [chatrooms, setChatrooms] = useState([]);
-
-
-  const chatWindow = (
-    <div className="my-5 py-5">
-      <SocketProvider username={username}>
-        <UsersProvider className="my-5 py-5">
-          <ChatroomsProvider username={username}>
-            <ChatWindow username={username}/>
-          </ChatroomsProvider>
-        </UsersProvider>
-      </SocketProvider>
-    </div>
-  )
+  // const [chatroom, setChatroom] = useState("");
+  // const [chatrooms, setChatrooms] = useState([]);
 
   if (!isUsernameConfirmed) {
     return (
@@ -58,66 +45,19 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Navbar
+  {/*      <Navbar
           value={null || username}
           avatarSrc="/favicon.ico"
           disabled={!isUsernameConfirmed}
-        />
-
+        />*/}
         <div>
-          <div className='w-100'>
-            {chatWindow}
-
-          {/*    <UsersProvider className="my-5 py-5">
-                user2 level
-                <ChatroomsProvider username={username}>
-                  <ChatWindow username={username}/>
-                </ChatroomsProvider>
-              </UsersProvider>*/}
-
-          </div>
-     {/*         <h3>Chatroom List</h3>
-              <ChatroomInputField
-                onSubmit={(e) => handleSubmit(e)}
-                type="text"
-                name="chatroom"
-                value={chatroom}
-                onChange={(value) => setChatroom(value)}
-                disabled={!isUsernameConfirmed}
-              />
-              <Chatrooms
-                value={chatrooms}
-              />*/}
-
-
-          <div>
-{/*            <MessageInfo
-              completed={isUsernameConfirmed}
-              value={username}
-              avatarSrc="/favicon.ico"
-              onChange={(value) => setUsername(value)}
-              onSubmit={() => setUsernameConfirmed(true)}
-              placeholder={"Set username..."}
-            />*/}
-
-{/*            <MessageHistory
-              value={history}
-            />*/}
-
-{/*            <MessageInputField
-              onSubmit={(e) => handleSubmit(e)}
-              type="text"
-              name="message"
-              value={message}
-              avatarSrc="/favicon.ico"
-              onChange={(value) => setMessage(value)}
-              placeholder={ "Enter your message..."
-                // username ? "Enter your message..." : "Set username..."
-              }
-              disabled={!isUsernameConfirmed}
-            />*/}
-          </div>
-
+          <SocketProvider className='mt-5' username={username}>
+            <UsersProvider>
+              <ChatroomsProvider username={username}>
+                <ChatWindow username={username}/>
+              </ChatroomsProvider>
+            </UsersProvider>
+          </SocketProvider>
         </div>
       </div>
     </div>

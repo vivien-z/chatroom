@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
-// import { useSocket } from "./SocketProvider";
+import React, { useEffect, useCallback, useContext } from "react";
+import { useSocket } from "./SocketProvider";
+import { io } from "socket.io-client";
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const UsersContext = React.createContext()
@@ -10,21 +11,38 @@ export function useUsers() {
 
 export function UsersProvider({ children }) {
   const [users, setUsers] = useLocalStorage('users', [])
-  // const { socket } = useSocket()
+  const { socket } = useSocket()
 
-  console.log('user provider1')
 
-  function createUser(id, username) {
-    console.log('user provider2')
+  const addUsertoUsers = useCallback(({id, username}) => {
     setUsers(prevUsers => {
       return [...prevUsers, {id, username}]
     })
+  })
+
+
+
+  useEffect(() => {
+    if (socket) {
+      socket.on(
+        "new-user-created",
+        (() => addUsertoUsers({id, username}))
+      )
+    }
+  }, [addUsertoUsers])
+
+  function createUser(id, username) {
+    socket.emit(
+      "user-submitted",
+      {id, username}
+    )
+    // addUsertoUsers({id, username})
+
   }
 
   return (
     <UsersContext.Provider value={{ users, createUser }}>
       { children }
-      { console.log('user provider2') }
     </UsersContext.Provider>
   )
 }

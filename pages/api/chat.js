@@ -17,6 +17,11 @@ const ioHandler = (req, res) => {
 
     io.on("connection", (socket) => {
 
+      socket.on("user-submitted", ({id, username}) => {
+        socket.emit("new-user-created", {id, username});
+        socket.broadcast.emit("new-user-created", {id, username});
+      });
+
       socket.on("message-submitted", ({ selectedChatroom, messageContent, senderUsername }) => {
         socket.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
         socket.broadcast.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
@@ -27,10 +32,6 @@ const ioHandler = (req, res) => {
       //   socket.broadcast.emit("new-chatroom-created", {roomname, roomUserIds});
       // });
 
-      // socket.on("user-created", (user) => {
-      //   socket.emit("user", user);
-      //   socket.broadcast.emit("user", user);
-      // });
 
     });
 

@@ -32,11 +32,13 @@ export function UsersProvider({ children }) {
   }, [addUsertoUsers])
 
   function createUser(id, username) {
+    console.log(id)
+    console.log(username)
     socket.emit(
       "user-submitted",
       {id, username}
     )
-    // addUsertoUsers({id, username})
+    addUsertoUsers({id, username})
 
   }
 

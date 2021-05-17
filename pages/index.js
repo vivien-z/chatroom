@@ -19,9 +19,10 @@ import ChatroomInputField from "../components/ChatroomInputField";
 export default function Home() {
   // const [socket, setSocket] = useState(null);
   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
+  // const [currentUser, setCurrentUser] = useLocalStorage('current-user', null);
+  const [username, setUsername] = useLocalStorage('username');
 
   // const [username, setUsername] = useState("");
-  const [username, setUsername] = useLocalStorage('username');
   // const [message, setMessage] = useState("");
   // const [history, setHistory] = useState([]);
 
@@ -31,11 +32,17 @@ export default function Home() {
 
   if (!isUsernameConfirmed) {
     return (
-      <UsernameForm
-        value={username}
-        onChange={(value) => setUsername(value)}
-        onSubmit={() => setUsernameConfirmed(true)}
-      />
+      <SocketProvider className='mt-5' username={username}>
+        <UsersProvider>
+          <ChatroomsProvider username={username}>
+            <UsernameForm
+              value={username}
+              onChange={(value) => setUsername(value)}
+              onUsernameSubmit={() => setUsernameConfirmed(true)}
+            />
+          </ChatroomsProvider>
+        </UsersProvider>
+      </SocketProvider>
     )
   } else {
   return (

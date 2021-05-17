@@ -24,7 +24,7 @@ const NewUserModal = ({ closeModal }) => {
     <div>
       <Modal.Header closeButton>Add a New User</Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={ handleSubmit }>
           <Form.Group>
             <Form.Label>Id:</Form.Label>
             <Form.Control type="text" ref={idRef} required></Form.Control>

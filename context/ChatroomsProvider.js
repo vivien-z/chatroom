@@ -65,7 +65,7 @@ export function ChatroomsProvider({ username, children }) {
         //   addMessageToChatroom({selectedChatroom, messageContent, senderUsername})
         // }
       )
-     return () => socket.off("new-message-created")
+     // return () => socket.off("new-message-created")
     }
   }, [socket, addMessageToChatroom])
 

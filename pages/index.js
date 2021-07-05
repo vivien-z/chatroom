@@ -18,9 +18,15 @@ import ChatroomInputField from "../components/ChatroomInputField";
 
 export default function Home() {
   // const [socket, setSocket] = useState(null);
-  const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
   // const [currentUser, setCurrentUser] = useLocalStorage('current-user', null);
   const [username, setUsername] = useLocalStorage('username');
+  const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
+
+  // useEffect(() => {
+  //   if (username === undefined) {
+  //     setUsernameConfirmed(false)
+  //   }
+  // }, [isUsernameConfirmed])
 
   // const [username, setUsername] = useState("");
   // const [message, setMessage] = useState("");
@@ -30,21 +36,21 @@ export default function Home() {
   // const [chatroom, setChatroom] = useState("");
   // const [chatrooms, setChatrooms] = useState([]);
 
-  if (!isUsernameConfirmed) {
-    return (
-      <SocketProvider className='mt-5' username={username}>
-        <UsersProvider>
-          <ChatroomsProvider username={username}>
-            <UsernameForm
-              value={username}
-              onChange={(value) => setUsername(value)}
-              onUsernameSubmit={() => setUsernameConfirmed(true)}
-            />
-          </ChatroomsProvider>
-        </UsersProvider>
-      </SocketProvider>
-    )
-  } else {
+  // if (!isUsernameConfirmed) {
+  //   return (
+  //     <SocketProvider className='mt-5' username={username}>
+  //       <UsersProvider>
+  //         <ChatroomsProvider username={username}>
+  //           <UsernameForm
+  //             value={username}
+  //             onChange={(value) => setUsername(value)}
+  //             onUsernameSubmit={() => setUsernameConfirmed(true)}
+  //           />
+  //         </ChatroomsProvider>
+  //       </UsersProvider>
+  //     </SocketProvider>
+  //   )
+  // } else {
   return (
     <div>
       <Head>
@@ -52,24 +58,34 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-  {/*      <Navbar
+      <div>test</div>
+      <Navbar
           value={null || username}
           avatarSrc="/favicon.ico"
           disabled={!isUsernameConfirmed}
-        />*/}
+        />
         <div>
           <SocketProvider className='mt-5' username={username}>
-            <UsersProvider>
+            <UsersProvider username={username}>
               <ChatroomsProvider username={username}>
-                <ChatWindow username={username}/>
+                <ChatWindow
+                  username={username}
+                  disabled={!isUsernameConfirmed}
+                />
+                <UsernameForm
+                  value={username}
+                  onChange={(value) => setUsername(value)}
+                  disabled={isUsernameConfirmed}
+                  onUsernameSubmit={() => setUsernameConfirmed(true)}
+                />
               </ChatroomsProvider>
             </UsersProvider>
           </SocketProvider>
         </div>
       </div>
     </div>
-  )};
-};
+  )
+}
 
 
   // const connectSocket = () => {

@@ -20,25 +20,25 @@ export function UsersProvider({ children }) {
     })
   })
 
-
-
   useEffect(() => {
     if (socket) {
       socket.on(
         "new-user-created",
+        // addUsertoUsers({id, username})
         (() => addUsertoUsers({id, username}))
       )
     }
   }, [addUsertoUsers])
 
   function createUser(id, username) {
+    console.log('create user')
     console.log(id)
     console.log(username)
     socket.emit(
       "user-submitted",
       {id, username}
     )
-    addUsertoUsers({id, username})
+    // addUsertoUsers({id, username})
 
   }
 

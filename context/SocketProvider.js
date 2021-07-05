@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
+import { Server } from "socket.io";
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const SocketContext = React.createContext()
@@ -18,7 +19,7 @@ export function SocketProvider( {username, children} ) {
   // const [chatroom, setChatroom] = useState("");
   // const [chatrooms, setChatrooms] = useState([]);
 
-  let counter = 1
+  let counter = 0 //test-a
   const connectSocket = () => {
     fetch("/api/chat");
 
@@ -27,52 +28,26 @@ export function SocketProvider( {username, children} ) {
 
       newSocket.on("connect", () => {
         console.log("Chat app connected");
-        counter += 1
-        console.log(counter)
+        counter += 1 //test-a
+        console.log(counter) //test-a
+        console.log(socket.id) //test-a
       });
-
-      // newSocket.on("new-message-created", ({ selectedChatroom, messageContent, senderUsername }) => {
-      //   setChatrooms(prevChatrooms => {
-      //     const newMessage = { senderUsername, messageContent }
-
-      //     const updatedChatrooms = prevChatrooms.map(chatroom => {
-      //       if (chatroom.roomname === selectedChatroom.roomname) {
-      //         return {
-      //           ...chatroom,
-      //           chatroomMessages: [...chatroom.chatroomMessages, newMessage]
-      //         }
-      //       } else {
-      //         return chatroom
-      //       }
-      //     })
-      //     return updatedChatrooms
-      //   })
-      // });
-
-      // newSocket.on("new-chatroom-created", ({roomname, roomUserIds}) => {
-      //   console.log(roomname);
-      //   setChatrooms(prevChatrooms => {
-      //     return [
-      //       ...prevChatrooms,
-      //       {roomname, roomUserIds, chatroomMessages: []}
-      //     ]
-      //   })
-      // });
-
-      // newSocket.on("message-new", (msg) => {
-      //   setHistory((history) => [...history, msg]);
-      // });
-
-      // newSocket.on("chatroom", (chatrm) => {
-      //   console.log(chatrm);
-      //   setChatrooms((chatrooms) => [...chatrooms, chatrm]);
-      // });
 
       newSocket.on("disconnect", () => {
         console.warn("WARNING: chat app disconnected");
       });
-
       setSocket(() => newSocket);
+    } else {
+
+      socket.on("user-submitted", ({id, username}) => {
+        socket.emit("new-user-created", {id, username});
+        socket.broadcast.emit("new-user-created", {id, username});
+      });
+
+      socket.on("message-submitted", ({ selectedChatroom, messageContent, senderUsername }) => {
+        socket.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
+        socket.broadcast.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
+      })
     }
     // return () => newSocket.close()
   };
@@ -82,8 +57,7 @@ export function SocketProvider( {username, children} ) {
   }, []);
 
   const value = {
-    socket,
-    // chatrooms
+    socket
   }
 
   return (

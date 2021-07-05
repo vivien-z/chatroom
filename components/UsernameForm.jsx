@@ -5,19 +5,10 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const UsernameForm = ({ value, onChange, onUsernameSubmit }) => {
+const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
   const idRef = useRef()
   const usernameRef = useRef()
   const { createUser } = useUsers()
-
-
-  function handleSubmit(e) {
-    e.preventDefault()
-
-    createUser(idRef.current.value, usernameRef.current.value) //could add 2nd argument(usernameCustomizedRef.current.value)
-    onUsernameSubmit(() => setUsernameConfirmed(true))
-  }
-
 
   function generateRandomUsername() {
     const rug = require('random-username-generator');
@@ -28,8 +19,16 @@ const UsernameForm = ({ value, onChange, onUsernameSubmit }) => {
     onChange(generateRandomUsername())
   }
 
-  return (
-    <Container className="d-flex justify-content-center m-5">
+  function handleSubmit(e) {
+    e.preventDefault()
+    console.log("username form submitted")
+    createUser(idRef.current.value, usernameRef.current.value) //could add 2nd argument(usernameCustomizedRef.current.value)
+    onUsernameSubmit(() => setUsernameConfirmed(true))
+  }
+
+  if (!disabled) {
+    return (
+      <Container className="d-flex justify-content-center m-5">
         <Form
           className="w-50 p-3 py-5 border"
           onSubmit={ handleSubmit }
@@ -60,8 +59,13 @@ const UsernameForm = ({ value, onChange, onUsernameSubmit }) => {
           <Button onClick={setRandomUsername} variant="secondary">Random usernames</Button>
           <Button type="submit">Confirm</Button>
         </Form>
-    </Container>
-  );
+      </Container>
+    );
+  } else {
+    return (
+      <div></div>
+    )
+  }
 
 };
 

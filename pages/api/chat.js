@@ -1,4 +1,3 @@
-import { Server } from "socket.io";
 // // This endpoint doesn't really do anything. It just starts websockets.
 // // NextJS does not officially support websockets. NextJS is intended for deployment
 // // to serverless environments, which are mostly incompatible with websockets.
@@ -6,6 +5,7 @@ import { Server } from "socket.io";
 // // environment.
 // // This solution is by rogeriojlle on StackOverflow:
 // // https://stackoverflow.com/questions/57512366/how-to-use-socket-io-with-next-js-api-routes/62547135#62547135
+import { Server } from "socket.io";
 
 const ioHandler = (req, res) => {
   // if the socket server hasn't started yet, start it up.

@@ -5,6 +5,8 @@
 // // environment.
 // // This solution is by rogeriojlle on StackOverflow:
 // // https://stackoverflow.com/questions/57512366/how-to-use-socket-io-with-next-js-api-routes/62547135#62547135
+
+
 import { Server } from "socket.io";
 
 const ioHandler = (req, res) => {
@@ -16,8 +18,10 @@ const ioHandler = (req, res) => {
     const io = new Server(res.socket.server);
 
     io.on("connection", (socket) => {
+      socket.broadcast.emit('a user connected')
 
       socket.on("user-submitted", ({id, username}) => {
+        console.log("socket chat-io")
         socket.emit("new-user-created", {id, username});
         socket.broadcast.emit("new-user-created", {id, username});
       });
@@ -46,6 +50,8 @@ const ioHandler = (req, res) => {
 };
 
 export default ioHandler;
+
+
 
 // const io = require('socket.io')(5000)
 

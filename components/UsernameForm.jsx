@@ -8,7 +8,9 @@ import Button from 'react-bootstrap/Button';
 const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
   const idRef = useRef()
   const usernameRef = useRef()
-  const { createUser } = useUsers()
+  // const { sendSocket } = useUsers()
+  const { createUser, sendSocket } = useUsers()
+
 
   function generateRandomUsername() {
     const rug = require('random-username-generator');
@@ -20,9 +22,11 @@ const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
   }
 
   function handleSubmit(e) {
+    const id = idRef.current.value
+    const username = usernameRef.current.value
     e.preventDefault()
-    console.log("username form submitted")
-    createUser(idRef.current.value, usernameRef.current.value) //could add 2nd argument(usernameCustomizedRef.current.value)
+    createUser(id, username) //could add 2nd argument(usernameCustomizedRef.current.value)
+    sendSocket(id, username)
     onUsernameSubmit(() => setUsernameConfirmed(true))
   }
 

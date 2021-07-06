@@ -8,8 +8,8 @@ import Button from 'react-bootstrap/Button';
 const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
   const idRef = useRef()
   const usernameRef = useRef()
-  // const { sendSocket } = useUsers()
-  const { createUser, sendSocket } = useUsers()
+  const { createUser } = useUsers()
+  // const { createUser, socketNewUser } = useUsers()
 
 
   function generateRandomUsername() {
@@ -26,7 +26,7 @@ const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
     const username = usernameRef.current.value
     e.preventDefault()
     createUser(id, username) //could add 2nd argument(usernameCustomizedRef.current.value)
-    sendSocket(id, username)
+    // socketNewUser(id, username)
     onUsernameSubmit(() => setUsernameConfirmed(true))
   }
 

@@ -20,27 +20,36 @@ export function UsersProvider({ children }) {
     })
   })
 
-  function sendSocket(id, username) {
+  // function socketNewUser(id, username) {
+  //   socket.emit(
+  //     "user-submitted",
+  //     {id, username}
+  //   )
+  //   addUsertoUsers({id, username})
+  // }
+
+  function createUser(id, username) {
+    // const userCount = users.length
     socket.emit(
       "user-submitted",
       {id, username}
     )
-  }
-
-  function createUser(id, username) {
     addUsertoUsers({id, username})
   }
 
-  useEffect(() => {
-    if (socket) {
-      socket.on("new-user-created", ({id, username}) => {
-        addUsertoUsers({id, username})
-      })
-    }
-  }, users)
+  // useEffect(() => {
+  //   if (socket) {
+  //     socket.on("new-user-created", ({id, username}) => {
+  //       addUsertoUsers({id, username})
+  //     })
+  //     // return () => {
+  //     //   socket.off("new-user-created")
+  //     // }
+  //   }
+  // }, [])
 
   return (
-    <UsersContext.Provider value={{ users, createUser, sendSocket }}>
+    <UsersContext.Provider value={{ users, createUser }}>
       { children }
     </UsersContext.Provider>
   )

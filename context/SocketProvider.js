@@ -13,6 +13,7 @@ export function useSocket() {
 
 export function SocketProvider( {username, children} ) {
   const [socket, setSocket] = useState(null)
+  // const { createUser } = useUsers()
   // const [users, setUsers] = useLocalStorage('users', [])
   // const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
 
@@ -34,7 +35,7 @@ export function SocketProvider( {username, children} ) {
         });
 
         // newSocket.on("new-user-created", ({id, username}) => {
-        //   // createUser(id, username)
+        //   createUser(id, username)
         //   console.log("test")
         // });
 
@@ -43,17 +44,17 @@ export function SocketProvider( {username, children} ) {
         //   newSocket.broadcast.emit("new-user-created", {id, username});
         // });
 
-        newSocket.on("message-submitted", ({ selectedChatroom, messageContent, senderUsername }) => {
-          newSocket.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
-          newSocket.broadcast.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
-        })
+        // newSocket.on("message-submitted", ({ selectedChatroom, messageContent, senderUsername }) => {
+        //   newSocket.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
+        //   newSocket.broadcast.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
+        // })
 
         newSocket.on("disconnect", () => {
           console.warn("WARNING: chat app disconnected");
         });
         setSocket(() => newSocket);
       }
-      // return () => newSocket.close()
+      return () => newSocket.close()
     });
 
   };

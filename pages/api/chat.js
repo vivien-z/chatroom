@@ -22,8 +22,8 @@ const ioHandler = (req, res) => {
 
       socket.on("user-submitted", ({id, username}) => {
         console.log("socket chat-io")
-        socket.emit("new-user-created", {id, username});
-        socket.broadcast.emit("new-user-created", {id, username});
+        // socket.emit("new-user-created", {id, username});
+        socket.broadcast.emit("new-user-created", {id, username})
       });
 
       socket.on("message-submitted", ({ selectedChatroom, messageContent, senderUsername }) => {

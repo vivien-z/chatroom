@@ -5,13 +5,13 @@ const Navbar = ({ value, avatarSrc, disabled }) => {
   if (disabled) {
     return (
       <nav className={styles.navbar}>
-        <div className={styles.navbarLogo}>2chat</div>
+        <div className={styles.navbarLogo}>A Chatroom</div>
       </nav>
     );
   } else {
     return (
       <nav className={styles.navbar}>
-        <div className={styles.navbarLogo}>2chat</div>
+        <div className={styles.navbarLogo}>A Chatroom</div>
         <div className={styles.navbarProfileInfo}>
           <p>Hi: {value}</p>
           {/*<img src={avatarSrc} alt="profile pic" />*/}

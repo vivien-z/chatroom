@@ -10,7 +10,6 @@
 import { Server } from "socket.io";
 
 const ioHandler = (req, res) => {
-  // if the socket server hasn't started yet, start it up.
   if (!res.socket.server.io) {
     console.log("First use, starting socket.io");
 
@@ -27,7 +26,7 @@ const ioHandler = (req, res) => {
       });
 
       socket.on("message-submitted", ({ selectedChatroom, messageContent, senderUsername }) => {
-        socket.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
+        // socket.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
         socket.broadcast.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
       })
 

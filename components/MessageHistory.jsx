@@ -38,7 +38,7 @@ const MessageHistory = () => {
         )
       })}
 
-      chathistroy
+      connected
     </div>
   );
 };

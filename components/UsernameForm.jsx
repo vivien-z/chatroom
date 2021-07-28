@@ -10,7 +10,7 @@ import styles from '../styles/UsernameForm.module.scss';
 const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
   const idRef = useRef()
   const usernameRef = useRef()
-  const { createUser } = useUsers()
+  const { users, createUser } = useUsers()
   // const { createUser, socketNewUser } = useUsers()
 
 
@@ -24,9 +24,25 @@ const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
   }
 
   function handleSubmit(e) {
-    const id = idRef.current.value
-    const username = usernameRef.current.value
     e.preventDefault()
+    // const id = idRef.current.value
+    const username = usernameRef.current.value
+
+    let id
+    let newUser = false
+
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].username !== username) {
+        newUser = true
+      }
+    }
+    if (users.length === 0 || newUser) {
+      id = idRef.current.value
+      createUser(id, username)
+    }
+    if (!newUser) {
+      id = users.find(user => user.username === username).id
+    }
     createUser(id, username) //could add 2nd argument(usernameCustomizedRef.current.value)
     // socketNewUser(id, username)
     onUsernameSubmit(() => setUsernameConfirmed(true))
@@ -40,7 +56,7 @@ const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
           onSubmit={ handleSubmit }
           id="new-username"
         >
-          <div className={styles.formTitle}>Welcome to the community</div>
+          <div className={styles.formTitle}>Chat Community</div>
           <div className="p-4">
             <Form.Group>
               <Form.Label><strong>Id</strong></Form.Label>
@@ -64,8 +80,7 @@ const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
                 <Button onClick={setRandomUsername} variant="secondary">Random usernames</Button>
               </div>
             </Form.Group>
-            <Button className="btn btn-primary me-2" type="submit">New User Sign Up</Button>
-            <Button className="btn btn-primary" type="submit">Login</Button>
+            <Button className="btn btn-primary mt-1" type="submit">Login</Button>
           </div>
         </Form>
       </Container>

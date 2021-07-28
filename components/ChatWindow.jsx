@@ -16,7 +16,7 @@ const ChatWindow = ({ username }) => {
   const { selectedChatroom } = useChatrooms()
 
   return (
-    <div className='d-flex border' style={{ height: '68vh'}}>
+    <div className='d-flex h-100' >
       <ChatWindowSidebar username={username} />
       <ChatWindowMessageSide username={username} selectedChatroom={selectedChatroom}/>
     </div>

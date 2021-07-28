@@ -15,6 +15,7 @@ import Chatrooms from "../components/Chatrooms";
 import ChatroomInputField from "../components/ChatroomInputField";
 // import MessageHistory from "../components/MessageHistory";
 // import MessageInputField from "../components/MessageInputField";
+import { Container, Row, Col } from 'react-bootstrap';
 
 export default function Home() {
   // const [socket, setSocket] = useState(null);
@@ -68,15 +69,15 @@ export default function Home() {
   )
 
   return (
-    <div>
+    <>
       <Head>
         <title>A Chatroom</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
+      <Container fluid className="d-flex flex-column vh-100">
         {/*{isUsernameConfirmed ? null : navbar}*/}
-        {navbar}
-        <div>
+        <Row className="">{navbar}</Row>
+        <Row className="flex-grow-1">
           <SocketProvider className='mt-5' username={username}>
             <UsersProvider username={username}>
               <ChatroomsProvider username={username}>
@@ -85,9 +86,9 @@ export default function Home() {
               </ChatroomsProvider>
             </UsersProvider>
           </SocketProvider>
-        </div>
-      </div>
-    </div>
+        </Row>
+      </Container>
+    </>
   )
 }
 

@@ -30,20 +30,24 @@ const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
 
     let id
     let newUser = false
-
+    let count = 0
     for (let i = 0; i < users.length; i++) {
       if (users[i].username !== username) {
+        count ++
         newUser = true
       }
     }
+    newUser = users.length === count ? true : false
+    console.log(newUser)
     if (users.length === 0 || newUser) {
       id = idRef.current.value
       createUser(id, username)
     }
     if (!newUser) {
       id = users.find(user => user.username === username).id
+      onChange(username)
     }
-    createUser(id, username) //could add 2nd argument(usernameCustomizedRef.current.value)
+    // createUser(id, username) //could add 2nd argument(usernameCustomizedRef.current.value)
     // socketNewUser(id, username)
     onUsernameSubmit(() => setUsernameConfirmed(true))
   }

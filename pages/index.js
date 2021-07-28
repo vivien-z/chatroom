@@ -51,6 +51,13 @@ export default function Home() {
   //     </SocketProvider>
   //   )
   // } else {
+  const navbar = (
+    <Navbar
+        value={null || username}
+        avatarSrc="/favicon.ico"
+        disabled={!isUsernameConfirmed}
+    />
+  )
   return (
     <div>
       <Head>
@@ -58,12 +65,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-
-        <Navbar
-            value={null || username}
-            avatarSrc="/favicon.ico"
-            disabled={!isUsernameConfirmed}
-        />
+        {/*{isUsernameConfirmed ? null : navbar}*/}
+        {navbar}
         <div>
           <SocketProvider className='mt-5' username={username}>
             <UsersProvider username={username}>

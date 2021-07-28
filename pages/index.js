@@ -54,15 +54,15 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>2chat</title>
+        <title>A Chatroom</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-      <div>test</div>
-      <Navbar
-          value={null || username}
-          avatarSrc="/favicon.ico"
-          disabled={!isUsernameConfirmed}
+
+        <Navbar
+            value={null || username}
+            avatarSrc="/favicon.ico"
+            disabled={!isUsernameConfirmed}
         />
         <div>
           <SocketProvider className='mt-5' username={username}>

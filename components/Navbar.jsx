@@ -4,7 +4,8 @@ const Navbar = ({ value, avatarSrc, disabled }) => {
 
   const userinfo =(
     <div className={styles.navbarUserInfo}>
-      <p>Welcome {value}</p>
+      <span>user: {value}</span>
+      {/*<span className={`${styles.avatar}`}>{value[0].toUpperCase()}</span>*/}
       {/*<img src={avatarSrc} alt="profile pic" />*/}
     </div>
   )

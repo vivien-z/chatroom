@@ -17,13 +17,22 @@
 
 .navbarUserInfo {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 10%;
-  font-weight: bold;
   font-size: 1.5rem;
   color: #fed9b7;
-  p {
-    margin-bottom: 0;
-  }
 }
+// .avatar {
+//   height: 40px;
+//   width: 40px;
+//   border-radius: 50%;
+//   background-color: #fed9b7;
+//   color:  #f07167;
+//   font-weight: bold;
+//   font-size: 1.25rem;
+//   // margin:  0 auto;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }

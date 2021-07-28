@@ -1,4 +1,14 @@
-/*html,
+/*======================
+  reset bootstrap color
+=======================*/
+$primary: #001D3D;
+$secondary: #d9ed92;
+@import '~bootstrap/scss/bootstrap';
+
+/*======================
+  general setting
+=======================*/
+html,
 body {
   padding: 0;
   margin: 0;
@@ -13,4 +23,4 @@ a {
 
 * {
   box-sizing: border-box;
-}*/
+}

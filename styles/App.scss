@@ -35,7 +35,14 @@ a {
     color: $danger;
   }
 }
-// .container {
-//   margin: 0;
-//   padding: 0;
-// }
+/*===================
+  ChatWindow Tabs
+=====================*/
+.nav-link {
+  color: #fed9b7 !important;
+}
+.nav-link.active {
+  color: #f07167 !important;
+  background-color: #fed9b7!important;
+  border: 1px solid #fed9b7!important;
+}

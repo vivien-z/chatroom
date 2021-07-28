@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/Button';
 import styles from '../styles/UsernameForm.module.scss';
 
-const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
+const UsernameForm = ({ value, onChange, onUsernameSubmit }) => {
   const idRef = useRef()
   const usernameRef = useRef()
   const { users, createUser } = useUsers()
@@ -52,49 +52,42 @@ const UsernameForm = ({ value, onChange, disabled, onUsernameSubmit }) => {
     onUsernameSubmit(() => setUsernameConfirmed(true))
   }
 
-  if (!disabled) {
-    return (
-      <Container className="d-flex justify-content-center my-5">
-        <Form
-          className={`${styles.form} w-50 border bg-white rounded`}
-          onSubmit={ handleSubmit }
-          id="new-username"
-        >
-          <div className={styles.formTitle}>Chat Community</div>
-          <div className="p-4">
-            <Form.Group>
-              <Form.Label><strong>Id</strong></Form.Label>
+  return (
+    <Container className="d-flex justify-content-center my-5">
+      <Form
+        className={`${styles.form} w-50 border bg-white rounded`}
+        onSubmit={ handleSubmit }
+        id="new-username"
+      >
+        <div className={styles.formTitle}>Chat Community</div>
+        <div className="p-4">
+          <Form.Group>
+            <Form.Label><strong>Id</strong></Form.Label>
+            <Form.Control
+              className="mb-3"
+              type="text"
+              name="user-id"
+              ref={idRef}
+              required
+            />
+            <Form.Label><strong>Username</strong></Form.Label>
+            <div className="input-group mb-3">
               <Form.Control
-                className="mb-3"
                 type="text"
-                name="user-id"
-                ref={idRef}
+                name="username"
+                ref={usernameRef}
+                value={value}
+                onChange={(e) => e.preventDefault() || onChange(e.target.value)}
                 required
               />
-              <Form.Label><strong>Username</strong></Form.Label>
-              <div className="input-group mb-3">
-                <Form.Control
-                  type="text"
-                  name="username"
-                  ref={usernameRef}
-                  value={value}
-                  onChange={(e) => e.preventDefault() || onChange(e.target.value)}
-                  required
-                />
-                <Button onClick={setRandomUsername} variant="secondary">Random usernames</Button>
-              </div>
-            </Form.Group>
-            <Button className="btn btn-primary mt-1" type="submit">Login</Button>
-          </div>
-        </Form>
-      </Container>
-    );
-  } else {
-    return (
-      <div></div>
-    )
-  }
-
+              <Button onClick={setRandomUsername} variant="secondary">Random usernames</Button>
+            </div>
+          </Form.Group>
+          <Button className="btn btn-primary mt-1" type="submit">Login</Button>
+        </div>
+      </Form>
+    </Container>
+  );
 };
 
 export default UsernameForm;

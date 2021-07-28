@@ -12,22 +12,15 @@ import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
 // import MessageInputField from "../components/MessageInputField";
 // import useLocalStorage from '../hooks/useLocalStorage';
 
-const ChatWindow = ({ username, disabled }) => {
+const ChatWindow = ({ username }) => {
   const { selectedChatroom } = useChatrooms()
 
-  console.log(selectedChatroom)
-  if (!disabled) {
-    return (
-      <div className='d-flex border' style={{ height: '68vh'}}>
-        <ChatWindowSidebar username={username} />
-        <ChatWindowMessageSide username={username} selectedChatroom={selectedChatroom}/>
-      </div>
-    )
-  } else {
-    return (
-      <div></div>
-    )
-  }
+  return (
+    <div className='d-flex border' style={{ height: '68vh'}}>
+      <ChatWindowSidebar username={username} />
+      <ChatWindowMessageSide username={username} selectedChatroom={selectedChatroom}/>
+    </div>
+  )
 }
 
 

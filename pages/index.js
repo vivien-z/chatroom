@@ -58,6 +58,15 @@ export default function Home() {
         disabled={!isUsernameConfirmed}
     />
   )
+  const chatWindow = <ChatWindow username={username} />
+  const usernameForm = (
+    <UsernameForm
+      value={username}
+      onChange={(value) => setUsername(value)}
+      onUsernameSubmit={() => setUsernameConfirmed(true)}
+    />
+  )
+
   return (
     <div>
       <Head>
@@ -71,16 +80,8 @@ export default function Home() {
           <SocketProvider className='mt-5' username={username}>
             <UsersProvider username={username}>
               <ChatroomsProvider username={username}>
-                <ChatWindow
-                  username={username}
-                  disabled={!isUsernameConfirmed}
-                />
-                <UsernameForm
-                  value={username}
-                  onChange={(value) => setUsername(value)}
-                  disabled={isUsernameConfirmed}
-                  onUsernameSubmit={() => setUsernameConfirmed(true)}
-                />
+                {isUsernameConfirmed ? chatWindow : <></>}
+                {isUsernameConfirmed ? <></> : usernameForm}
               </ChatroomsProvider>
             </UsersProvider>
           </SocketProvider>

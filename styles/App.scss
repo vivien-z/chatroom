@@ -1,8 +1,10 @@
 /*======================
   reset bootstrap color
 =======================*/
-$primary: #001D3D;
-$secondary: #d9ed92;
+$primary: #f07167;
+$secondary: #fed9b7;
+$danger: #9d0208;
+$green: #d9ed92;
 @import '~bootstrap/scss/bootstrap';
 
 /*======================
@@ -10,6 +12,7 @@ $secondary: #d9ed92;
 =======================*/
 html,
 body {
+  background: #f8f9fa;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -24,3 +27,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.btn{
+  color: $danger;
+  font-weight: bold;
+  &:hover {
+    color: $danger;
+  }
+}
+

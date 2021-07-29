@@ -24,3 +24,17 @@
 .margin0 {
   margin: 0 !important;
 }
+.avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border-bottom: 1px solid #fed9b7;
+  background-color: #fed9b7;
+  color:  #f07167;
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin:  1rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

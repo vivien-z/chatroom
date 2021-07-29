@@ -38,6 +38,8 @@ const ChatWindowSidebar = ({ username }) => {
         <Row className={`h-100 ${styles.margin0}`}>
           <Col sm={3} className={`${styles.navTab} px-0 h-100 py-1`}>
             <div className="py-1 bg-primary h-100 rounded">
+              <span className={`${styles.avatar}`}>{username[0].toUpperCase()}</span>
+
               <Nav variant="pills" className="pt-4 justify-content-center align-items-start">
                 <Nav.Item className="mb-2">
                   <Nav.Link eventKey={CHATROOMS_KEY}>{chatrooms}</Nav.Link>

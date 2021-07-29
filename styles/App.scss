@@ -48,19 +48,27 @@ a {
 }
 .list-group-item-action {
   background-color: #f8f9fa !important;
+  font-size: 0.95rem;
   b {
     color: $danger !important;
+    margin-left: 0.25rem;
   }
 
 }
 .list-group-item-action.active {
   background-color: $secondary !important;
+  border-bottom: 1px solid #fed9b7!important;
+  border-top: 1px solid #fed9b7!important;
+  .list-group {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+  }
   .list-group-item {
     border: none;
     padding: 4px 16px;
     color: $danger !important;
   }
   b {
-    margin-bottom: 1.25rem;
+    // margin-left: 0.25rem;
   }
 }

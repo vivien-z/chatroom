@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactDOM from 'react-dom';
 import Chatrooms from "../components/Chatrooms";
 import Users from "../components/Users";
 import NewChatroomModal from "../components/NewChatroomModal";
@@ -8,6 +9,10 @@ import NewUserModal from "../components/NewUserModal";
 // import Button from 'react-bootstrap/Button';
 // import Modal from 'react-bootstrap/Modal';
 import { Tab, Nav, Button, Modal, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faComments } from '@fortawesome/fontawesome-free-solid/faComments'
+// import { faUserFriends } from '@fortawesome/fontawesome-free-solid/faUserFriends'
+import { faComments, faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import styles from '../styles/ChatWindowSidebar.module.scss';
 
 const CHATROOMS_KEY = "chatrooms"
@@ -19,8 +24,8 @@ const ChatWindowSidebar = ({ username }) => {
   // const [isChatroomActive, set]
 
   const btnName = activeKey === CHATROOMS_KEY ? "Chatroom" : "Contact"
-  // const chatrooms = <FontAwesomeIcon icon={faComments} />
-  // const contacts = <FontAwesomeIcon icon={faUserFriends} />
+  const chatrooms = <FontAwesomeIcon icon={faComments} />
+  const contacts = <FontAwesomeIcon icon={faUserFriends} />
 
   function closeModal() {
     setModalOpen(false)
@@ -30,19 +35,21 @@ const ChatWindowSidebar = ({ username }) => {
     <div style={{ width: '250px'}} className='d-flex flex-column'>
 
       <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
-        <Row className="h-100">
-          <Col sm={3} className={`${styles.navTab} pt-4 bg-primary h-100 my-1`}>
-            <Nav variant="pills" className="justify-content-center align-items-start">
-              <Nav.Item className="mb-2">
-                <Nav.Link eventKey={CHATROOMS_KEY}>Crm</Nav.Link>
-              </Nav.Item>
-              <Nav.Item className="mb-2">
-                <Nav.Link eventKey={USERS_KEY}>Ur</Nav.Link>
-              </Nav.Item>
-            </Nav>
+        <Row className={`h-100 ${styles.margin0}`}>
+          <Col sm={3} className={`${styles.navTab} px-0 h-100 py-1`}>
+            <div className="py-1 bg-primary h-100 rounded">
+              <Nav variant="pills" className="pt-4 justify-content-center align-items-start">
+                <Nav.Item className="mb-2">
+                  <Nav.Link eventKey={CHATROOMS_KEY}>{chatrooms}</Nav.Link>
+                </Nav.Item>
+                <Nav.Item className="mb-2">
+                  <Nav.Link eventKey={USERS_KEY}>{contacts}</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </div>
           </Col>
-          <Col sm={9} className="px-0 pl-1 h-100">
-            <div className='d-flex flex-column py-1 bg-gray-l h-100'>
+          <Col sm={9} className="px-0 h-100">
+            <div className='d-flex flex-column py-1 h-100'>
               <p className={`${styles.tabTitle}`}>{btnName}</p>
               <Tab.Content className='overflow-auto flex-grow-1'>
                 <Tab.Pane eventKey={CHATROOMS_KEY}>

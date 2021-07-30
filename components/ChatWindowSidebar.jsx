@@ -55,7 +55,7 @@ const ChatWindowSidebar = ({ username, id }) => {
               <p className={`${styles.tabTitle}`}>{btnName}</p>
               <Tab.Content className='overflow-auto flex-grow-1'>
                 <Tab.Pane eventKey={CHATROOMS_KEY}>
-                  <Chatrooms />
+                  <Chatrooms username={username} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={USERS_KEY}>
                   <Users />

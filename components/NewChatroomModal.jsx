@@ -17,7 +17,7 @@ export default function NewChatroomModal({ closeModal, myUsername, id }) {
   const [chatrooms, setChatrooms] = useState([]);
 
   const otherUsers = users.filter(user => user.username !== myUsername)
-  const currentUser = users.filter(user => user.username === myUsername)
+  const currentUser = users.find(user => user.username === myUsername)
 
   function handleCheckboxChange(userId) {
     setSelectedUserIds(prevSelectedUserIds => {

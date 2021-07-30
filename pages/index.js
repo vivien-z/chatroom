@@ -21,6 +21,7 @@ export default function Home() {
   // const [socket, setSocket] = useState(null);
   // const [currentUser, setCurrentUser] = useLocalStorage('current-user', null);
   const [username, setUsername] = useLocalStorage('username');
+  const [id, setId] = useLocalStorage('id');
   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);
 
   // useEffect(() => {
@@ -59,12 +60,13 @@ export default function Home() {
         disabled={!isUsernameConfirmed}
     />
   )
-  const chatWindow = <ChatWindow username={username} />
+  const chatWindow = <ChatWindow username={username} id={id}/>
   const usernameForm = (
     <UsernameForm
       value={username}
       onChange={(value) => setUsername(value)}
       onUsernameSubmit={() => setUsernameConfirmed(true)}
+      onIdSubmit={setId}
     />
   )
 
@@ -78,9 +80,9 @@ export default function Home() {
         {/*{isUsernameConfirmed ? null : navbar}*/}
         <Row className="">{navbar}</Row>
         <Row className="flex-grow-1">
-          <SocketProvider className='mt-5' username={username}>
-            <UsersProvider username={username}>
-              <ChatroomsProvider username={username}>
+          <SocketProvider className='mt-5' username={username} id={id}>
+            <UsersProvider username={username} id={id}>
+              <ChatroomsProvider username={username} id={id}>
                 {isUsernameConfirmed ? chatWindow : <></>}
                 {isUsernameConfirmed ? <></> : usernameForm}
               </ChatroomsProvider>

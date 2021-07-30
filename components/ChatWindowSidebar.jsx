@@ -18,7 +18,7 @@ import styles from '../styles/ChatWindowSidebar.module.scss';
 const CHATROOMS_KEY = "chatrooms"
 const USERS_KEY = "users"
 
-const ChatWindowSidebar = ({ username }) => {
+const ChatWindowSidebar = ({ username, id }) => {
   const [activeKey, setActiveKey] = useState(CHATROOMS_KEY)
   const [modalOpen, setModalOpen] = useState(false)
   // const [isChatroomActive, set]
@@ -74,8 +74,8 @@ const ChatWindowSidebar = ({ username }) => {
 
       <Modal show={modalOpen} onHide={closeModal}>
         {activeKey === "chatrooms" ?
-          <NewChatroomModal closeModal={closeModal}/> :
-          <NewUserModal closeModal={closeModal}/>
+          <NewChatroomModal closeModal={closeModal} myUsername={username} id={id}/> :
+          <NewUserModal closeModal={closeModal} id={id}/>
         }
       </Modal>
 

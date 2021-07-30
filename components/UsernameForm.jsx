@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/Button';
 import styles from '../styles/UsernameForm.module.scss';
 
-const UsernameForm = ({ value, onChange, onUsernameSubmit }) => {
+const UsernameForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
   const idRef = useRef()
   const usernameRef = useRef()
   const { users, createUser } = useUsers()
@@ -38,7 +38,6 @@ const UsernameForm = ({ value, onChange, onUsernameSubmit }) => {
       }
     }
     newUser = users.length === count ? true : false
-    console.log(newUser)
     if (users.length === 0 || newUser) {
       id = idRef.current.value
       createUser(id, username)
@@ -49,6 +48,7 @@ const UsernameForm = ({ value, onChange, onUsernameSubmit }) => {
     }
     // createUser(id, username) //could add 2nd argument(usernameCustomizedRef.current.value)
     // socketNewUser(id, username)
+    onIdSubmit(id)
     onUsernameSubmit(() => setUsernameConfirmed(true))
   }
 

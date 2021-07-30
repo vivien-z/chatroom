@@ -1,10 +1,8 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
-
+import useLocalStorage from '../hooks/useLocalStorage';
 import { useUsers } from "./UsersProvider";
 import { useSocket } from "./SocketProvider";
 import { io } from "socket.io-client";
-
-import useLocalStorage from '../hooks/useLocalStorage';
 
 const ChatroomsContext = React.createContext()
 
@@ -23,8 +21,7 @@ export function ChatroomsProvider({ username, children }) {
   //   console.log("Chatroom provider socket");
   // });
 
-  console.log('chatroom provider')
-  function createChatroom(roomname, roomUserIds) {
+  function createChatroom(roomname, roomUsers) {
     // socket.emit(
     //   "create-chatroom",
     //   {roomname, roomUserIds}
@@ -32,18 +29,55 @@ export function ChatroomsProvider({ username, children }) {
     setChatrooms(prevChatrooms => {
       return [
         ...prevChatrooms,
-        {roomname, roomUserIds, chatroomMessages: []}
+        {roomname, roomUsers: roomUsers, chatroomMessages: []}
       ]
     })
   }
 
-  const addMessageToChatroom = useCallback(({ selectedChatroom, messageContent, senderUsername }) => {
-
+  function addUserToChatroom(newUserId, selectedChatroom) {
+    console.log("chatroom add user format")
+    console.log(selectedChatroom)
     setChatrooms(prevChatrooms => {
-      const newMessage = { senderUsername, messageContent }
+      const updatedChatrooms = chatrooms.map(chatroom => {
+        const newUser = users.find(user => user.id === newUserId)
+        const selectedChatroomUsers = selectedChatroom.roomUsers
+        // const chatroomUserIds = chatroom.roomUsers.map(user => user.id)
+        // const selectedChatroomUserIds = selectedChatroom.roomUsers.map(user => user.id)
+        if (chatroom.roomname === selectedChatroom.roomname) {
+          return {
+            ...chatroom,
+            roomUsers: [...selectedChatroomUsers, newUser],
+            // roomUsers: [...selectedChatroomUserIds, newUserId],
+          }
+        } else {
+          return chatroom
+        }
+      })
+      return updatedChatrooms
+    })
+  }
+
+  const addMessageToChatroom = useCallback(({ selectedChatroom, messageContent, sender }) => {
+    setChatrooms(prevChatrooms => {
+      const senderName = sender.username
+      const newMessage = { senderName, messageContent }
+      const newUser = !selectedChatroom.roomUsers.find(user => user.username === senderName)
 
       const updatedChatrooms = prevChatrooms.map(chatroom => {
+        // const chatroomUsers = chatroom.roomUsers
+        const selectedChatroomUsers = selectedChatroom.roomUsers
+        // const selectedChatroomUserIds = selectedChatroom.roomUsers.map(user => user.id)
+
         if (chatroom.roomname === selectedChatroom.roomname) {
+          if (newUser) {
+            console.log(newUser)
+            console.log(sender)
+            return {
+              ...chatroom,
+              roomUsers: [...selectedChatroomUsers, sender],
+              messages: [...chatroom.chatroomMessages, newMessage]
+            }
+          }
           return {
             ...chatroom,
             chatroomMessages: [...chatroom.chatroomMessages, newMessage]
@@ -52,12 +86,13 @@ export function ChatroomsProvider({ username, children }) {
           return chatroom
         }
       })
+
       return updatedChatrooms
     })
   }, [setChatrooms])
 
   useEffect(() => {
-    if (socket) {
+    if (socket === null) return
       socket.on(
         "new-message-created",
         addMessageToChatroom
@@ -66,52 +101,52 @@ export function ChatroomsProvider({ username, children }) {
         // }
       )
      // return () => socket.off("new-message-created")
-    }
   }, [socket, addMessageToChatroom])
 
-
-  function sendMessage(selectedChatroom, messageContent) {
-    socket.emit(
-      "message-submitted",
-      {selectedChatroom, messageContent, senderUsername:username}
-    )
-
-    addMessageToChatroom({
-      selectedChatroom,
-      messageContent,
-      senderUsername:username
-    })
+  function sendMessage(selectedChatroom, messageContent, sender) {
+    console.log(sender)
+    socket.emit("message-submitted", {selectedChatroom, messageContent, sender})
+    addMessageToChatroom({selectedChatroom, messageContent, sender})
+    // socket.emit(
+    //   "message-submitted",
+    //   {selectedChatroom, messageContent, senderUsername:username}
+    // )
+    // addMessageToChatroom({
+    //   selectedChatroom,
+    //   messageContent,
+    //   senderUsername:username
+    // })
   }
 
 
   const formattedChatrooms = chatrooms.map((chatroom, i) => {
+    console.log("formated chatroom")
+    console.log(chatroom)
+    // const roomUsers = chatroom.roomUsers.map(roomUser => {
+    //   // const user = users.find(user => {
+    //   //   if (user.id === roomUser.id) {
+    //   //     return user
+    //   //   }
+    //   //   // return user.id === roomUserId ? user : null
+    //   // })
+    //   const name = (roomUser && roomUser.username) || roomUser.id
+    //   return { id: roomUser.id, username: name }
+    // })
 
-    //get current chatroom's users
-    const roomUsers = chatroom.roomUserIds.map(roomUserId => {
-      const user = users.find(user => {
-        return user.id === roomUserId ? user : null
-      })
-      const name = (user && user.username) || roomUserId
-      return { id: roomUserId, username: name }
-    })
-
-
-    //get current chatroom's messages
     const formattedMessages = chatroom.chatroomMessages.map(m => {
       const sender = users.find(user => {
-        return user.username === m.senderUsername
+        return user.username === m.senderName
       })
-      const name = (sender && sender.username) || m.senderUsername
-      const fromMe = username === m.sender
+      const name = (sender && sender.username) || m.sender.id
+      const fromMe = username === m.sender.username
+      console.log(fromMe)
       return { ...m, senderName: name, fromMe }
     })
 
-    // }
     const selected = i === selectedChatroomIndex
 
-
     // return { ...chatroom, roomUsers, selected }
-    return { ...chatroom, roomUsers, formattedMessages, selected }
+    return { ...chatroom, roomUsers: chatroom.roomUsers, chatroomMessages: formattedMessages, selected }
   })
 
   const value = {

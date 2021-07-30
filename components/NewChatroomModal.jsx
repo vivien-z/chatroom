@@ -1,28 +1,29 @@
 import { useRef, useState, useEffect } from "react";
-// import { io } from "socket.io-client";
 import { useChatrooms } from "../context/ChatroomsProvider";
 import { useUsers } from "../context/UsersProvider";
-
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+// import { io } from "socket.io-client";
 
-const NewChatroomModal = ({ closeModal }) => {
+export default function NewChatroomModal({ closeModal, myUsername, id }) {
+  // const myId = id
+  // const myId = users.find(users => user.username === myUsername).id
   const { users } = useUsers()
+  const roomnameRef = useRef()
+  const { createChatroom } = useChatrooms()
   const [selectedUserIds, setSelectedUserIds] = useState([])
   const [chatroom, setChatroom] = useState("");
   const [chatrooms, setChatrooms] = useState([]);
 
-  const roomnameRef = useRef()
-  const { createChatroom } = useChatrooms()
-
-
+  const otherUsers = users.filter(user => user.username !== myUsername)
+  const currentUser = users.filter(user => user.username === myUsername)
 
   function handleCheckboxChange(userId) {
     setSelectedUserIds(prevSelectedUserIds => {
       if (prevSelectedUserIds.includes(userId)) {
-        return prevSelectedUserIds.filter(id => {
-          return id !== userID
+        return prevSelectedUserIds.filter(prevId => {
+          return prevId !== userId
         })
       } else {
         return [...prevSelectedUserIds, userId]
@@ -33,7 +34,12 @@ const NewChatroomModal = ({ closeModal }) => {
   function handleSubmit(e) {
     e.preventDefault()
     const roomname = roomnameRef.current.value
-    createChatroom(roomname, selectedUserIds) //could add 2nd argument(usernameCustomizedRef.current.value)
+    const otherRoomUsers = selectedUserIds.map(userId => {
+      return users.find(user => user.id === userId)
+    })
+    const roomUsers = [...otherRoomUsers, currentUser]
+
+    createChatroom(roomname, roomUsers)
     closeModal()
   }
 
@@ -63,5 +69,3 @@ const NewChatroomModal = ({ closeModal }) => {
     </div>
   )
 };
-
-export default NewChatroomModal;

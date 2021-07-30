@@ -2,12 +2,8 @@ import { useChatrooms } from "../context/ChatroomsProvider";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-
 const Chatrooms = ({ value }) => {
   const { chatrooms, selectChatroomIndex } = useChatrooms()
-  console.log('chatrooms')
-  console.log(chatrooms)
-
   return (
     <ListGroup variant="flush">
       {chatrooms.map((chatroom, i) => (

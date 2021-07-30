@@ -13,34 +13,30 @@ export function UsersProvider({ children }) {
   const [users, setUsers] = useLocalStorage('users', [])
   const { socket } = useSocket()
 
-
   const addUsertoUsers = useCallback(({id, username}) => {
     setUsers(prevUsers => {
       return [...prevUsers, {id, username}]
     })
   })
 
-
-
-  useEffect(() => {
-    if (socket) {
-      socket.on(
-        "new-user-created",
-        (() => addUsertoUsers({id, username}))
-      )
-    }
-  }, [addUsertoUsers])
-
   function createUser(id, username) {
-    console.log(id)
-    console.log(username)
     socket.emit(
       "user-submitted",
       {id, username}
     )
     addUsertoUsers({id, username})
-
   }
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("new-user-created", ({id, username}) => {
+        addUsertoUsers({id, username})
+      })
+      return () => {
+        socket.off("new-user-created")
+      }
+    }
+  }, [users])
 
   return (
     <UsersContext.Provider value={{ users, createUser }}>

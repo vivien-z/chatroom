@@ -1,24 +1,31 @@
 import { useState } from "react";
-// import { io } from "socket.io-client";
-
+import ReactDOM from 'react-dom';
 import Chatrooms from "../components/Chatrooms";
 import Users from "../components/Users";
 import NewChatroomModal from "../components/NewChatroomModal";
 import NewUserModal from "../components/NewUserModal";
-// import MessageInputField from "../components/MessageInputField";
-import Tab from 'react-bootstrap/Tab';
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-
+// import Tab from 'react-bootstrap/Tab';
+// import Nav from 'react-bootstrap/Nav';
+// import Button from 'react-bootstrap/Button';
+// import Modal from 'react-bootstrap/Modal';
+import { Tab, Nav, Button, Modal, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faComments } from '@fortawesome/fontawesome-free-solid/faComments'
+// import { faUserFriends } from '@fortawesome/fontawesome-free-solid/faUserFriends'
+import { faComments, faUserFriends } from '@fortawesome/free-solid-svg-icons'
+import styles from '../styles/ChatWindowSidebar.module.scss';
 
 const CHATROOMS_KEY = "chatrooms"
 const USERS_KEY = "users"
 
-const ChatWindowSidebar = ({ username }) => {
+const ChatWindowSidebar = ({ username, id }) => {
   const [activeKey, setActiveKey] = useState(CHATROOMS_KEY)
   const [modalOpen, setModalOpen] = useState(false)
   // const [isChatroomActive, set]
+
+  const btnName = activeKey === CHATROOMS_KEY ? "Chatroom" : "Contact"
+  const chatrooms = <FontAwesomeIcon icon={faComments} />
+  const contacts = <FontAwesomeIcon icon={faUserFriends} />
 
   function closeModal() {
     setModalOpen(false)
@@ -27,49 +34,58 @@ const ChatWindowSidebar = ({ username }) => {
   return (
     <div style={{ width: '250px'}} className='d-flex flex-column'>
 
-      <div className='p-2 small'>
-        User: <span className='text-muted'>{username}</span>
-        {/*Room: <span className='text-muted'>{roomname}</span>*/}
-      </div>
-      <Tab.Container
-        activeKey={activeKey}
-        onSelect={setActiveKey}>
-        <Nav variant="tabs" className='justify-content-center'>
-          <Nav.Item>
-            <Nav.Link eventKey={CHATROOMS_KEY}>Chatrooms</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey={USERS_KEY}>Users</Nav.Link>
-          </Nav.Item>
-        </Nav>
-        <Tab.Content
-          className='overflow-auto flex-grow-1'
-          >
-          <Tab.Pane eventKey={CHATROOMS_KEY}>
-            <Chatrooms />
-          </Tab.Pane>
-          <Tab.Pane eventKey={USERS_KEY}>
-            <Users />
-          </Tab.Pane>
-        </Tab.Content>
-        <Button
-          className='rounded-0'
-          onClick={()=>setModalOpen(true)}
-          >
-          New {activeKey}
-        </Button>
+      <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
+        <Row className={`h-100 ${styles.margin0}`}>
+          <Col sm={3} className={`${styles.navTab} px-0 h-100 py-1`}>
+            <div className="py-1 bg-primary h-100 rounded">
+              <span className={`${styles.avatar}`}>{username[0].toUpperCase()}</span>
+
+              <Nav variant="pills" className="pt-4 justify-content-center align-items-start">
+                <Nav.Item className="mb-2">
+                  <Nav.Link eventKey={CHATROOMS_KEY}>{chatrooms}</Nav.Link>
+                </Nav.Item>
+                <Nav.Item className="mb-2">
+                  <Nav.Link eventKey={USERS_KEY}>{contacts}</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </div>
+          </Col>
+          <Col sm={9} className="px-0 h-100">
+            <div className='d-flex flex-column py-1 h-100'>
+              <p className={`${styles.tabTitle}`}>{btnName}</p>
+              <Tab.Content className='overflow-auto flex-grow-1'>
+                <Tab.Pane eventKey={CHATROOMS_KEY}>
+                  <Chatrooms username={username} />
+                </Tab.Pane>
+                <Tab.Pane eventKey={USERS_KEY}>
+                  <Users />
+                </Tab.Pane>
+              </Tab.Content>
+              <Button
+                className={`${styles.buttom} align-items-end w-100`}
+                onClick={()=>setModalOpen(true)}
+              >
+                New {btnName}
+              </Button>
+            </div>
+          </Col>
+        </Row>
       </Tab.Container>
 
       <Modal show={modalOpen} onHide={closeModal}>
         {activeKey === "chatrooms" ?
-          <NewChatroomModal closeModal={closeModal}/> :
-          <NewUserModal closeModal={closeModal}/>
+          <NewChatroomModal closeModal={closeModal} myUsername={username} id={id}/> :
+          <NewUserModal closeModal={closeModal} id={id}/>
         }
       </Modal>
 
     </div>
   )
 }
+//       <div className='p-2 small'>
+//         User: <span className='text-muted'>{username}</span>
+//         Room: <span className='text-muted'>{roomname}</span>
+//       </div>
 // const ChatWindow = ({ type, name, value, avatarSrc, onChange, onSubmit, placeholder, disabled }) => {
 //   const [socket, setSocket] = useState(null);
 //   const [isUsernameConfirmed, setUsernameConfirmed] = useState(false);

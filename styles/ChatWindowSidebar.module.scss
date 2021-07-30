@@ -1,0 +1,40 @@
+.border {
+  border-radius: 14px;
+}
+.navTab {
+  border-radius: 14px;
+  border-left:  3px solid white;
+  border-right:  3px solid white;
+}
+.tabTitle{
+  text-align: center;
+  padding: 16px 0;
+  margin: 0;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 1px solid #fed9b7;
+  color: #9d0208;
+  font-size:  1.25rem;
+  font-weight: bold;
+  background-color: #f07167;
+}
+.buttom {
+  min-height: 42px;
+  border-radius: 0 0 10px 10px !important;
+}
+.margin0 {
+  margin: 0 !important;
+}
+.avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border-bottom: 1px solid #fed9b7;
+  background-color: #fed9b7;
+  color:  #f07167;
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin:  1rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -11,34 +11,30 @@ const MessageHistory = () => {
   },[])
   const { selectedChatroom } = useChatrooms()
 
-  console.log(selectedChatroom)
-  console.log(selectedChatroom.formattedMessages)
   return (
-    <div className="h-100 d-flex flex-column align-items-start
-    justify-content-end px-3 border">
-      {selectedChatroom.formattedMessages.map((m, i) => {
-        const lastMessage = (selectedChatroom.formattedMessages.length - 1) === i
+    <div className="d-flex flex-column align-items-start
+    justify-content-start h-100 px-3 py-2 mb-2 bg-white rounded">
+      { selectedChatroom.chatroomMessages.map((m, i) => {
+        const lastMessage = (selectedChatroom.chatroomMessages.length - 1) === i
         return (
           <div
             ref={lastMessage ? setRef : null}
             key={i}
-            className={`my-1 d-flex flex-column ${m.fromMe ? 'align-self-end' : ''}`}
+            className={`d-flex flex-column ${m.fromMe ? 'align-self-end' : 'mb-2'}`}
           >
             <div
-              className={`rounded px-2 py-1 ${m.fromMe ? 'bg-primary text-white' : 'border'}`}
+              className={`rounded px-2 py-1 ${m.fromMe ? 'bg-primary text-white' : 'bg-white border'}`}
             >
               {m.messageContent}
             </div>
             <div
-              className={`text-muted small ${m.fromMe ? 'text-right' : ''}`}
+              className={`text-muted small ${m.fromMe ? 'text-end pe-1' : 'ps-1'}`}
             >
               <b>{m.fromMe ? 'You' : m.senderName}</b>:
             </div>
           </div>
         )
       })}
-
-      chathistroy
     </div>
   );
 };

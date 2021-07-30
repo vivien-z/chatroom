@@ -1,10 +1,5 @@
-
-
 const ChatroomInputField = ({ type, name, value, onChange, onSubmit, disabled }) => {
-  if (disabled) {
-    return null;
-  } else {
-    return (
+  const inputField = (
       <div>
         <form onSubmit={(e) => e.preventDefault() || onSubmit(e)}>
           <input
@@ -16,8 +11,12 @@ const ChatroomInputField = ({ type, name, value, onChange, onSubmit, disabled })
           {/*{<input type="submit" value="Add"/>}*/}
         </form>
       </div>
-    );
-  }
+  )
+  return (
+    <>
+      {disabled ? <></> : inputField}
+    </>
+  )
 };
 
 export default ChatroomInputField;

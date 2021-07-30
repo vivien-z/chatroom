@@ -2,11 +2,24 @@ import { useChatrooms } from "../context/ChatroomsProvider";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-
-const Chatrooms = ({ value }) => {
+const Chatrooms = ({ value, username }) => {
   const { chatrooms, selectChatroomIndex } = useChatrooms()
-  console.log('chatrooms')
-  console.log(chatrooms)
+
+  function otherRoomUsers(chatroom) {
+    return chatroom.roomUsers.filter(user => user.username !== username).map(user => user.username)
+  }
+
+  function isMyChatroom(chatroom) {
+    return chatroom.roomUsers.length !== otherRoomUsers(chatroom).length
+  }
+
+  function listChatroomUsers(chatroom) {
+    if (isMyChatroom(chatroom)) {
+      return [...otherRoomUsers(chatroom), "me"]
+    } else {
+      return otherRoomUsers(chatroom)
+    }
+  }
 
   return (
     <ListGroup variant="flush">
@@ -18,27 +31,11 @@ const Chatrooms = ({ value }) => {
           active={chatroom.selected}
         >
           <b>{chatroom.roomname}</b>
-
           <ListGroup className={chatroom.selected ? null : 'd-none'}>
-            {chatroom.roomUsers.map((roomUser, i) =>
-              <ListGroup.Item key={i}>{roomUser.username}</ListGroup.Item>
+            {listChatroomUsers(chatroom).map((roomUser, i) =>
+              <ListGroup.Item key={i}>{roomUser}</ListGroup.Item>
             )}
           </ListGroup>
-
-{/*          <Dropdown>
-            <Dropdown.Toggle variant="success" id="chatroom-users">
-              <b>{chatroom.roomname}</b>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <ListGroup show={chatroom.selected}>
-                {chatroom.roomUsers.map((roomUser, i) =>
-                  <Dropdown.Item href={`#/action-{i}`}>
-                    <ListGroup.Item key={i}>{roomUser.name}</ListGroup.Item>
-                  </Dropdown.Item>
-                )}
-              </ListGroup>
-            </Dropdown.Menu>
-          </Dropdown>*/}
 
         </ListGroup.Item>
       ))}
@@ -47,3 +44,7 @@ const Chatrooms = ({ value }) => {
 };
 
 export default Chatrooms;
+
+            // {chatroom.roomUsers.map((roomUser, i) =>
+            //   <ListGroup.Item key={i}>{roomUser.username}</ListGroup.Item>
+            // )}

@@ -1,0 +1,74 @@
+/*======================
+  reset bootstrap color
+=======================*/
+$primary: #f07167;
+$secondary: #fed9b7;
+$danger: #9d0208;
+$green: #d9ed92;
+@import '~bootstrap/scss/bootstrap';
+
+/*======================
+  general setting
+=======================*/
+html,
+body {
+  background: #f8f9fa;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.btn{
+  color: $danger;
+  font-weight: bold;
+  &:hover {
+    color: $danger;
+  }
+}
+/*===================
+  ChatWindow Tabs
+=====================*/
+.nav-link {
+  color: #fed9b7 !important;
+}
+.nav-link.active {
+  color: #f07167 !important;
+  background-color: #fed9b7!important;
+  border: 1px solid #fed9b7!important;
+}
+.list-group-item-action {
+  background-color: #f8f9fa !important;
+  font-size: 0.95rem;
+  b {
+    color: $danger !important;
+    margin-left: 0.25rem;
+  }
+
+}
+.list-group-item-action.active {
+  background-color: $secondary !important;
+  border-bottom: 1px solid #fed9b7!important;
+  border-top: 1px solid #fed9b7!important;
+  .list-group {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+  }
+  .list-group-item {
+    border: none;
+    padding: 4px 16px;
+    color: $danger !important;
+  }
+  b {
+    // margin-left: 0.25rem;
+  }
+}

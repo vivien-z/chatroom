@@ -1,24 +1,21 @@
-import styles from '../styles/Navbar.module.css';
+import styles from '../styles/Navbar.module.scss';
 
 const Navbar = ({ value, avatarSrc, disabled }) => {
 
-  if (disabled) {
-    return (
-      <nav className={styles.navbar}>
-        <div className={styles.navbarLogo}>2chat</div>
-      </nav>
-    );
-  } else {
-    return (
-      <nav className={styles.navbar}>
-        <div className={styles.navbarLogo}>2chat</div>
-        <div className={styles.navbarProfileInfo}>
-          <p>Hi: {value}</p>
-          {/*<img src={avatarSrc} alt="profile pic" />*/}
-        </div>
-      </nav>
-    );
-  }
+  const userinfo =(
+    <div className={styles.navbarUserInfo}>
+      <span>user: {value}</span>
+      {/*<span className={`${styles.avatar}`}>{value[0].toUpperCase()}</span>*/}
+      {/*<img src={avatarSrc} alt="profile pic" />*/}
+    </div>
+  )
+
+  return (
+    <nav className={styles.navbar}>
+      <div className={styles.navbarLogo}>A Chatroom</div>
+      {disabled ? null : userinfo}
+    </nav>
+  )
 };
 
 export default Navbar;

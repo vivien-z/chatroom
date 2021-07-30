@@ -1,22 +1,26 @@
 import { useState } from "react";
 import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
+import { useUsers } from "../context/UsersProvider";
 
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 
-const MessageInputField = ({ type, name, value, onChange, onSubmit }) => {
+// const MessageInputField = ({ username, id, selectedChatroom }) => {
+const MessageInputField = ({ type, name, value, onChange, onSubmit, username, id, selectedChatroom }) => {
   const [messageContent, setMessageContent] = useState('')
 
   if (!useChatrooms) {
     return null
   } else {
     const { sendMessage, selectedChatroom } = useChatrooms()
+    const { users } = useUsers()
 
     function handleSubmit(e) {
       e.preventDefault()
-      // const roomUsernames = selectedChatroom.roomUsers.map(roomUser => roomUser.username)
-      sendMessage(selectedChatroom, messageContent)
+
+      const sender = users.find(user => user.username === username)
+      sendMessage(selectedChatroom, messageContent, sender)
       setMessageContent('')
     }
 
@@ -26,11 +30,10 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit }) => {
           <Form.Group>
             <InputGroup className="w-100">
               <Form.Control
-                style={{ height: '75px', resize: 'none' }}
                 as="textarea"
-                // name={name}
-                value={value}
+                value={messageContent}
                 onChange={(e) => setMessageContent(e.target.value)}
+                style={{ height: '75px', resize: 'none'}}
                 required
               />
               <Button type="submit">Send</Button>
@@ -40,30 +43,6 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit }) => {
       </div>
     );
   }
-
 };
 
 export default MessageInputField;
-
-{/*
-
-      if (disabled) {
-        return null;
-      } else {
-        <form onSubmit={(e) => e.preventDefault() || onSubmit(e)}>
-          <input
-            className={styles.messageInputField}
-            type={type}
-            name={name}
-            value={value}
-            onChange={(e) => e.preventDefault() || onChange(e.target.value)}
-            placeholder={placeholder}
-          />
-          <input
-            className={styles.messageInputButton}
-            type="submit"
-            value="Submit"
-          />
-        </form>
-      }
-*/}

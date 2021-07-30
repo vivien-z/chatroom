@@ -1,4 +1,3 @@
-import { Server } from "socket.io";
 // // This endpoint doesn't really do anything. It just starts websockets.
 // // NextJS does not officially support websockets. NextJS is intended for deployment
 // // to serverless environments, which are mostly incompatible with websockets.
@@ -7,8 +6,10 @@ import { Server } from "socket.io";
 // // This solution is by rogeriojlle on StackOverflow:
 // // https://stackoverflow.com/questions/57512366/how-to-use-socket-io-with-next-js-api-routes/62547135#62547135
 
+
+import { Server } from "socket.io";
+
 const ioHandler = (req, res) => {
-  // if the socket server hasn't started yet, start it up.
   if (!res.socket.server.io) {
     console.log("First use, starting socket.io");
 
@@ -16,16 +17,21 @@ const ioHandler = (req, res) => {
     const io = new Server(res.socket.server);
 
     io.on("connection", (socket) => {
+      socket.broadcast.emit('a user connected')
 
-      socket.on("user-submitted", ({id, username}) => {
-        socket.emit("new-user-created", {id, username});
-        socket.broadcast.emit("new-user-created", {id, username});
-      });
-
-      socket.on("message-submitted", ({ selectedChatroom, messageContent, senderUsername }) => {
-        socket.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
-        socket.broadcast.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
+      socket.on("message-submitted", ({ selectedChatroom, messageContent, sender }) => {
+        // socket.emit("new-message-created", {selectedChatroom, messageContent, senderUsername})
+        console.log("socket msg submit ok")
+        console.log(selectedChatroom)
+        console.log(messageContent)
+        console.log(sender)
+        socket.broadcast.emit("new-message-created", {selectedChatroom, messageContent, sender})
       })
+      socket.on("user-submitted", ({id, username}) => {
+        console.log("socket chat-io")
+        // socket.emit("new-user-created", {id, username});
+        socket.broadcast.emit("new-user-created", {id, username})
+      });
 
       // socket.on("create-chatroom", ({roomname, roomUserIds}) => {
       //   socket.emit("new-chatroom-created", {roomname, roomUserIds});
@@ -46,6 +52,8 @@ const ioHandler = (req, res) => {
 };
 
 export default ioHandler;
+
+
 
 // const io = require('socket.io')(5000)
 

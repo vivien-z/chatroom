@@ -15,6 +15,7 @@ export function ChatroomsProvider({ username, children }) {
   const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
   const { users } = useUsers()
   const { socket } = useSocket()
+
   // const [chatroomMessages, setChatroomMessages] = useState([])
 
   // socket.on("connect", () => {
@@ -35,8 +36,8 @@ export function ChatroomsProvider({ username, children }) {
   }
 
   function addUserToChatroom(newUserId, selectedChatroom) {
-    console.log("chatroom add user format")
-    console.log(selectedChatroom)
+    // console.log("chatroom add user format")
+    // console.log(selectedChatroom)
     setChatrooms(prevChatrooms => {
       const updatedChatrooms = chatrooms.map(chatroom => {
         const newUser = users.find(user => user.id === newUserId)
@@ -58,6 +59,7 @@ export function ChatroomsProvider({ username, children }) {
   }
 
   const addMessageToChatroom = useCallback(({ selectedChatroom, messageContent, sender }) => {
+    console.log(sender)
     setChatrooms(prevChatrooms => {
       const senderName = sender.username
       const newMessage = { senderName, messageContent }
@@ -70,8 +72,6 @@ export function ChatroomsProvider({ username, children }) {
 
         if (chatroom.roomname === selectedChatroom.roomname) {
           if (newUser) {
-            console.log(newUser)
-            console.log(sender)
             return {
               ...chatroom,
               roomUsers: [...selectedChatroomUsers, sender],
@@ -91,21 +91,16 @@ export function ChatroomsProvider({ username, children }) {
     })
   }, [setChatrooms])
 
-  useEffect(() => {
-    if (socket === null) return
-      socket.on(
-        "new-message-created",
-        addMessageToChatroom
-        // ({selectedChatroom, messageContent, senderUsername}) => {
-        //   addMessageToChatroom({selectedChatroom, messageContent, senderUsername})
-        // }
-      )
-     // return () => socket.off("new-message-created")
-  }, [socket, addMessageToChatroom])
-
   function sendMessage(selectedChatroom, messageContent, sender) {
+    console.log("sendMessage sender")
+    console.log(selectedChatroom)
+    console.log(messageContent)
     console.log(sender)
-    socket.emit("message-submitted", {selectedChatroom, messageContent, sender})
+    // socket.emit("message-submitted", {selectedChatroom, messageContent, sender})
+    socket.emit(
+      "message-submitted",
+      { selectedChatroom, messageContent, sender }
+    )
     addMessageToChatroom({selectedChatroom, messageContent, sender})
     // socket.emit(
     //   "message-submitted",
@@ -118,10 +113,31 @@ export function ChatroomsProvider({ username, children }) {
     // })
   }
 
+  useEffect(() => {
+    if (socket) {
+      socket.on(
+        "new-message-created", ({selectedChatroom, messageContent, sender}) => {
+          console.log("socket received new msg")
+          console.log(sender)
+          addMessageToChatroom({selectedChatroom, messageContent, sender})
+      })
+      return () => {
+        socket.off("new-message-created")
+      }
+        // addMessageToChatroom
+        // ({selectedChatroom, messageContent, senderUsername}) => {
+        //   addMessageToChatroom({selectedChatroom, messageContent, senderUsername})
+        // }
+
+    }
+     // return () => socket.off("new-message-created")
+  }, [socket, addMessageToChatroom])
+
+
 
   const formattedChatrooms = chatrooms.map((chatroom, i) => {
-    console.log("formated chatroom")
-    console.log(chatroom)
+    // console.log("formated chatroom")
+    // console.log(chatroom)
     // const roomUsers = chatroom.roomUsers.map(roomUser => {
     //   // const user = users.find(user => {
     //   //   if (user.id === roomUser.id) {
@@ -138,8 +154,8 @@ export function ChatroomsProvider({ username, children }) {
         return user.username === m.senderName
       })
       const name = (sender && sender.username) || m.sender.id
-      const fromMe = username === m.sender.username
-      console.log(fromMe)
+      const fromMe = username === sender.username
+      // console.log(fromMe)
       return { ...m, senderName: name, fromMe }
     })
 

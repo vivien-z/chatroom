@@ -13,23 +13,13 @@ export function UsersProvider({ children }) {
   const [users, setUsers] = useLocalStorage('users', [])
   const { socket } = useSocket()
 
-
   const addUsertoUsers = useCallback(({id, username}) => {
     setUsers(prevUsers => {
       return [...prevUsers, {id, username}]
     })
   })
 
-  // function socketNewUser(id, username) {
-  //   socket.emit(
-  //     "user-submitted",
-  //     {id, username}
-  //   )
-  //   addUsertoUsers({id, username})
-  // }
-
   function createUser(id, username) {
-    // const userCount = users.length
     socket.emit(
       "user-submitted",
       {id, username}

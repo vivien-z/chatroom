@@ -70,7 +70,6 @@ export function SocketProvider( {username, children} ) {
   return (
     <SocketContext.Provider value={value}>
       { children }
-      {console.log('socket provider ck')}
     </SocketContext.Provider>
   )
 }

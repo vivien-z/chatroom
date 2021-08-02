@@ -21,7 +21,7 @@ const LoginForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
     onChange(generateRandomUsername())
   }
 
-  function isNewUser(username) {
+  function isNewRoomuser(username) {
     let count = 0
     for (let i = 0; i < users.length; i++) {
       if (users[i].username !== username) {
@@ -42,7 +42,7 @@ const LoginForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
     let id
 
     // newUser = users.length === count ? true : false
-    if (isNewUser(username)) {
+    if (isNewRoomuser(username)) {
       id = idRef.current.value
       createUser(id, username)
     } else {

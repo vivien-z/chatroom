@@ -13,7 +13,7 @@ export function useChatrooms() {
 export function ChatroomsProvider({ myUsername, children }) {
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
   const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
-  const { users } = useUsers()
+  const { users, currentUser } = useUsers()
   const { socket } = useSocket()
 
   // const [chatroomMessages, setChatroomMessages] = useState([])

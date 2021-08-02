@@ -13,12 +13,13 @@ const ChatWindowMessageSide = ({ myUsername, myId, selectedChatroom }) => {
 {/*      <MessageInfo
         myUsername={myUsername}
       />*/}
-      <MessageHistory className="flex-grow-1 overflow-auto" myUsername={myUsername} myId={myId} />
+      <MessageHistory className="flex-grow-1 overflow-auto" myUsername={myUsername} myId={myId}/>
       <MessageInputField
         className=""
         myUsername={myUsername}
         myId={myId}
-        selectedChatroom={selectedChatroom}/>
+        // selectedChatroom={selectedChatroom}
+      />
     </div>
   )
 

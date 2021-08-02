@@ -11,9 +11,9 @@ export function useUsers() {
 
 export function UsersProvider({ myUsername, myId, children }) {
   const [users, setUsers] = useLocalStorage('users', [])
+  // const [currentUser, setCurrentUser] = useLocalStorage('currentUser', [])
   const { socket } = useSocket()
 
-  const currentUser = {id: myId, username: myUsername}
 
   const addUsertoUsers = useCallback(({id, username}) => {
     setUsers(prevUsers => {
@@ -30,6 +30,7 @@ export function UsersProvider({ myUsername, myId, children }) {
   }
 
   useEffect(() => {
+    // const setCurrentUser = {id: myId, username: myUsername}
     if (socket) {
       socket.on("new-user-created", ({id, username}) => {
         addUsertoUsers({id, username})
@@ -41,7 +42,7 @@ export function UsersProvider({ myUsername, myId, children }) {
   }, [users])
 
   return (
-    <UsersContext.Provider value={{ users, createUser, currentUser }}>
+    <UsersContext.Provider value={{ users, createUser }}>
       { children }
     </UsersContext.Provider>
   )

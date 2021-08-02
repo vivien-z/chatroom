@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
 
-const MessageHistory = ({ value, selectedChatroom, myUsername, myId }) => {
+const MessageHistory = ({ value, myUsername, myId }) => {
 // const MessageHistory = () => {
 
   const setRef = useCallback(node => {

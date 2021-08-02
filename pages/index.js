@@ -55,13 +55,13 @@ export default function Home() {
   // } else {
   const navbar = (
     <Navbar
-        value={null || username}
+        value={username || null}
         avatarSrc="/favicon.ico"
         disabled={!isUsernameConfirmed}
     />
   )
   const chatWindow = <ChatWindow username={username} id={id}/>
-  const LoginForm = (
+  const loginForm = (
     <LoginForm
       value={username}
       onChange={(value) => setUsername(value)}
@@ -84,7 +84,7 @@ export default function Home() {
             <UsersProvider username={username} id={id}>
               <ChatroomsProvider username={username} id={id}>
                 {isUsernameConfirmed ? chatWindow : <></>}
-                {isUsernameConfirmed ? <></> : LoginForm}
+                {isUsernameConfirmed ? <></> : loginForm}
               </ChatroomsProvider>
             </UsersProvider>
           </SocketProvider>

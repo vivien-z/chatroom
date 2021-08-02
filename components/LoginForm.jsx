@@ -11,8 +11,6 @@ const LoginForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
   const idRef = useRef()
   const usernameRef = useRef()
   const { users, createUser } = useUsers()
-  // const { createUser, socketNewUser } = useUsers()
-
 
   function generateRandomUsername() {
     const rug = require('random-username-generator');
@@ -23,31 +21,36 @@ const LoginForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
     onChange(generateRandomUsername())
   }
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    // const id = idRef.current.value
-    const username = usernameRef.current.value
-
-    let id
-    let newUser = false
+  function isNewUser(username) {
     let count = 0
     for (let i = 0; i < users.length; i++) {
       if (users[i].username !== username) {
         count ++
-        newUser = true
       }
     }
-    newUser = users.length === count ? true : false
-    if (users.length === 0 || newUser) {
+    if (users.length === count || users.length === 0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    // const id = idRef.current.value
+    const username = usernameRef.current.value
+    let id
+
+    // newUser = users.length === count ? true : false
+    if (isNewUser(username)) {
       id = idRef.current.value
       createUser(id, username)
-    }
-    if (!newUser) {
+    } else {
       id = users.find(user => user.username === username).id
       onChange(username)
     }
     // createUser(id, username) //could add 2nd argument(usernameCustomizedRef.current.value)
-    // socketNewUser(id, username)
+
     onIdSubmit(id)
     onUsernameSubmit(() => setUsernameConfirmed(true))
   }

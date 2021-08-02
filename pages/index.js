@@ -77,8 +77,8 @@ export default function Home() {
       </Head>
       <Container fluid className="d-flex flex-column vh-100">
         {/*{isUsernameConfirmed ? null : navbar}*/}
-        <Row className="">{navbar}</Row>
-        <Row className="flex-grow-1">
+        <Row>{navbar}</Row>
+        <Row className="flex-grow-1 overflow-auto">
           <SocketProvider className='mt-5' myUsername={myUsername} myId={myId}>
             <UsersProvider myUsername={myUsername} myId={myId}>
               <ChatroomsProvider myUsername={myUsername} myId={myId}>

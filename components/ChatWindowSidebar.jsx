@@ -32,7 +32,7 @@ const ChatWindowSidebar = ({ myUsername, myId }) => {
   }
 
   return (
-    <div style={{ width: '250px'}} className='d-flex flex-column'>
+    <div style={{ width: '260px'}} className='d-flex flex-column h-100'>
 
       <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
         <Row className={`h-100 ${styles.margin0}`}>

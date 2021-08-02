@@ -5,7 +5,6 @@ import ChatWindowMessageSide from "../components/ChatWindowMessageSide";
 import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
 
 // import Chatrooms from "../components/Chatrooms";
-// import ChatroomInputField from "../components/ChatroomInputField";
 // import UsernameField from "../components/UsernameField";
 // import LoginForm from "../components/LoginForm";
 // import MessageHistory from "../components/MessageHistory";

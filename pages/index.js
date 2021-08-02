@@ -12,7 +12,6 @@ import { SocketProvider } from "../context/SocketProvider";
 
 // import MessageInfo from "../components/MessageInfo";
 import Chatrooms from "../components/Chatrooms";
-import ChatroomInputField from "../components/ChatroomInputField";
 // import MessageHistory from "../components/MessageHistory";
 // import MessageInputField from "../components/MessageInputField";
 import { Container, Row, Col } from 'react-bootstrap';

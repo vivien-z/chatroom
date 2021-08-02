@@ -9,9 +9,11 @@ export function useUsers() {
   return useContext(UsersContext)
 }
 
-export function UsersProvider({ children }) {
+export function UsersProvider({ myUsername, myId, children }) {
   const [users, setUsers] = useLocalStorage('users', [])
   const { socket } = useSocket()
+
+  const currentUser = {id: myId, username: myUsername}
 
   const addUsertoUsers = useCallback(({id, username}) => {
     setUsers(prevUsers => {
@@ -39,7 +41,7 @@ export function UsersProvider({ children }) {
   }, [users])
 
   return (
-    <UsersContext.Provider value={{ users, createUser }}>
+    <UsersContext.Provider value={{ users, createUser, currentUser }}>
       { children }
     </UsersContext.Provider>
   )

@@ -11,7 +11,7 @@ export function useSocket() {
   return useContext(SocketContext)
 }
 
-export function SocketProvider( {username, children} ) {
+export function SocketProvider({myUsername, myId, children}) {
   const [socket, setSocket] = useState(null)
   // const { createUser } = useUsers()
   // const [users, setUsers] = useLocalStorage('users', [])

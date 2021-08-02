@@ -12,13 +12,13 @@ import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
 // import MessageInputField from "../components/MessageInputField";
 // import useLocalStorage from '../hooks/useLocalStorage';
 
-const ChatWindow = ({ username, id }) => {
+const ChatWindow = ({ myUsername, myId }) => {
   const { selectedChatroom } = useChatrooms()
 
   return (
     <div className='d-flex h-100 p-0' >
-      <ChatWindowSidebar username={username} />
-      <ChatWindowMessageSide username={username} id={id} selectedChatroom={selectedChatroom}/>
+      <ChatWindowSidebar myUsername={myUsername} myId={myId}/>
+      <ChatWindowMessageSide myUsername={myUsername} myId={myId} selectedChatroom={selectedChatroom}/>
     </div>
   )
 }

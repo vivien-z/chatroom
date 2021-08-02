@@ -3,12 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const UsernameField = ({ username }) => {
+const UsernameField = ({ myUsername }) => {
 
     // if the user has already claimed a username, display it.
     return (
       <div className={styles.userInfo}>
-        <h6><b>{username}</b></h6>
+        <h6><b>{myUsername}</b></h6>
         {console.log('userinfo')}
       </div>
     );

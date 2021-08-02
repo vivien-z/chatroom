@@ -6,18 +6,18 @@ import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
 import styles from '../styles/ChatWindowMessageSide.module.scss';
 
-const ChatWindowMessageSide = ({ username, id, selectedChatroom }) => {
+const ChatWindowMessageSide = ({ myUsername, myId, selectedChatroom }) => {
 
   const messageWindow = (
     <div className="d-flex flex-column flex-grow-1 m-1 p-2 rounded border bg-secondary">
 {/*      <MessageInfo
-        username={username}
+        myUsername={myUsername}
       />*/}
-      <MessageHistory className="flex-grow-1 overflow-auto" />
+      <MessageHistory className="flex-grow-1 overflow-auto" myUsername={myUsername} myId={myId} />
       <MessageInputField
         className=""
-        username={username}
-        id={id}
+        myUsername={myUsername}
+        myId={myId}
         selectedChatroom={selectedChatroom}/>
     </div>
   )

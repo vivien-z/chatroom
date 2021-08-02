@@ -5,20 +5,19 @@ import ChatWindowMessageSide from "../components/ChatWindowMessageSide";
 import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
 
 // import Chatrooms from "../components/Chatrooms";
-// import ChatroomInputField from "../components/ChatroomInputField";
 // import UsernameField from "../components/UsernameField";
-// import UsernameForm from "../components/UsernameForm";
+// import LoginForm from "../components/LoginForm";
 // import MessageHistory from "../components/MessageHistory";
 // import MessageInputField from "../components/MessageInputField";
 // import useLocalStorage from '../hooks/useLocalStorage';
 
-const ChatWindow = ({ username, id }) => {
+const ChatWindow = ({ myUsername, myId }) => {
   const { selectedChatroom } = useChatrooms()
 
   return (
     <div className='d-flex h-100 p-0' >
-      <ChatWindowSidebar username={username} />
-      <ChatWindowMessageSide username={username} id={id} selectedChatroom={selectedChatroom}/>
+      <ChatWindowSidebar myUsername={myUsername} myId={myId}/>
+      <ChatWindowMessageSide myUsername={myUsername} myId={myId} selectedChatroom={selectedChatroom}/>
     </div>
   )
 }

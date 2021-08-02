@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 // import { io } from "socket.io-client";
 
-export default function NewChatroomModal({ closeModal, myUsername, id }) {
+export default function NewChatroomModal({ closeModal, myUsername, myId }) {
   // const myId = id
   // const myId = users.find(users => user.username === myUsername).id
   const { users } = useUsers()
@@ -34,8 +34,8 @@ export default function NewChatroomModal({ closeModal, myUsername, id }) {
   function handleSubmit(e) {
     e.preventDefault()
     const roomname = roomnameRef.current.value
-    const otherRoomUsers = selectedUserIds.map(userId => {
-      return users.find(user => user.id === userId)
+    const otherRoomUsers = selectedUserIds.map(sId => {
+      return users.find(user => user.id === sId)
     })
     const roomUsers = [...otherRoomUsers, currentUser]
 

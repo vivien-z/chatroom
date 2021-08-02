@@ -6,8 +6,8 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 
-// const MessageInputField = ({ username, id, selectedChatroom }) => {
-const MessageInputField = ({ type, name, value, onChange, onSubmit, username, id, selectedChatroom }) => {
+// const MessageInputField = ({ myUsername, myId, selectedChatroom }) => {
+const MessageInputField = ({ type, name, value, onChange, onSubmit, myUsername, myId }) => {
   const [messageContent, setMessageContent] = useState('')
 
   if (!useChatrooms) {
@@ -19,7 +19,7 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit, username, id
     function handleSubmit(e) {
       e.preventDefault()
 
-      const sender = users.find(user => user.username === username)
+      const sender = users.find(user => user.username === myUsername)
       sendMessage(selectedChatroom, messageContent, sender)
       setMessageContent('')
     }

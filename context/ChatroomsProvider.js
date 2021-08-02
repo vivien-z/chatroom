@@ -10,10 +10,10 @@ export function useChatrooms() {
   return useContext(ChatroomsContext)
 }
 
-export function ChatroomsProvider({ username, children }) {
+export function ChatroomsProvider({ myUsername, children }) {
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
   const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
-  const { users } = useUsers()
+  const { users, currentUser } = useUsers()
   const { socket } = useSocket()
 
   // const [chatroomMessages, setChatroomMessages] = useState([])
@@ -104,12 +104,12 @@ export function ChatroomsProvider({ username, children }) {
     addMessageToChatroom({selectedChatroom, messageContent, sender})
     // socket.emit(
     //   "message-submitted",
-    //   {selectedChatroom, messageContent, senderUsername:username}
+    //   {selectedChatroom, messageContent, senderUsername:myUsername}
     // )
     // addMessageToChatroom({
     //   selectedChatroom,
     //   messageContent,
-    //   senderUsername:username
+    //   senderUsername:myUsername
     // })
   }
 
@@ -154,7 +154,7 @@ export function ChatroomsProvider({ username, children }) {
         return user.username === m.senderName
       })
       const name = (sender && sender.username) || m.sender.id
-      const fromMe = username === sender.username
+      const fromMe = myUsername === sender.username
       // console.log(fromMe)
       return { ...m, senderName: name, fromMe }
     })

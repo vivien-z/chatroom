@@ -18,7 +18,7 @@ import styles from '../styles/ChatWindowSidebar.module.scss';
 const CHATROOMS_KEY = "chatrooms"
 const USERS_KEY = "users"
 
-const ChatWindowSidebar = ({ username, id }) => {
+const ChatWindowSidebar = ({ myUsername, myId }) => {
   const [activeKey, setActiveKey] = useState(CHATROOMS_KEY)
   const [modalOpen, setModalOpen] = useState(false)
   // const [isChatroomActive, set]
@@ -38,7 +38,7 @@ const ChatWindowSidebar = ({ username, id }) => {
         <Row className={`h-100 ${styles.margin0}`}>
           <Col sm={3} className={`${styles.navTab} px-0 h-100 py-1`}>
             <div className="py-1 bg-primary h-100 rounded">
-              <span className={`${styles.avatar}`}>{username[0].toUpperCase()}</span>
+              <span className={`${styles.avatar}`}>{myUsername[0].toUpperCase()}</span>
 
               <Nav variant="pills" className="pt-4 justify-content-center align-items-start">
                 <Nav.Item className="mb-2">
@@ -55,7 +55,7 @@ const ChatWindowSidebar = ({ username, id }) => {
               <p className={`${styles.tabTitle}`}>{btnName}</p>
               <Tab.Content className='overflow-auto flex-grow-1'>
                 <Tab.Pane eventKey={CHATROOMS_KEY}>
-                  <Chatrooms username={username} />
+                  <Chatrooms myUsername={myUsername} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={USERS_KEY}>
                   <Users />
@@ -74,8 +74,8 @@ const ChatWindowSidebar = ({ username, id }) => {
 
       <Modal show={modalOpen} onHide={closeModal}>
         {activeKey === "chatrooms" ?
-          <NewChatroomModal closeModal={closeModal} myUsername={username} id={id}/> :
-          <NewUserModal closeModal={closeModal} id={id}/>
+          <NewChatroomModal closeModal={closeModal} myUsername={myUsername} myId={myId}/> :
+          <NewUserModal closeModal={closeModal} />
         }
       </Modal>
 

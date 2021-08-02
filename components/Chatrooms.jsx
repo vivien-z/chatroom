@@ -2,11 +2,11 @@ import { useChatrooms } from "../context/ChatroomsProvider";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-const Chatrooms = ({ value, username }) => {
+const Chatrooms = ({ value, myUsername }) => {
   const { chatrooms, selectChatroomIndex } = useChatrooms()
 
   function otherRoomUsers(chatroom) {
-    return chatroom.roomUsers.filter(user => user.username !== username).map(user => user.username)
+    return chatroom.roomUsers.filter(user => user.username !== myUsername).map(user => user.username)
   }
 
   function isMyChatroom(chatroom) {

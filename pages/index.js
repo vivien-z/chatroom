@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 import Navbar from "../components/Navbar";
-import UsernameForm from "../components/UsernameForm";
+import LoginForm from "../components/LoginForm";
 import ChatWindow from "../components/ChatWindow";
 import useLocalStorage from '../hooks/useLocalStorage';
 import { UsersProvider } from "../context/UsersProvider";
@@ -43,7 +43,7 @@ export default function Home() {
   //     <SocketProvider className='mt-5' username={username}>
   //       <UsersProvider>
   //         <ChatroomsProvider username={username}>
-  //           <UsernameForm
+  //           <LoginForm
   //             value={username}
   //             onChange={(value) => setUsername(value)}
   //             onUsernameSubmit={() => setUsernameConfirmed(true)}
@@ -61,8 +61,8 @@ export default function Home() {
     />
   )
   const chatWindow = <ChatWindow username={username} id={id}/>
-  const usernameForm = (
-    <UsernameForm
+  const LoginForm = (
+    <LoginForm
       value={username}
       onChange={(value) => setUsername(value)}
       onUsernameSubmit={() => setUsernameConfirmed(true)}
@@ -84,7 +84,7 @@ export default function Home() {
             <UsersProvider username={username} id={id}>
               <ChatroomsProvider username={username} id={id}>
                 {isUsernameConfirmed ? chatWindow : <></>}
-                {isUsernameConfirmed ? <></> : usernameForm}
+                {isUsernameConfirmed ? <></> : LoginForm}
               </ChatroomsProvider>
             </UsersProvider>
           </SocketProvider>

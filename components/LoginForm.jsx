@@ -5,9 +5,9 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/Button';
-import styles from '../styles/UsernameForm.module.scss';
+import styles from '../styles/LoginForm.module.scss';
 
-const UsernameForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
+const LoginForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
   const idRef = useRef()
   const usernameRef = useRef()
   const { users, createUser } = useUsers()
@@ -90,9 +90,9 @@ const UsernameForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
   );
 };
 
-export default UsernameForm;
+export default LoginForm;
 
-// const UsernameForm = ({ value, onChange, onSubmit }) => {
+// const LoginForm = ({ value, onChange, onSubmit }) => {
 //   const idRef = useRef()
 //   const usernameRef = useRef()
 //   const { createUser } = useUsers()

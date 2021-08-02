@@ -14,11 +14,26 @@ export function UsersProvider({ myUsername, myId, children }) {
   // const [currentUser, setCurrentUser] = useLocalStorage('currentUser', [])
   const { socket } = useSocket()
 
+  function isNewUser(id, username) {
+    let count = 0
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].username !== username) {
+        count ++
+      }
+    }
+    if (users.length === count || users.length === 0) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   const addUsertoUsers = useCallback(({id, username}) => {
-    setUsers(prevUsers => {
-      return [...prevUsers, {id, username}]
-    })
+    if (isNewUser(id, username)) {
+      setUsers(prevUsers => {
+        return [...prevUsers, {id, username}]
+      })
+    }
   })
 
   function createUser(id, username) {

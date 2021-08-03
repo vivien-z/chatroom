@@ -52,11 +52,20 @@ export default function Home() {
   //     </SocketProvider>
   //   )
   // } else {
+
+  // let confirm
+  // function logOutConfirm() {
+  //   if (typeof confirm === 'function') {
+  //     setUsernameConfirmed(!confirm("Are you sure you want to logout?"))
+  //   }
+  // }
+
   const navbar = (
     <Navbar
-        value={myUsername || null}
-        avatarSrc="/favicon.ico"
-        disabled={!isUsernameConfirmed}
+      myUsername={myUsername || null}
+      avatarSrc="/favicon.ico"
+      onBtnClick={() => setUsernameConfirmed()}
+      disabled={!isUsernameConfirmed}
     />
   )
   const chatWindow = <ChatWindow myUsername={myUsername} myId={myId}/>

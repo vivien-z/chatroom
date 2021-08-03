@@ -39,6 +39,7 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit, myUsername, 
                 onClick={(e) => alert("Please select a chatroom!")}
                 onChange={(e) => setMessageContent(e.target.value)}
                 style={{ height: '75px', resize: 'none'}}
+                // placeholder={`current user: ${myUsername}`}
                 required
               />
               <Button type="submit">Send</Button>

@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+
 import styles from '../styles/Navbar.module.scss';
 
 const Navbar = ({ myUsername, avatarSrc, onBtnClick, disabled }) => {
@@ -13,10 +16,10 @@ const Navbar = ({ myUsername, avatarSrc, onBtnClick, disabled }) => {
       <span>Hi: {myUsername}</span>
 
       <button
-        className={`ms-2 ${styles.navbarBtn}`}
+        className={`ms-3 ${styles.navbarBtn}`}
         onClick={(e) =>  e.preventDefault() || confirmLogOut()}
       >
-        x
+        <FontAwesomeIcon icon={faTimesCircle} />
       </button>
 
     </div>

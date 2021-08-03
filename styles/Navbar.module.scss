@@ -24,13 +24,13 @@
   color: #fed9b7;
 }
 .navbarBtn {
-  height: 30px;
-  width: 30px;
+  height: 24px;
+  width: 24px;
   background-color: #f07167;
-  border: 2px solid #fed9b7;
-  border-radius: 40%;
+  border: 2px solid transparent;
+  border-radius: 50%;
   color:  #fed9b7;
-  font-weight: bold;
+  // font-weight: bold;
   font-size: 1.25rem;
   display: flex;
   justify-content: center;

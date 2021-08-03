@@ -16,8 +16,6 @@ export function ChatroomsProvider({ myUsername, children }) {
   const { users, currentUser } = useUsers()
   const { socket } = useSocket()
 
-  // const [chatroomMessages, setChatroomMessages] = useState([])
-
   const addNewChatroom = useCallback(({roomname, roomUsers}) => {
     setChatrooms(prevChatrooms => {
       return [
@@ -25,7 +23,6 @@ export function ChatroomsProvider({ myUsername, children }) {
         {roomname, roomUsers: roomUsers, chatroomMessages: []}
       ]
     })
-  // })
   }, [chatrooms])
 
   function createChatroom(roomname, roomUsers) {
@@ -37,19 +34,15 @@ export function ChatroomsProvider({ myUsername, children }) {
   }
 
   function addUserToChatroom(newUserId, selectedChatroom) {
-    // console.log("chatroom add user format")
-    // console.log(selectedChatroom)
+
     setChatrooms(prevChatrooms => {
       const updatedChatrooms = chatrooms.map(chatroom => {
         const newUser = users.find(user => user.id === newUserId)
         const selectedChatroomUsers = selectedChatroom.roomUsers
-        // const chatroomUserIds = chatroom.roomUsers.map(user => user.id)
-        // const selectedChatroomUserIds = selectedChatroom.roomUsers.map(user => user.id)
         if (chatroom.roomname === selectedChatroom.roomname) {
           return {
             ...chatroom,
             roomUsers: [...selectedChatroomUsers, newUser],
-            // roomUsers: [...selectedChatroomUserIds, newUserId],
           }
         } else {
           return chatroom
@@ -60,16 +53,13 @@ export function ChatroomsProvider({ myUsername, children }) {
   }
 
   const addMessageToChatroom = useCallback(({ selectedChatroom, messageContent, sender }) => {
-    console.log("chat msg")
     setChatrooms(prevChatrooms => {
       const senderName = sender.username
       const newMessage = { senderName, messageContent }
       const newUser = !selectedChatroom.roomUsers.find(user => user.username === senderName)
 
       const updatedChatrooms = prevChatrooms.map(chatroom => {
-        // const chatroomUsers = chatroom.roomUsers
         const selectedChatroomUsers = selectedChatroom.roomUsers
-        // const selectedChatroomUserIds = selectedChatroom.roomUsers.map(user => user.id)
 
         if (chatroom.roomname === selectedChatroom.roomname) {
           if (newUser) {
@@ -93,7 +83,6 @@ export function ChatroomsProvider({ myUsername, children }) {
   })
 
   function sendMessage(selectedChatroom, messageContent, sender) {
-    // socket.emit("message-submitted", {selectedChatroom, messageContent, sender})
     socket.emit(
       "message-submitted",
       { selectedChatroom, messageContent, sender }
@@ -118,18 +107,6 @@ export function ChatroomsProvider({ myUsername, children }) {
   }, [socket])
 
   const formattedChatrooms = chatrooms.map((chatroom, i) => {
-    // console.log("formated chatroom")
-    // console.log(chatroom)
-    // const roomUsers = chatroom.roomUsers.map(roomUser => {
-    //   // const user = users.find(user => {
-    //   //   if (user.id === roomUser.id) {
-    //   //     return user
-    //   //   }
-    //   //   // return user.id === roomUserId ? user : null
-    //   // })
-    //   const name = (roomUser && roomUser.username) || roomUser.id
-    //   return { id: roomUser.id, username: name }
-    // })
 
     const formattedMessages = chatroom.chatroomMessages.map(m => {
       const sender = users.find(user => {
@@ -140,10 +117,8 @@ export function ChatroomsProvider({ myUsername, children }) {
       // console.log(fromMe)
       return { ...m, senderName: name, fromMe }
     })
-
     const selected = i === selectedChatroomIndex
 
-    // return { ...chatroom, roomUsers, selected }
     return { ...chatroom, roomUsers: chatroom.roomUsers, chatroomMessages: formattedMessages, selected }
   })
 
@@ -162,48 +137,3 @@ export function ChatroomsProvider({ myUsername, children }) {
     </ChatroomsContext.Provider>
   )
 }
-
-  // const addMessageToChatroom = useCallback(({ selectedChatroom, messageContent, senderUsername }) => {
-
-  //   setChatrooms(prevChatrooms => {
-  //     const newMessage = { senderUsername, messageContent }
-
-  //     const updatedChatrooms = prevChatrooms.map(chatroom => {
-  //       if (chatroom.roomname === selectedChatroom.roomname) {
-  //         return {
-  //           ...chatroom,
-  //           chatroomMessages: [...chatroom.chatroomMessages, newMessage]
-  //         }
-  //       } else {
-  //         return chatroom
-  //       }
-  //     })
-  //     return updatedChatrooms
-  //   })
-  // }, [setChatrooms])
-
-  // useEffect(() => {
-  //   if (!socket) {
-  //    socket.on("message-new", addMessageToChatroom)
-  //    return () => socket.off("message-new")
-  //   }
-  // }, [socket, addMessageToChatroom])
-
-
-  // function sendMessage(selectedChatroom, messageContent) {
-  //   if (!socket) {
-  //     alert("Chatroom not connected yet. Try again in a little bit.");
-  //     return;
-  //   }
-
-  //   socket.emit(
-  //     "message-submitted",
-  //     {selectedChatroom, messageContent, senderUsername:username}
-  //   )
-
-  //   // addMessageToChatroom({
-  //   //   selectedChatroom,
-  //   //   messageContent,
-  //   //   senderUsername:username
-  //   // })
-  // }

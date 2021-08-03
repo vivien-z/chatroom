@@ -4,7 +4,7 @@ import { useUsers } from "../context/UsersProvider";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-// import { io } from "socket.io-client";
+import styles from '../styles/Modal.module.scss';
 
 export default function NewChatroomModal({ closeModal, myUsername, myId }) {
   const { users } = useUsers()
@@ -43,7 +43,7 @@ export default function NewChatroomModal({ closeModal, myUsername, myId }) {
 
   return (
     <div>
-      <Modal.Header closeButton>Create a Chatroom</Modal.Header>
+      <Modal.Header className={styles.closeBtn} closeButton>Create a Chatroom</Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           {users.map(user => (
@@ -58,10 +58,10 @@ export default function NewChatroomModal({ closeModal, myUsername, myId }) {
             </Form.Group>
           ))}
           <Form.Group>
-            <Form.Label>Chatroom name:</Form.Label>
+            <Form.Label className="mt-2">Chatroom name:</Form.Label>
             <Form.Control type="text" ref={roomnameRef} required></Form.Control>
           </Form.Group>
-          <Button type='submit'>Create</Button>
+          <Button className="mt-2" type='submit'>Create</Button>
         </Form>
       </Modal.Body>
     </div>

@@ -35,9 +35,9 @@ a {
     color: $danger;
   }
 }
-/*===================
-  ChatWindow Tabs
-=====================*/
+/*============================
+  ChatWindow Tabs -- bootstrap
+=============================*/
 .nav-link {
   color: #fed9b7 !important;
 }
@@ -67,8 +67,5 @@ a {
     border: none;
     padding: 4px 16px;
     color: $danger !important;
-  }
-  b {
-    // margin-left: 0.25rem;
   }
 }

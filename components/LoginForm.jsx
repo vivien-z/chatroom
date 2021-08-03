@@ -37,11 +37,10 @@ const LoginForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
 
   function handleSubmit(e) {
     e.preventDefault()
-    // const id = idRef.current.value
+
     const username = usernameRef.current.value
     let id
 
-    // newUser = users.length === count ? true : false
     if (isNewRoomuser(username)) {
       id = idRef.current.value
       createUser(id, username)
@@ -49,8 +48,6 @@ const LoginForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
       id = users.find(user => user.username === username).id
       onChange(username)
     }
-    // createUser(id, username) //could add 2nd argument(usernameCustomizedRef.current.value)
-
     onIdSubmit(id)
     onUsernameSubmit(() => setUsernameConfirmed(true))
   }
@@ -94,63 +91,3 @@ const LoginForm = ({ value, onChange, onUsernameSubmit, onIdSubmit }) => {
 };
 
 export default LoginForm;
-
-// const LoginForm = ({ value, onChange, onSubmit }) => {
-//   const idRef = useRef()
-//   const usernameRef = useRef()
-//   const { createUser } = useUsers()
-
-//   function handleSubmit(e) {
-//     e.preventDefault()
-//     createUser(idRef.current.value, usernameRef.current.value)
-//     console.log(idRef.current.value)
-//     console.log(usernameRef.current.value)
-//     onSubmit(() => setUsernameConfirmed(true))
-//     // onSubmit(() => setUsernameConfirmed(true) || onChange(usernameRef.current.value))
-//   }
-
-//   function generateRandomUsername() {
-//     const rug = require('random-username-generator');
-//     return (rug.generate());
-//   }
-
-//   function setRandomUsername() {
-//     onChange(generateRandomUsername())
-//   }
-
-//   return (
-//     <Container className="d-flex justify-content-center m-5">
-//       <Form
-//         className="w-50 p-3 py-5 border"
-//         onSubmit={ handleSubmit }
-//         id="new-username"
-//       >
-//         <Form.Group>
-//           <Form.Label>
-//             Id:
-//           </Form.Label>
-//           <Form.Control
-//             type="text"
-//             name="user-id"
-//             ref={idRef}
-//             required
-//           />
-//           <Form.Label>
-//             Set an username:
-//           </Form.Label>
-//           <Form.Control
-//             type="text"
-//             name="username"
-//             ref={usernameRef}
-//             value={value}
-//             onChange={(e) => e.preventDefault() || onChange(e.target.value)}
-//             required
-//           />
-//         </Form.Group>
-//         <Button onClick={setRandomUsername} variant="secondary">Random usernames</Button>
-//         <Button type="submit">Confirm</Button>
-//       </Form>
-//     </Container>
-//   );
-
-// };

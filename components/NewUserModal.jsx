@@ -1,5 +1,3 @@
-// save for future use, when create private room
-
 import { useRef } from "react";
 import { useUsers } from "../context/UsersProvider";
 
@@ -10,7 +8,6 @@ import Button from 'react-bootstrap/Button';
 const NewUserModal = ({ closeModal }) => {
   const idRef = useRef()
   const usernameRef = useRef()
-  // const usernameCustomizedRef = useRef()
   const { createUser } = useUsers()
 
   function handleSubmit(e) {

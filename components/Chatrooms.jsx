@@ -44,7 +44,3 @@ const Chatrooms = ({ value, myUsername }) => {
 };
 
 export default Chatrooms;
-
-            // {chatroom.roomUsers.map((roomUser, i) =>
-            //   <ListGroup.Item key={i}>{roomUser.username}</ListGroup.Item>
-            // )}

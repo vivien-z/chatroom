@@ -11,7 +11,6 @@ export function useUsers() {
 
 export function UsersProvider({ myUsername, myId, children }) {
   const [users, setUsers] = useLocalStorage('users', [])
-  // const [currentUser, setCurrentUser] = useLocalStorage('currentUser', [])
   const { socket } = useSocket()
 
   function isNewUser(id, username) {

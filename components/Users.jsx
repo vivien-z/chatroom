@@ -1,8 +1,6 @@
 import { useUsers } from "../context/UsersProvider";
 import ListGroup from 'react-bootstrap/ListGroup';
 
-// import styles from '../styles/RoomList.module.css';
-
 const Users = ({ value }) => {
   const { users } = useUsers()
 

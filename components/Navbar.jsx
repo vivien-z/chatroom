@@ -1,12 +1,24 @@
 import styles from '../styles/Navbar.module.scss';
 
-const Navbar = ({ value, avatarSrc, disabled }) => {
+const Navbar = ({ myUsername, avatarSrc, onBtnClick, disabled }) => {
 
-  const userinfo =(
+  function confirmLogOut() {
+    if (confirm("Are you sure you want to log out?")) {
+      onBtnClick(() => setUsernameConfirmed(false))
+    }
+  }
+
+  const userinfo = (
     <div className={styles.navbarUserInfo}>
-      <span>user: {value}</span>
-      {/*<span className={`${styles.avatar}`}>{value[0].toUpperCase()}</span>*/}
-      {/*<img src={avatarSrc} alt="profile pic" />*/}
+      <span>Hi: {myUsername}</span>
+
+      <button
+        className={`ms-2 ${styles.navbarBtn}`}
+        onClick={(e) =>  e.preventDefault() || confirmLogOut()}
+      >
+        x
+      </button>
+
     </div>
   )
 

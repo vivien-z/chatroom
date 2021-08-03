@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 
-// const MessageInputField = ({ myUsername, myId, selectedChatroom }) => {
 const MessageInputField = ({ type, name, value, onChange, onSubmit, myUsername, myId }) => {
   const [messageContent, setMessageContent] = useState('')
 
@@ -20,7 +19,11 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit, myUsername, 
       e.preventDefault()
 
       const sender = users.find(user => user.username === myUsername)
-      sendMessage(selectedChatroom, messageContent, sender)
+      if (selectedChatroom) {
+        sendMessage(selectedChatroom, messageContent, sender)
+      } else {
+        alert("Cannot sumbit message to empty chatroom!")
+      }
       setMessageContent('')
     }
 
@@ -32,8 +35,10 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit, myUsername, 
               <Form.Control
                 as="textarea"
                 value={messageContent}
+                onClick={(e) => alert("Please select a chatroom!")}
                 onChange={(e) => setMessageContent(e.target.value)}
                 style={{ height: '75px', resize: 'none'}}
+                // placeholder={`current user: ${myUsername}`}
                 required
               />
               <Button type="submit">Send</Button>

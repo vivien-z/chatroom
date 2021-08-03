@@ -23,16 +23,20 @@
   font-size: 1.5rem;
   color: #fed9b7;
 }
-// .avatar {
-//   height: 40px;
-//   width: 40px;
-//   border-radius: 50%;
-//   background-color: #fed9b7;
-//   color:  #f07167;
-//   font-weight: bold;
-//   font-size: 1.25rem;
-//   // margin:  0 auto;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
+.navbarBtn {
+  height: 30px;
+  width: 30px;
+  background-color: #f07167;
+  border: 2px solid #fed9b7;
+  border-radius: 40%;
+  color:  #fed9b7;
+  font-weight: bold;
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    color:  #f07167;
+    background-color: #fed9b7;
+  }
+}

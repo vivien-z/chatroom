@@ -2,7 +2,6 @@ import { useCallback } from "react";
 import { useChatrooms, selectedChatroom } from "../context/ChatroomsProvider";
 
 const MessageHistory = ({ value, myUsername, myId }) => {
-// const MessageHistory = () => {
 
   const setRef = useCallback(node => {
     if (node) {
@@ -10,11 +9,12 @@ const MessageHistory = ({ value, myUsername, myId }) => {
     }
   },[])
   const { selectedChatroom } = useChatrooms()
+  const msgList = selectedChatroom ? selectedChatroom.chatroomMessages : []
 
   return (
     <div className="d-flex flex-column align-items-start
     justify-content-start h-100 px-3 py-2 mb-2 bg-white rounded">
-      { selectedChatroom.chatroomMessages.map((m, i) => {
+      { msgList.map((m, i) => {
         const lastMessage = (selectedChatroom.chatroomMessages.length - 1) === i
         return (
           <div

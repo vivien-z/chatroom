@@ -27,13 +27,10 @@ const ioHandler = (req, res) => {
         // socket.emit("new-user-created", {id, username});
         socket.broadcast.emit("new-user-created", {id, username})
       });
-
-      // socket.on("create-chatroom", ({roomname, roomUserIds}) => {
-      //   socket.emit("new-chatroom-created", {roomname, roomUserIds});
-      //   socket.broadcast.emit("new-chatroom-created", {roomname, roomUserIds});
-      // });
-
-
+      socket.on("create-chatroom", ({roomname, roomUsers}) => {
+        // socket.emit("new-chatroom-created", {roomname, roomUsers});
+        socket.broadcast.emit("new-chatroom-created", {roomname, roomUsers});
+      });
     });
 
     // make the socket available externally.

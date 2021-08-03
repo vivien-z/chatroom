@@ -20,7 +20,11 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit, myUsername, 
       e.preventDefault()
 
       const sender = users.find(user => user.username === myUsername)
-      sendMessage(selectedChatroom, messageContent, sender)
+      if (selectedChatroom) {
+        sendMessage(selectedChatroom, messageContent, sender)
+      } else {
+        alert("Cannot sumbit message to empty chatroom!")
+      }
       setMessageContent('')
     }
 
@@ -32,6 +36,7 @@ const MessageInputField = ({ type, name, value, onChange, onSubmit, myUsername, 
               <Form.Control
                 as="textarea"
                 value={messageContent}
+                onClick={(e) => alert("Please select a chatroom!")}
                 onChange={(e) => setMessageContent(e.target.value)}
                 style={{ height: '75px', resize: 'none'}}
                 required

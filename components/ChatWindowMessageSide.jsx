@@ -15,7 +15,6 @@ const ChatWindowMessageSide = ({ myUsername, myId, selectedChatroom }) => {
         className=""
         myUsername={myUsername}
         myId={myId}
-        // selectedChatroom={selectedChatroom}
       />
     </div>
   )

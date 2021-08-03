@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 
-// const MessageInputField = ({ myUsername, myId, selectedChatroom }) => {
 const MessageInputField = ({ type, name, value, onChange, onSubmit, myUsername, myId }) => {
   const [messageContent, setMessageContent] = useState('')
 

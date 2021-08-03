@@ -7,8 +7,6 @@ import Button from 'react-bootstrap/Button';
 // import { io } from "socket.io-client";
 
 export default function NewChatroomModal({ closeModal, myUsername, myId }) {
-  // const myId = id
-  // const myId = users.find(users => user.username === myUsername).id
   const { users } = useUsers()
   const roomnameRef = useRef()
   const { createChatroom } = useChatrooms()

@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-
 import ChatWindowSidebar from "../components/ChatWindowSidebar";
-import MessageInfo from "../components/MessageInfo";
 import MessageHistory from "../components/MessageHistory";
 import MessageInputField from "../components/MessageInputField";
-import styles from '../styles/ChatWindowMessageSide.module.scss';
 
 const ChatWindowMessageSide = ({ myUsername, myId, selectedChatroom }) => {
 

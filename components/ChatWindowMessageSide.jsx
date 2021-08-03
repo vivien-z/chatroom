@@ -8,11 +8,8 @@ import styles from '../styles/ChatWindowMessageSide.module.scss';
 
 const ChatWindowMessageSide = ({ myUsername, myId, selectedChatroom }) => {
 
-  const messageWindow = (
+  return (
     <div className="d-flex flex-column flex-grow-1 m-1 p-2 rounded border bg-secondary">
-{/*      <MessageInfo
-        myUsername={myUsername}
-      />*/}
       <MessageHistory className="flex-grow-1 overflow-auto" myUsername={myUsername} myId={myId}/>
       <MessageInputField
         className=""
@@ -21,12 +18,6 @@ const ChatWindowMessageSide = ({ myUsername, myId, selectedChatroom }) => {
         // selectedChatroom={selectedChatroom}
       />
     </div>
-  )
-
-  return (
-    <>
-      {selectedChatroom ? messageWindow : null}
-    </>
   )
 }
 

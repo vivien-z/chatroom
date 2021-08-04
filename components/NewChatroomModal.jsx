@@ -46,7 +46,7 @@ export default function NewChatroomModal({ closeModal, myUsername, myId }) {
       <Modal.Header className={styles.closeBtn} closeButton>Create a Chatroom</Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          {users.map(user => (
+          {otherUsers.map(user => (
             <Form.Group controlId={user.id} key={user.id}>
               <Form.Check
                 type="checkbox"
